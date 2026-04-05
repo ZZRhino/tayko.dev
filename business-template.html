@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ember Table | Fine Dining & Craft Cocktails</title>
+    <meta name="description" content="Experience exceptional dining at The Ember Table. Fresh, locally-sourced ingredients crafted into unforgettable meals. Reserve your table today.">
+    <style>
+        /* ============================================
+           CSS VARIABLES — Edit these to reskin
+           ============================================ */
+        :root {
+            --primary: #1a3a2a;
+            --primary-dark: #0f2419;
+            --primary-light: #2d5c42;
+            --accent: #c8964e;
+            --accent-light: #dbb173;
+            --accent-dark: #a67a3a;
+            --text: #2c2c2c;
+            --text-light: #6b6b6b;
+            --text-inverse: #ffffff;
+            --bg: #ffffff;
+            --bg-alt: #f8f6f3;
+            --bg-dark: #1a1a1a;
+            --border: #e8e4df;
+            --shadow: rgba(0,0,0,0.08);
+            --shadow-hover: rgba(0,0,0,0.15);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --max-width: 1200px;
+            --nav-height: 72px;
+        }
+
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--nav-height);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul { list-style: none; }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1, h2, h3, h4 {
+            line-height: 1.2;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
+        h2 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); }
+        h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            margin-bottom: 20px;
+        }
+
+        .section-desc {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-header .section-desc {
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 96px 0;
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200, 150, 78, 0.35);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-inverse);
+            border: 2px solid rgba(255,255,255,0.6);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .btn-dark {
+            background: var(--primary);
+            color: var(--text-inverse);
+        }
+
+        .btn-dark:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(26, 58, 42, 0.3);
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Stagger children */
+        .stagger > * { transition-delay: calc(var(--i, 0) * 0.1s); }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            z-index: 1000;
+            transition: all var(--transition);
+            background: transparent;
+        }
+
+        .nav.scrolled {
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 1px 20px var(--shadow);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-inverse);
+            transition: color var(--transition);
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo span {
+            color: var(--accent);
+        }
+
+        .nav.scrolled .nav-logo {
+            color: var(--primary-dark);
+        }
+
+        .nav-links {
+            display: none;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            transition: color var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav.scrolled .nav-links a {
+            color: var(--text);
+        }
+
+        .nav.scrolled .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            display: none;
+        }
+
+        .nav-cta .btn {
+            padding: 10px 24px;
+            font-size: 0.88rem;
+        }
+
+        .nav.scrolled .nav-cta .btn-primary {
+            background: var(--primary);
+        }
+
+        .nav.scrolled .nav-cta .btn-primary:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 8px 24px rgba(26, 58, 42, 0.25);
+        }
+
+        /* Hamburger */
+        .nav-toggle {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-inverse);
+            border-radius: 2px;
+            transition: all var(--transition);
+        }
+
+        .nav.scrolled .nav-toggle span {
+            background: var(--text);
+        }
+
+        .nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 380px;
+            height: 100vh;
+            background: var(--bg);
+            z-index: 999;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 100px 40px 40px;
+            box-shadow: -8px 0 32px rgba(0,0,0,0.15);
+        }
+
+        .mobile-menu.open {
+            right: 0;
+        }
+
+        .mobile-menu a {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 16px 0;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+            transition: color var(--transition), padding-left var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent);
+            padding-left: 8px;
+        }
+
+        .mobile-menu .btn {
+            margin-top: 24px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            z-index: 998;
+        }
+
+        .mobile-overlay.show {
+            display: block;
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 120px 0 96px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg, rgba(15, 36, 25, 0.92) 0%, rgba(26, 58, 42, 0.78) 50%, rgba(15, 36, 25, 0.88) 100%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23374a3e" width="1200" height="800"/></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Decorative pattern overlay */
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(200,150,78,0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 30%, rgba(200,150,78,0.05) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(200, 150, 78, 0.15);
+            border: 1px solid rgba(200, 150, 78, 0.3);
+            color: var(--accent-light);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 {
+            color: var(--text-inverse);
+            margin-bottom: 20px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            color: rgba(255,255,255,0.75);
+            font-size: clamp(1.05rem, 2vw, 1.25rem);
+            line-height: 1.7;
+            margin-bottom: 40px;
+            max-width: 560px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 56px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .hero-stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.55);
+            margin-top: 2px;
+        }
+
+        /* ============================================
+           ABOUT
+           ============================================ */
+        .about {
+            background: var(--bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .about-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.3);
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            border: 3px solid var(--accent);
+            border-radius: var(--radius);
+            z-index: -1;
+        }
+
+        .about-content {
+            padding: 0;
+        }
+
+        .about-content p {
+            color: var(--text-light);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .about-highlight {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .about-highlight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .about-highlight-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: rgba(200, 150, 78, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .about-highlight-text h4 {
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+
+        .about-highlight-text p {
+            font-size: 0.88rem;
+            margin-bottom: 0;
+        }
+
+        /* ============================================
+           MENU / SERVICES
+           ============================================ */
+        .menu {
+            background: var(--bg-alt);
+        }
+
+        .menu-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .menu-tab {
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 2px solid var(--border);
+            background: var(--bg);
+            color: var(--text-light);
+            transition: all var(--transition);
+        }
+
+        .menu-tab.active,
+        .menu-tab:hover {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--text-inverse);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .menu-card {
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            box-shadow: 0 2px 12px var(--shadow);
+            transition: all var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .menu-card:hover {
+            box-shadow: 0 8px 32px var(--shadow-hover);
+            transform: translateY(-3px);
+            border-color: rgba(200, 150, 78, 0.2);
+        }
+
+        .menu-card-info h3 {
+            margin-bottom: 6px;
+            font-size: 1.1rem;
+        }
+
+        .menu-card-info p {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .menu-card-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            background: rgba(200, 150, 78, 0.1);
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-top: 8px;
+        }
+
+        .menu-card-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           TESTIMONIALS
+           ============================================ */
+        .testimonials {
+            background: var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: rgba(200, 150, 78, 0.06);
+        }
+
+        .testimonials .section-label {
+            color: var(--accent-light);
+        }
+
+        .testimonials .section-title {
+            color: var(--text-inverse);
+        }
+
+        .testimonials .section-desc {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius);
+            padding: 32px;
+            backdrop-filter: blur(4px);
+            transition: all var(--transition);
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-4px);
+        }
+
+        .testimonial-stars {
+            color: var(--accent);
+            font-size: 1rem;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            color: rgba(255,255,255,0.85);
+            font-size: 1.02rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--bg);
+            font-size: 1.1rem;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: var(--text-inverse);
+            font-size: 0.95rem;
+        }
+
+        .testimonial-role {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.83rem;
+        }
+
+        /* ============================================
+           HOURS & LOCATION
+           ============================================ */
+        .location {
+            background: var(--bg);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+
+        .hours-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .hours-table tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hours-table td {
+            padding: 16px 0;
+            font-size: 0.98rem;
+        }
+
+        .hours-table td:first-child {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .hours-table td:last-child {
+            text-align: right;
+            color: var(--text-light);
+        }
+
+        .hours-table tr.today {
+            background: rgba(200, 150, 78, 0.06);
+            border-radius: var(--radius-sm);
+        }
+
+        .hours-table tr.today td {
+            padding: 16px 12px;
+        }
+
+        .hours-table tr.today td:first-child::after {
+            content: ' (Today)';
+            color: var(--accent);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .map-container {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 16/10;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 12px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .map-placeholder svg {
+            width: 48px;
+            height: 48px;
+            opacity: 0.4;
+        }
+
+        /* ============================================
+           GALLERY
+           ============================================ */
+        .gallery {
+            background: var(--bg-alt);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .gallery-item {
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 1;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,0.25);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all var(--transition);
+        }
+
+        .gallery-item:hover .gallery-placeholder {
+            transform: scale(1.05);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0);
+            transition: background var(--transition);
+        }
+
+        .gallery-item:hover::after {
+            background: rgba(0,0,0,0.1);
+        }
+
+        /* ============================================
+           CONTACT
+           ============================================ */
+        .contact {
+            background: var(--bg);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+
+        .contact-info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            margin-top: 32px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .contact-info-icon {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            background: rgba(200, 150, 78, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-info-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        .contact-info-text h4 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+
+        .contact-info-text p {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .contact-form {
+            background: var(--bg-alt);
+            padding: 40px;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+        }
+
+        .contact-form h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .contact-form > p {
+            color: var(--text-light);
+            font-size: 0.92rem;
+            margin-bottom: 28px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: var(--bg);
+            color: var(--text);
+            transition: border-color var(--transition), box-shadow var(--transition);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(200, 150, 78, 0.12);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 16px 32px;
+            font-size: 1rem;
+            margin-top: 8px;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--bg-dark);
+            padding: 64px 0 32px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.4rem;
+            color: var(--text-inverse);
+            margin-bottom: 12px;
+        }
+
+        .footer-brand h3 span {
+            color: var(--accent);
+        }
+
+        .footer-brand p {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.92rem;
+            line-height: 1.6;
+            max-width: 320px;
+        }
+
+        .footer-links h4 {
+            color: var(--text-inverse);
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            display: block;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.92rem;
+            padding: 6px 0;
+            transition: color var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-social svg {
+            width: 18px;
+            height: 18px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .footer-social a:hover svg {
+            color: var(--bg);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom a {
+            color: rgba(255,255,255,0.5);
+            transition: color var(--transition);
+        }
+
+        .footer-bottom a:hover {
+            color: var(--accent);
+        }
+
+        .footer-credit {
+            font-size: 0.8rem !important;
+            color: rgba(255,255,255,0.25) !important;
+        }
+
+        .footer-credit a {
+            color: rgba(255,255,255,0.4) !important;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           RESPONSIVE — TABLET (768px+)
+           ============================================ */
+        @media (min-width: 768px) {
+            .menu-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .testimonials-grid > *:last-child {
+                grid-column: span 2;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 64px;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 48px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+                aspect-ratio: 2/1;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr 1.2fr;
+                gap: 64px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .about-highlight {
+                flex-direction: row;
+            }
+        }
+
+        /* ============================================
+           RESPONSIVE — DESKTOP (1024px+)
+           ============================================ */
+        @media (min-width: 1024px) {
+            .nav-links {
+                display: flex;
+            }
+
+            .nav-cta {
+                display: block;
+            }
+
+            .nav-toggle {
+                display: none;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .testimonials-grid > *:last-child {
+                grid-column: span 1;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: span 1;
+                aspect-ratio: 1;
+            }
+
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(4) {
+                grid-row: span 2;
+                aspect-ratio: auto;
+            }
+
+            section {
+                padding: 120px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAVIGATION ========== -->
+    <nav class="nav" id="nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">The Ember <span>Table</span></a>
+            <div class="nav-links">
+                <a href="#about">Our Story</a>
+                <a href="#menu">Menu</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#contact" class="btn btn-primary">Reserve a Table</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobile()">Our Story</a>
+        <a href="#menu" onclick="closeMobile()">Menu</a>
+        <a href="#reviews" onclick="closeMobile()">Reviews</a>
+        <a href="#location" onclick="closeMobile()">Hours & Location</a>
+        <a href="#gallery" onclick="closeMobile()">Gallery</a>
+        <a href="#contact" onclick="closeMobile()">Contact</a>
+        <a href="#contact" class="btn btn-primary" onclick="closeMobile()">Reserve a Table</a>
+    </div>
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobile()"></div>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    Award-Winning Cuisine
+                </div>
+                <h1>Crafted with Passion, Served with Soul</h1>
+                <p class="hero-subtitle">Experience the art of modern dining where locally-sourced ingredients meet bold flavors. Every dish tells a story at The Ember Table.</p>
+                <div class="hero-buttons">
+                    <a href="#menu" class="btn btn-primary">View Our Menu</a>
+                    <a href="#contact" class="btn btn-outline">Book a Table</a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <div class="hero-stat-value">12+</div>
+                        <div class="hero-stat-label">Years of Excellence</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-value">4.9</div>
+                        <div class="hero-stat-label">Google Rating</div>
+                    </div>
+                    <div>
+                        <div class="hero-stat-value">50k+</div>
+                        <div class="hero-stat-label">Happy Guests</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ABOUT ========== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image fade-in-left">
+                    <div class="about-image-placeholder">
+                        <!-- Replace with: <img src="your-image.jpg" alt="About us"> -->
+                        Photo Placeholder
+                    </div>
+                </div>
+                <div class="about-content fade-in-right">
+                    <span class="section-label">Our Story</span>
+                    <h2 class="section-title">Where Every Meal Becomes a Memory</h2>
+                    <p>Founded in 2012 by Chef Marcus Rivera, The Ember Table was born from a simple belief: that extraordinary food doesn't need to be complicated. It needs to be honest, soulful, and crafted with the finest ingredients our region has to offer.</p>
+                    <p>Our kitchen works directly with local farms and fisheries, ensuring each plate reflects the season's best. From our signature wood-fired dishes to our handcrafted cocktails, every detail is designed to create an experience you'll want to return to.</p>
+                    <div class="about-highlight">
+                        <div class="about-highlight-item">
+                            <div class="about-highlight-icon">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <div class="about-highlight-text">
+                                <h4>Farm to Table</h4>
+                                <p>Locally sourced, seasonal ingredients from trusted partners.</p>
+                            </div>
+                        </div>
+                        <div class="about-highlight-item">
+                            <div class="about-highlight-icon">
+                                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                            </div>
+                            <div class="about-highlight-text">
+                                <h4>Made with Love</h4>
+                                <p>Every dish crafted by hand with care and attention to detail.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== MENU ========== -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Our Menu</span>
+                <h2 class="section-title">Seasonal Favorites</h2>
+                <p class="section-desc">A curated selection of dishes that celebrate bold flavors and the finest local ingredients.</p>
+            </div>
+
+            <div class="menu-tabs fade-in">
+                <button class="menu-tab active">Popular</button>
+                <button class="menu-tab">Starters</button>
+                <button class="menu-tab">Mains</button>
+                <button class="menu-tab">Desserts</button>
+            </div>
+
+            <div class="menu-grid stagger">
+                <div class="menu-card fade-in" style="--i:0">
+                    <div class="menu-card-info">
+                        <h3>Wood-Fired Salmon</h3>
+                        <p>Cedar plank salmon with citrus glaze, roasted root vegetables, and herb oil drizzle.</p>
+                        <span class="menu-card-tag">Chef's Pick</span>
+                    </div>
+                    <div class="menu-card-price">$34</div>
+                </div>
+
+                <div class="menu-card fade-in" style="--i:1">
+                    <div class="menu-card-info">
+                        <h3>Braised Short Rib</h3>
+                        <p>Slow-cooked for 8 hours with red wine reduction, creamy polenta, and seasonal greens.</p>
+                        <span class="menu-card-tag">Most Popular</span>
+                    </div>
+                    <div class="menu-card-price">$38</div>
+                </div>
+
+                <div class="menu-card fade-in" style="--i:2">
+                    <div class="menu-card-info">
+                        <h3>Truffle Risotto</h3>
+                        <p>Arborio rice with black truffle, aged parmesan, wild mushrooms, and truffle oil finish.</p>
+                    </div>
+                    <div class="menu-card-price">$28</div>
+                </div>
+
+                <div class="menu-card fade-in" style="--i:3">
+                    <div class="menu-card-info">
+                        <h3>Heirloom Tomato Salad</h3>
+                        <p>Local heirloom tomatoes, burrata, fresh basil, aged balsamic, and olive oil.</p>
+                        <span class="menu-card-tag">Vegetarian</span>
+                    </div>
+                    <div class="menu-card-price">$18</div>
+                </div>
+
+                <div class="menu-card fade-in" style="--i:4">
+                    <div class="menu-card-info">
+                        <h3>Pan-Seared Duck Breast</h3>
+                        <p>With cherry gastrique, sweet potato puree, and crispy brussels sprouts.</p>
+                    </div>
+                    <div class="menu-card-price">$36</div>
+                </div>
+
+                <div class="menu-card fade-in" style="--i:5">
+                    <div class="menu-card-info">
+                        <h3>Lobster Linguine</h3>
+                        <p>Fresh Maine lobster, handmade pasta, saffron cream, and toasted breadcrumbs.</p>
+                        <span class="menu-card-tag">Seasonal</span>
+                    </div>
+                    <div class="menu-card-price">$42</div>
+                </div>
+
+                <div class="menu-card fade-in" style="--i:6">
+                    <div class="menu-card-info">
+                        <h3>Grilled Lamb Chops</h3>
+                        <p>New Zealand lamb with rosemary crust, roasted garlic mash, and mint chimichurri.</p>
+                    </div>
+                    <div class="menu-card-price">$40</div>
+                </div>
+
+                <div class="menu-card fade-in" style="--i:7">
+                    <div class="menu-card-info">
+                        <h3>Chocolate Lava Cake</h3>
+                        <p>Rich dark chocolate with a molten center, vanilla bean ice cream, and berry coulis.</p>
+                        <span class="menu-card-tag">Must Try</span>
+                    </div>
+                    <div class="menu-card-price">$16</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TESTIMONIALS ========== -->
+    <section class="testimonials" id="reviews">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">What People Say</span>
+                <h2 class="section-title">Loved by Our Guests</h2>
+                <p class="section-desc">Don't just take our word for it. Here's what our guests have to say about their experience.</p>
+            </div>
+            <div class="testimonials-grid stagger">
+                <div class="testimonial-card fade-in" style="--i:0">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"An absolutely unforgettable evening. The wood-fired salmon was the best I've ever had, and the ambiance made it feel like a special occasion even on a Tuesday."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SJ</div>
+                        <div>
+                            <div class="testimonial-name">Sarah Johnson</div>
+                            <div class="testimonial-role">Local Guide</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in" style="--i:1">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"We host every anniversary here. The service is impeccable, the food is consistently excellent, and they always make us feel like family. A true gem."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MR</div>
+                        <div>
+                            <div class="testimonial-name">Michael & Rachel D.</div>
+                            <div class="testimonial-role">Regular Guests</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in" style="--i:2">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"I brought a group of 12 for a work dinner and everything was flawless. The private dining area was perfect, and Chef Marcus even came out to greet us. Truly first-class."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">DK</div>
+                        <div>
+                            <div class="testimonial-name">David Kim</div>
+                            <div class="testimonial-role">Event Host</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== HOURS & LOCATION ========== -->
+    <section class="location" id="location">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Visit Us</span>
+                <h2 class="section-title">Hours & Location</h2>
+                <p class="section-desc">We're located in the heart of downtown. Walk-ins welcome, but reservations are recommended for dinner service.</p>
+            </div>
+            <div class="location-grid">
+                <div class="fade-in-left">
+                    <h3 style="margin-bottom: 24px;">Opening Hours</h3>
+                    <table class="hours-table">
+                        <tr>
+                            <td>Monday</td>
+                            <td>Closed</td>
+                        </tr>
+                        <tr>
+                            <td>Tuesday</td>
+                            <td>5:00 PM - 10:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday</td>
+                            <td>5:00 PM - 10:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Thursday</td>
+                            <td>5:00 PM - 10:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Friday</td>
+                            <td>5:00 PM - 11:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Saturday</td>
+                            <td>11:00 AM - 11:00 PM</td>
+                        </tr>
+                        <tr>
+                            <td>Sunday</td>
+                            <td>11:00 AM - 9:00 PM</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="fade-in-right">
+                    <h3 style="margin-bottom: 24px;">Find Us</h3>
+                    <div class="map-container">
+                        <!-- Replace the placeholder below with a real Google Maps embed -->
+                        <!-- Example: <iframe src="https://www.google.com/maps/embed?pb=YOUR_EMBED_CODE" allowfullscreen loading="lazy"></iframe> -->
+                        <div class="map-placeholder">
+                            <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+                            <span>Google Maps Embed</span>
+                            <span style="font-size: 0.82rem; opacity: 0.6;">123 Main Street, Downtown</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== GALLERY ========== -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-label">Gallery</span>
+                <h2 class="section-title">A Taste of the Experience</h2>
+                <p class="section-desc">From our kitchen to your table, see what makes dining at The Ember Table unforgettable.</p>
+            </div>
+            <div class="gallery-grid stagger">
+                <div class="gallery-item fade-in" style="--i:0">
+                    <div class="gallery-placeholder">Interior</div>
+                </div>
+                <div class="gallery-item fade-in" style="--i:1">
+                    <div class="gallery-placeholder">Plating</div>
+                </div>
+                <div class="gallery-item fade-in" style="--i:2">
+                    <div class="gallery-placeholder">Cocktails</div>
+                </div>
+                <div class="gallery-item fade-in" style="--i:3">
+                    <div class="gallery-placeholder">Kitchen</div>
+                </div>
+                <div class="gallery-item fade-in" style="--i:4">
+                    <div class="gallery-placeholder">Ambiance</div>
+                </div>
+                <div class="gallery-item fade-in" style="--i:5">
+                    <div class="gallery-placeholder">Events</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="fade-in-left">
+                    <span class="section-label">Get in Touch</span>
+                    <h2 class="section-title">We'd Love to Hear From You</h2>
+                    <p class="section-desc">Whether you're planning a special event, have dietary questions, or want to reserve a table, reach out and we'll get back to you promptly.</p>
+
+                    <div class="contact-info-list">
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div class="contact-info-text">
+                                <h4>Address</h4>
+                                <p>123 Main Street, Suite 100<br>Downtown, CA 90210</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                            </div>
+                            <div class="contact-info-text">
+                                <h4>Phone</h4>
+                                <p>(555) 123-4567</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            </div>
+                            <div class="contact-info-text">
+                                <h4>Email</h4>
+                                <p>hello@theembertable.com</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon">
+                                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div class="contact-info-text">
+                                <h4>Reservations</h4>
+                                <p>Dinner reservations recommended.<br>Walk-ins welcome at the bar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-in-right">
+                    <div class="contact-form">
+                        <h3>Send Us a Message</h3>
+                        <p>We'll get back to you within 24 hours.</p>
+                        <form onsubmit="handleSubmit(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Full Name</label>
+                                    <input type="text" id="name" name="name" placeholder="John Smith" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                                </div>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 16px;">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 16px;">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="Tell us about your reservation or event..." required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>The Ember <span>Table</span></h3>
+                    <p>Crafted with passion, served with soul. Modern dining that celebrates local ingredients and bold flavors.</p>
+                    <div class="footer-social">
+                        <!-- Facebook -->
+                        <a href="#" aria-label="Facebook">
+                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="#" aria-label="Instagram">
+                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                        </a>
+                        <!-- X / Twitter -->
+                        <a href="#" aria-label="X">
+                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                        <!-- Yelp -->
+                        <a href="#" aria-label="Yelp">
+                            <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.16 12.594l-4.995 1.433c-.96.276-1.74-.8-1.176-1.63l2.905-4.308a1.072 1.072 0 011.596-.206 7.2 7.2 0 011.743 3.18c.16.625-.3 1.24-.938 1.375l-.136.156zm-5.025 3.56l4.212 2.89c.77.527.55 1.73-.33 1.824a7.14 7.14 0 01-3.592-.64c-.563-.28-.716-1.005-.375-1.53l2.085-3.544v1zm-2.38-1.6l-1.876 4.83c-.344.884-1.607.82-1.913-.1a7.2 7.2 0 01-.17-3.612c.134-.628.798-1 1.396-.76l3.564 1.642h-1zm-1.38-2.66l-4.7-1.99c-.86-.365-.78-1.633.12-1.87a7.2 7.2 0 013.612.17c.57.2.83.833.612 1.4l-1.644 3.29v-1zM11.28 3.1l1.99 4.7c.365.86-.468 1.733-1.26 1.32L7.69 6.21a1.072 1.072 0 01-.25-1.6A7.14 7.14 0 0110.91 2.73c.63-.08 1.18.38 1.237.97l.132-.6z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#about">Our Story</a>
+                    <a href="#menu">Menu</a>
+                    <a href="#reviews">Reviews</a>
+                    <a href="#gallery">Gallery</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Information</h4>
+                    <a href="#location">Hours & Location</a>
+                    <a href="#">Private Events</a>
+                    <a href="#">Gift Cards</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 The Ember Table. All rights reserved.</p>
+                <p class="footer-credit">Website by <a href="https://tayko.dev" target="_blank" rel="noopener">Tayko</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== JAVASCRIPT ========== -->
+    <script>
+        // --- Navigation scroll effect ---
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 60);
+        }, { passive: true });
+
+        // --- Mobile menu ---
+        const navToggle = document.getElementById('navToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+
+        navToggle.addEventListener('click', () => {
+            const isOpen = mobileMenu.classList.toggle('open');
+            mobileOverlay.classList.toggle('show', isOpen);
+            navToggle.classList.toggle('active', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        function closeMobile() {
+            mobileMenu.classList.remove('open');
+            mobileOverlay.classList.remove('show');
+            navToggle.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // --- Scroll animations (Intersection Observer) ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // --- Menu tab interaction (visual only) ---
+        document.querySelectorAll('.menu-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.menu-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+
+        // --- Contact form handler ---
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const original = btn.textContent;
+            btn.textContent = 'Sent! We\'ll be in touch.';
+            btn.style.background = 'var(--accent)';
+            setTimeout(() => {
+                btn.textContent = original;
+                btn.style.background = '';
+                e.target.reset();
+            }, 3000);
+        }
+
+        // --- Highlight today's hours ---
+        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const today = days[new Date().getDay()];
+        document.querySelectorAll('.hours-table tr').forEach(row => {
+            if (row.querySelector('td')?.textContent.trim() === today) {
+                row.classList.add('today');
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAYKO.DEV - Proposal & Invoice Generator</title>
+<style>
+  /* ===== RESET & BASE ===== */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #2563eb;
+    --blue-dark: #1d4ed8;
+    --blue-light: #dbeafe;
+    --blue-50: #eff6ff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --green: #059669;
+    --green-light: #d1fae5;
+    --red: #dc2626;
+    --red-light: #fee2e2;
+    --yellow: #d97706;
+    --yellow-light: #fef3c7;
+    --radius: 8px;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-800);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ===== APP LAYOUT ===== */
+  .app-header {
+    background: white;
+    border-bottom: 1px solid var(--gray-200);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .app-logo {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--gray-900);
+  }
+  .app-logo span { color: var(--blue); }
+
+  .tab-nav {
+    display: flex;
+    gap: 4px;
+    background: var(--gray-100);
+    padding: 4px;
+    border-radius: var(--radius);
+  }
+
+  .tab-btn {
+    padding: 8px 20px;
+    border: none;
+    background: transparent;
+    color: var(--gray-500);
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .tab-btn.active {
+    background: white;
+    color: var(--blue);
+    box-shadow: var(--shadow-sm);
+  }
+  .tab-btn:hover:not(.active) { color: var(--gray-700); }
+
+  .app-body {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  /* ===== SIDEBAR ===== */
+  .sidebar {
+    width: 260px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .sidebar-title {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .recent-list {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  .recent-item {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--gray-50);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .recent-item:hover { background: var(--blue-50); }
+  .recent-item:last-child { border-bottom: none; }
+
+  .recent-item-type {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+  .recent-item-type.proposal { background: var(--blue-light); color: var(--blue); }
+  .recent-item-type.invoice { background: var(--green-light); color: var(--green); }
+
+  .recent-item-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-800);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .recent-item-date {
+    font-size: 11px;
+    color: var(--gray-400);
+    margin-top: 2px;
+  }
+
+  .recent-item-actions {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .recent-item-actions button {
+    font-size: 11px;
+    padding: 2px 8px;
+    border: 1px solid var(--gray-200);
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    color: var(--gray-600);
+  }
+  .recent-item-actions button:hover { background: var(--gray-50); border-color: var(--gray-300); }
+  .recent-item-actions button.delete-btn:hover { color: var(--red); border-color: var(--red); }
+
+  .empty-sidebar {
+    padding: 24px 16px;
+    text-align: center;
+    color: var(--gray-400);
+    font-size: 13px;
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  .main-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ===== FORM STYLES ===== */
+  .form-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .form-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--blue);
+    display: inline-block;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .form-group.full-width { grid-column: 1 / -1; }
+
+  .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-700);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 9px 12px;
+    border: 1px solid var(--gray-300);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--gray-800);
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  }
+
+  .form-group textarea { resize: vertical; min-height: 120px; }
+
+  .form-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: white;
+  }
+  .btn-primary:hover { background: var(--blue-dark); box-shadow: var(--shadow-md); }
+
+  .btn-secondary {
+    background: white;
+    color: var(--gray-700);
+    border: 1px solid var(--gray-300);
+  }
+  .btn-secondary:hover { background: var(--gray-50); border-color: var(--gray-400); }
+
+  .btn-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ===== LINE ITEMS (INVOICE) ===== */
+  .line-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+  }
+
+  .line-items-table th {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    color: var(--gray-500);
+    text-align: left;
+    padding: 8px 8px 8px 0;
+    border-bottom: 2px solid var(--gray-200);
+  }
+
+  .line-items-table td {
+    padding: 6px 6px 6px 0;
+    vertical-align: middle;
+  }
+
+  .line-items-table input {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid var(--gray-300);
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  .line-items-table input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  }
+
+  .line-items-table .col-desc { width: 50%; }
+  .line-items-table .col-qty { width: 12%; }
+  .line-items-table .col-price { width: 18%; }
+  .line-items-table .col-total { width: 15%; text-align: right; font-weight: 600; font-size: 14px; color: var(--gray-700); }
+  .line-items-table .col-action { width: 5%; text-align: center; }
+
+  .remove-row-btn {
+    background: none;
+    border: none;
+    color: var(--gray-400);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    line-height: 1;
+  }
+  .remove-row-btn:hover { color: var(--red); background: var(--red-light); }
+
+  .add-row-btn {
+    margin-top: 8px;
+    font-size: 13px;
+    padding: 6px 14px;
+    background: var(--blue-50);
+    color: var(--blue);
+    border: 1px dashed var(--blue);
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: inherit;
+  }
+  .add-row-btn:hover { background: var(--blue-light); }
+
+  /* ===== PREVIEW AREA ===== */
+  .preview-area {
+    margin-top: 24px;
+    display: none;
+  }
+  .preview-area.visible { display: block; }
+
+  .preview-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .preview-toolbar-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--gray-800);
+  }
+
+  .preview-toolbar-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* ===== GENERATED DOCUMENT ===== */
+  .document {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 56px 64px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .doc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 3px solid var(--blue);
+  }
+
+  .doc-brand {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--gray-900);
+  }
+  .doc-brand span { color: var(--blue); }
+
+  .doc-brand-sub {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gray-400);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  .doc-meta {
+    text-align: right;
+    font-size: 13px;
+    color: var(--gray-500);
+  }
+
+  .doc-meta-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--gray-400);
+    margin-bottom: 2px;
+  }
+
+  .doc-meta-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-800);
+  }
+
+  .doc-meta-value.invoice-num {
+    font-size: 22px;
+    color: var(--blue);
+  }
+
+  .doc-client {
+    margin-bottom: 36px;
+  }
+
+  .doc-client-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gray-400);
+    margin-bottom: 6px;
+  }
+
+  .doc-client-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+
+  .doc-client-biz {
+    font-size: 15px;
+    color: var(--gray-600);
+  }
+
+  .doc-client-email {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 2px;
+  }
+
+  .doc-section {
+    margin-bottom: 32px;
+  }
+
+  .doc-section-title {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--blue);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .doc-section p, .doc-section li {
+    font-size: 14px;
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+
+  .doc-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .doc-section ul li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+  }
+
+  .doc-section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 8px;
+    height: 8px;
+    background: var(--blue);
+    border-radius: 2px;
+  }
+
+  .doc-price-box {
+    background: var(--blue-50);
+    border: 2px solid var(--blue);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .doc-price-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--gray-700);
+  }
+
+  .doc-price-amount {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--blue);
+    letter-spacing: -1px;
+  }
+
+  .doc-price-terms {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-top: 4px;
+  }
+
+  .doc-included-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .doc-included-item {
+    font-size: 13px;
+    color: var(--gray-600);
+    padding: 6px 0 6px 22px;
+    position: relative;
+  }
+
+  .doc-included-item::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .doc-signature {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--gray-200);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .doc-sig-line {
+    border-bottom: 1px solid var(--gray-300);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+    min-height: 40px;
+  }
+
+  .doc-sig-label {
+    font-size: 11px;
+    color: var(--gray-400);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .doc-footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-100);
+    text-align: center;
+    font-size: 13px;
+    color: var(--gray-400);
+  }
+
+  .doc-footer a {
+    color: var(--blue);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  /* ===== INVOICE TABLE ===== */
+  .invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  .invoice-table th {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--gray-500);
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--gray-50);
+    border-bottom: 2px solid var(--gray-200);
+  }
+
+  .invoice-table th:last-child,
+  .invoice-table td:last-child { text-align: right; }
+
+  .invoice-table td {
+    padding: 12px;
+    font-size: 14px;
+    color: var(--gray-700);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .invoice-totals {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .invoice-totals-inner {
+    width: 280px;
+  }
+
+  .invoice-total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+    color: var(--gray-600);
+  }
+
+  .invoice-total-row.grand-total {
+    border-top: 2px solid var(--gray-800);
+    margin-top: 4px;
+    padding-top: 12px;
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--gray-900);
+  }
+
+  .invoice-status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .invoice-status-badge.unpaid { background: var(--red-light); color: var(--red); }
+  .invoice-status-badge.paid { background: var(--green-light); color: var(--green); }
+  .invoice-status-badge.partial { background: var(--yellow-light); color: var(--yellow); }
+
+  .doc-payment-box {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  .doc-bill-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 36px;
+  }
+
+  /* ===== NOTIFICATION ===== */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--gray-900);
+    color: white;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-lg);
+    z-index: 999;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .toast.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* ===== STATUS ROW ===== */
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    body { background: white; }
+    .app-header, .sidebar, .form-card, .preview-toolbar, .tab-content-wrapper, .toast { display: none !important; }
+    .app-body { padding: 0; }
+    .preview-area { display: block !important; margin: 0; }
+    .document {
+      border: none;
+      box-shadow: none;
+      padding: 40px 48px;
+      max-width: 100%;
+    }
+    .doc-header { border-bottom-color: var(--blue) !important; }
+    .doc-price-box { border-color: var(--blue) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .doc-section ul li::before { background: var(--blue) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .doc-included-item::before { color: var(--green) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .invoice-table th { background: var(--gray-50) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .invoice-status-badge { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+    @page { margin: 0.5in; }
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .app-body { flex-direction: column; }
+    .sidebar { width: 100%; order: 2; }
+    .form-grid { grid-template-columns: 1fr; }
+    .document { padding: 32px 28px; }
+    .doc-included-grid { grid-template-columns: 1fr; }
+    .doc-signature { grid-template-columns: 1fr; gap: 24px; }
+    .doc-bill-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="app-header">
+  <div class="app-logo">TAYKO<span>.DEV</span></div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('proposal')">Proposal</button>
+    <button class="tab-btn" onclick="switchTab('invoice')">Invoice</button>
+  </nav>
+  <div style="width:100px"></div>
+</header>
+
+<div class="app-body">
+  <!-- Sidebar -->
+  <aside class="sidebar no-print">
+    <div class="sidebar-card">
+      <div class="sidebar-title">Recent Documents</div>
+      <div class="recent-list" id="recentList">
+        <div class="empty-sidebar">No documents yet. Generate your first proposal or invoice.</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- PROPOSAL TAB -->
+    <div id="proposalTab" class="tab-panel">
+      <div class="form-card tab-content-wrapper">
+        <div class="form-title">New Proposal</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Client Name</label>
+            <input type="text" id="pClientName" placeholder="John Smith">
+          </div>
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" id="pClientBiz" placeholder="Smith's BBQ">
+          </div>
+          <div class="form-group">
+            <label>Client Email</label>
+            <input type="email" id="pClientEmail" placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label>Project Type</label>
+            <select id="pProjectType" onchange="onProjectTypeChange()">
+              <option value="">-- Select a package --</option>
+              <option value="starter">Starter Website ($500)</option>
+              <option value="business">Business Pro Website ($1,200)</option>
+              <option value="app">Custom Web App ($2,500+)</option>
+              <option value="dashboard">Dashboard/Analytics ($1,500-3,000)</option>
+              <option value="ai">AI-Powered Tool ($2,000-5,000)</option>
+              <option value="custom">Custom Quote</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Price</label>
+            <input type="text" id="pPrice" placeholder="$500">
+          </div>
+          <div class="form-group">
+            <label>Timeline</label>
+            <input type="text" id="pTimeline" placeholder="5-7 business days">
+          </div>
+          <div class="form-group full-width">
+            <label>Deliverables</label>
+            <textarea id="pDeliverables" placeholder="One deliverable per line..."></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label>Custom Notes (optional)</label>
+            <textarea id="pNotes" rows="3" placeholder="Any additional notes for the client..." style="min-height:70px"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="generateProposal()">
+            <svg class="btn-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Generate Proposal
+          </button>
+          <button class="btn btn-secondary" onclick="clearProposalForm()">Clear</button>
+        </div>
+      </div>
+
+      <div class="preview-area" id="proposalPreview">
+        <div class="preview-toolbar">
+          <div class="preview-toolbar-title">Proposal Preview</div>
+          <div class="preview-toolbar-actions">
+            <button class="btn btn-secondary" onclick="window.print()">
+              <svg class="btn-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+              Print / Save as PDF
+            </button>
+            <button class="btn btn-secondary" onclick="downloadHTML('proposal')">
+              <svg class="btn-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              Download HTML
+            </button>
+          </div>
+        </div>
+        <div id="proposalDoc"></div>
+      </div>
+    </div>
+
+    <!-- INVOICE TAB -->
+    <div id="invoiceTab" class="tab-panel" style="display:none">
+      <div class="form-card tab-content-wrapper">
+        <div class="form-title">New Invoice</div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Invoice Number</label>
+            <input type="text" id="iNumber" readonly>
+          </div>
+          <div class="form-group">
+            <label>Due Date</label>
+            <input type="date" id="iDueDate">
+          </div>
+          <div class="form-group">
+            <label>Client Name</label>
+            <input type="text" id="iClientName" placeholder="John Smith">
+          </div>
+          <div class="form-group">
+            <label>Business Name</label>
+            <input type="text" id="iClientBiz" placeholder="Smith's BBQ">
+          </div>
+          <div class="form-group">
+            <label>Client Email</label>
+            <input type="email" id="iClientEmail" placeholder="john@example.com">
+          </div>
+          <div class="form-group">
+            <label>Payment Status</label>
+            <select id="iStatus">
+              <option value="unpaid">Unpaid</option>
+              <option value="partial">Partial</option>
+              <option value="paid">Paid</option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Line Items</label>
+            <table class="line-items-table" id="lineItemsTable">
+              <thead>
+                <tr>
+                  <th class="col-desc">Description</th>
+                  <th class="col-qty">Qty</th>
+                  <th class="col-price">Unit Price</th>
+                  <th class="col-total">Total</th>
+                  <th class="col-action"></th>
+                </tr>
+              </thead>
+              <tbody id="lineItemsBody"></tbody>
+            </table>
+            <button class="add-row-btn" onclick="addLineItem()">+ Add Line Item</button>
+          </div>
+
+          <div class="form-group">
+            <label>Tax Rate (%)</label>
+            <input type="number" id="iTaxRate" value="0" min="0" step="0.1" onchange="updateLineItemTotals()">
+          </div>
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <div style="display:flex;gap:16px;font-size:14px;padding-top:8px;">
+              <span style="color:var(--gray-500)">Subtotal: <strong id="iSubtotalDisplay" style="color:var(--gray-800)">$0.00</strong></span>
+              <span style="color:var(--gray-500)">Total: <strong id="iTotalDisplay" style="color:var(--blue)">$0.00</strong></span>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Notes (optional)</label>
+            <textarea id="iNotes" rows="3" placeholder="Additional notes..." style="min-height:70px"></textarea>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" onclick="generateInvoice()">
+            <svg class="btn-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Generate Invoice
+          </button>
+          <button class="btn btn-secondary" onclick="clearInvoiceForm()">Clear</button>
+        </div>
+      </div>
+
+      <div class="preview-area" id="invoicePreview">
+        <div class="preview-toolbar">
+          <div class="preview-toolbar-title">Invoice Preview</div>
+          <div class="preview-toolbar-actions">
+            <button class="btn btn-secondary" onclick="window.print()">
+              <svg class="btn-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+              Print / Save as PDF
+            </button>
+            <button class="btn btn-secondary" onclick="downloadHTML('invoice')">
+              <svg class="btn-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              Download HTML
+            </button>
+          </div>
+        </div>
+        <div id="invoiceDoc"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== PACKAGE DATA =====
+const packages = {
+  starter: {
+    price: '$500',
+    timeline: '5-7 business days',
+    deliverables: [
+      'Modern responsive website (up to 5 pages)',
+      'Mobile-friendly design',
+      'Contact form',
+      'Google Business optimization tips',
+      '1 round of revisions',
+      'Delivered in 5-7 business days'
+    ]
+  },
+  business: {
+    price: '$1,200',
+    timeline: '10-14 business days',
+    deliverables: [
+      'Everything in Starter, plus:',
+      'Up to 10 pages',
+      'Menu / services / pricing pages',
+      'Photo gallery',
+      'Customer testimonials section',
+      'Basic SEO setup',
+      'Google Maps integration',
+      'Social media links',
+      '2 rounds of revisions',
+      'Delivered in 10-14 business days'
+    ]
+  },
+  app: {
+    price: '$2,500+',
+    timeline: '3-6 weeks (scoped after discovery call)',
+    deliverables: [
+      'Full-stack web application',
+      'Custom database design',
+      'User authentication',
+      'Admin dashboard',
+      'API integrations',
+      'Real-time features',
+      'Ongoing support options',
+      'Timeline: 3-6 weeks (scoped after discovery call)'
+    ]
+  },
+  dashboard: {
+    price: '$1,500-3,000',
+    timeline: '2-4 weeks',
+    deliverables: [
+      'Business analytics dashboard',
+      'Real-time data visualization',
+      'Customer / sales tracking',
+      'Export reports',
+      'Mobile-friendly',
+      'Timeline: 2-4 weeks'
+    ]
+  },
+  ai: {
+    price: '$2,000-5,000',
+    timeline: '2-4 weeks',
+    deliverables: [
+      'AI-powered business tool',
+      'Claude / GPT API integration',
+      'Custom prompts for your industry',
+      'Training and documentation',
+      'Timeline: 2-4 weeks'
+    ]
+  },
+  custom: {
+    price: '',
+    timeline: '',
+    deliverables: []
+  }
+};
+
+// ===== STATE =====
+let currentTab = 'proposal';
+let recentDocs = JSON.parse(localStorage.getItem('tayko_recent_docs') || '[]');
+let invoiceCounter = parseInt(localStorage.getItem('tayko_invoice_counter') || '1001');
+
+// ===== TAB SWITCHING =====
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    if ((tab === 'proposal' && b.textContent === 'Proposal') || (tab === 'invoice' && b.textContent === 'Invoice')) {
+      b.classList.add('active');
+    }
+  });
+  document.getElementById('proposalTab').style.display = tab === 'proposal' ? 'block' : 'none';
+  document.getElementById('invoiceTab').style.display = tab === 'invoice' ? 'block' : 'none';
+}
+
+// ===== PROPOSAL LOGIC =====
+function onProjectTypeChange() {
+  const type = document.getElementById('pProjectType').value;
+  if (!type || !packages[type]) return;
+  const pkg = packages[type];
+  document.getElementById('pPrice').value = pkg.price;
+  document.getElementById('pTimeline').value = pkg.timeline;
+  document.getElementById('pDeliverables').value = pkg.deliverables.join('\n');
+}
+
+function clearProposalForm() {
+  ['pClientName','pClientBiz','pClientEmail','pPrice','pTimeline','pDeliverables','pNotes'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('pProjectType').value = '';
+  document.getElementById('proposalPreview').classList.remove('visible');
+}
+
+function generateProposal() {
+  const clientName = document.getElementById('pClientName').value.trim();
+  const clientBiz = document.getElementById('pClientBiz').value.trim();
+  const clientEmail = document.getElementById('pClientEmail').value.trim();
+  const projectType = document.getElementById('pProjectType').value;
+  const price = document.getElementById('pPrice').value.trim();
+  const timeline = document.getElementById('pTimeline').value.trim();
+  const deliverables = document.getElementById('pDeliverables').value.trim().split('\n').filter(d => d.trim());
+  const notes = document.getElementById('pNotes').value.trim();
+
+  if (!clientName || !price || deliverables.length === 0) {
+    showToast('Please fill in client name, price, and deliverables.');
+    return;
+  }
+
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const projectLabel = projectType && projectType !== 'custom'
+    ? document.querySelector(`#pProjectType option[value="${projectType}"]`).textContent
+    : 'Custom Project';
+
+  const deliverablesHTML = deliverables.map(d => `<li>${escapeHTML(d)}</li>`).join('');
+
+  const html = `
+    <div class="document">
+      <div class="doc-header">
+        <div>
+          <div class="doc-brand">TAYKO<span>.DEV</span></div>
+          <div class="doc-brand-sub">Web Development &amp; Design</div>
+        </div>
+        <div class="doc-meta">
+          <div class="doc-meta-label">Proposal Date</div>
+          <div class="doc-meta-value">${dateStr}</div>
+        </div>
+      </div>
+
+      <div class="doc-client">
+        <div class="doc-client-label">Prepared For</div>
+        <div class="doc-client-name">${escapeHTML(clientName)}</div>
+        ${clientBiz ? `<div class="doc-client-biz">${escapeHTML(clientBiz)}</div>` : ''}
+        ${clientEmail ? `<div class="doc-client-email">${escapeHTML(clientEmail)}</div>` : ''}
+      </div>
+
+      <div class="doc-section">
+        <div class="doc-section-title">Project Scope &mdash; ${escapeHTML(projectLabel)}</div>
+        <ul>${deliverablesHTML}</ul>
+      </div>
+
+      <div class="doc-section">
+        <div class="doc-section-title">Timeline</div>
+        <p>${escapeHTML(timeline) || 'To be discussed'}</p>
+      </div>
+
+      <div class="doc-section">
+        <div class="doc-section-title">Investment</div>
+        <div class="doc-price-box">
+          <div>
+            <div class="doc-price-label">Project Total</div>
+            <div class="doc-price-terms">50% upfront to begin &middot; 50% upon delivery</div>
+          </div>
+          <div class="doc-price-amount">${escapeHTML(price)}</div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <div class="doc-section-title">What's Included</div>
+        <div class="doc-included-grid">
+          <div class="doc-included-item">Hosting setup assistance</div>
+          <div class="doc-included-item">Mobile responsive design</div>
+          <div class="doc-included-item">1 round of revisions</div>
+          <div class="doc-included-item">30-day post-launch support</div>
+          <div class="doc-included-item">Clean, modern code</div>
+          <div class="doc-included-item">Performance optimized</div>
+        </div>
+      </div>
+
+      ${notes ? `
+      <div class="doc-section">
+        <div class="doc-section-title">Additional Notes</div>
+        <p>${escapeHTML(notes)}</p>
+      </div>` : ''}
+
+      <div class="doc-signature">
+        <div>
+          <div class="doc-sig-line"></div>
+          <div class="doc-sig-label">Client Signature &amp; Date</div>
+        </div>
+        <div>
+          <div class="doc-sig-line" style="font-family: 'Georgia', serif; font-size: 18px; font-style: italic; color: var(--gray-700);">Tayko</div>
+          <div class="doc-sig-label">TAYKO.DEV &mdash; ${dateStr}</div>
+        </div>
+      </div>
+
+      <div class="doc-footer">
+        Questions? Reply to this proposal or reach out at <a href="https://tayko.dev">tayko.dev</a>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('proposalDoc').innerHTML = html;
+  document.getElementById('proposalPreview').classList.add('visible');
+  document.getElementById('proposalPreview').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  saveRecentDoc({
+    type: 'proposal',
+    clientName,
+    clientBiz,
+    clientEmail,
+    projectType,
+    price,
+    timeline,
+    deliverables: document.getElementById('pDeliverables').value,
+    notes,
+    date: today.toISOString(),
+    html
+  });
+
+  showToast('Proposal generated successfully.');
+}
+
+// ===== INVOICE LOGIC =====
+function initInvoice() {
+  document.getElementById('iNumber').value = 'INV-' + invoiceCounter;
+  const due = new Date();
+  due.setDate(due.getDate() + 15);
+  document.getElementById('iDueDate').value = due.toISOString().split('T')[0];
+  addLineItem();
+}
+
+function addLineItem(desc = '', qty = 1, price = '') {
+  const tbody = document.getElementById('lineItemsBody');
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td class="col-desc"><input type="text" placeholder="Web development services" value="${escapeHTML(desc)}" oninput="updateLineItemTotals()"></td>
+    <td class="col-qty"><input type="number" min="1" value="${qty}" oninput="updateLineItemTotals()"></td>
+    <td class="col-price"><input type="number" min="0" step="0.01" placeholder="0.00" value="${price}" oninput="updateLineItemTotals()"></td>
+    <td class="col-total">$0.00</td>
+    <td class="col-action"><button class="remove-row-btn" onclick="removeLineItem(this)" title="Remove">&times;</button></td>
+  `;
+  tbody.appendChild(row);
+  updateLineItemTotals();
+}
+
+function removeLineItem(btn) {
+  const tbody = document.getElementById('lineItemsBody');
+  if (tbody.rows.length <= 1) return;
+  btn.closest('tr').remove();
+  updateLineItemTotals();
+}
+
+function updateLineItemTotals() {
+  const rows = document.getElementById('lineItemsBody').rows;
+  let subtotal = 0;
+  for (let r of rows) {
+    const qty = parseFloat(r.cells[1].querySelector('input').value) || 0;
+    const price = parseFloat(r.cells[2].querySelector('input').value) || 0;
+    const total = qty * price;
+    subtotal += total;
+    r.cells[3].textContent = '$' + total.toFixed(2);
+  }
+  const taxRate = parseFloat(document.getElementById('iTaxRate').value) || 0;
+  const tax = subtotal * (taxRate / 100);
+  const grandTotal = subtotal + tax;
+  document.getElementById('iSubtotalDisplay').textContent = '$' + subtotal.toFixed(2);
+  document.getElementById('iTotalDisplay').textContent = '$' + grandTotal.toFixed(2);
+}
+
+function clearInvoiceForm() {
+  ['iClientName','iClientBiz','iClientEmail','iNotes'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('iStatus').value = 'unpaid';
+  document.getElementById('iTaxRate').value = '0';
+  document.getElementById('lineItemsBody').innerHTML = '';
+  addLineItem();
+  invoiceCounter++;
+  localStorage.setItem('tayko_invoice_counter', invoiceCounter);
+  document.getElementById('iNumber').value = 'INV-' + invoiceCounter;
+  const due = new Date();
+  due.setDate(due.getDate() + 15);
+  document.getElementById('iDueDate').value = due.toISOString().split('T')[0];
+  document.getElementById('invoicePreview').classList.remove('visible');
+}
+
+function generateInvoice() {
+  const invNumber = document.getElementById('iNumber').value;
+  const dueDate = document.getElementById('iDueDate').value;
+  const clientName = document.getElementById('iClientName').value.trim();
+  const clientBiz = document.getElementById('iClientBiz').value.trim();
+  const clientEmail = document.getElementById('iClientEmail').value.trim();
+  const status = document.getElementById('iStatus').value;
+  const taxRate = parseFloat(document.getElementById('iTaxRate').value) || 0;
+  const notes = document.getElementById('iNotes').value.trim();
+
+  if (!clientName) {
+    showToast('Please fill in client name.');
+    return;
+  }
+
+  const rows = document.getElementById('lineItemsBody').rows;
+  let lineItems = [];
+  let subtotal = 0;
+  for (let r of rows) {
+    const desc = r.cells[0].querySelector('input').value.trim();
+    const qty = parseFloat(r.cells[1].querySelector('input').value) || 0;
+    const price = parseFloat(r.cells[2].querySelector('input').value) || 0;
+    if (desc && qty > 0 && price > 0) {
+      const total = qty * price;
+      subtotal += total;
+      lineItems.push({ desc, qty, price, total });
+    }
+  }
+
+  if (lineItems.length === 0) {
+    showToast('Please add at least one line item.');
+    return;
+  }
+
+  const tax = subtotal * (taxRate / 100);
+  const grandTotal = subtotal + tax;
+
+  const today = new Date();
+  const dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+  const dueDateStr = dueDate ? new Date(dueDate + 'T00:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Upon receipt';
+
+  const statusLabel = { unpaid: 'Unpaid', paid: 'Paid', partial: 'Partial' }[status];
+
+  const lineItemsHTML = lineItems.map(li => `
+    <tr>
+      <td>${escapeHTML(li.desc)}</td>
+      <td>${li.qty}</td>
+      <td>$${li.price.toFixed(2)}</td>
+      <td style="text-align:right;font-weight:600">$${li.total.toFixed(2)}</td>
+    </tr>
+  `).join('');
+
+  const html = `
+    <div class="document">
+      <div class="doc-header">
+        <div>
+          <div class="doc-brand">TAYKO<span>.DEV</span></div>
+          <div class="doc-brand-sub">Web Development &amp; Design</div>
+        </div>
+        <div class="doc-meta">
+          <div class="doc-meta-label">Invoice</div>
+          <div class="doc-meta-value invoice-num">${escapeHTML(invNumber)}</div>
+          <div style="margin-top:8px">
+            <div class="doc-meta-label">Date Issued</div>
+            <div class="doc-meta-value">${dateStr}</div>
+          </div>
+          <div style="margin-top:6px">
+            <div class="doc-meta-label">Due Date</div>
+            <div class="doc-meta-value">${dueDateStr}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-bill-grid">
+        <div>
+          <div class="doc-client-label">Bill To</div>
+          <div class="doc-client-name" style="font-size:18px">${escapeHTML(clientName)}</div>
+          ${clientBiz ? `<div class="doc-client-biz">${escapeHTML(clientBiz)}</div>` : ''}
+          ${clientEmail ? `<div class="doc-client-email">${escapeHTML(clientEmail)}</div>` : ''}
+        </div>
+        <div style="text-align:right">
+          <div class="doc-client-label">Status</div>
+          <div class="invoice-status-badge ${status}">${statusLabel}</div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Qty</th>
+              <th>Unit Price</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${lineItemsHTML}
+          </tbody>
+        </table>
+
+        <div class="invoice-totals">
+          <div class="invoice-totals-inner">
+            <div class="invoice-total-row">
+              <span>Subtotal</span>
+              <span>$${subtotal.toFixed(2)}</span>
+            </div>
+            ${taxRate > 0 ? `
+            <div class="invoice-total-row">
+              <span>Tax (${taxRate}%)</span>
+              <span>$${tax.toFixed(2)}</span>
+            </div>` : ''}
+            <div class="invoice-total-row grand-total">
+              <span>Total</span>
+              <span>$${grandTotal.toFixed(2)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc-section">
+        <div class="doc-payment-box">
+          <strong>Payment Terms</strong><br>
+          Payment due within 15 days. Accepted: Venmo, Zelle, PayPal, or check.
+          ${notes ? `<br><br><strong>Notes:</strong> ${escapeHTML(notes)}` : ''}
+        </div>
+      </div>
+
+      <div class="doc-footer">
+        Thank you for your business!<br>
+        Questions? Reach out at <a href="https://tayko.dev">tayko.dev</a>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('invoiceDoc').innerHTML = html;
+  document.getElementById('invoicePreview').classList.add('visible');
+  document.getElementById('invoicePreview').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Increment invoice counter for next invoice
+  invoiceCounter++;
+  localStorage.setItem('tayko_invoice_counter', invoiceCounter);
+
+  saveRecentDoc({
+    type: 'invoice',
+    clientName,
+    clientBiz,
+    clientEmail,
+    invNumber,
+    dueDate,
+    status,
+    lineItems,
+    taxRate,
+    notes,
+    subtotal,
+    tax,
+    grandTotal,
+    date: today.toISOString(),
+    html
+  });
+
+  showToast('Invoice generated successfully.');
+}
+
+// ===== RECENT DOCS =====
+function saveRecentDoc(doc) {
+  doc.id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  recentDocs.unshift(doc);
+  if (recentDocs.length > 10) recentDocs = recentDocs.slice(0, 10);
+  localStorage.setItem('tayko_recent_docs', JSON.stringify(recentDocs));
+  renderRecentDocs();
+}
+
+function renderRecentDocs() {
+  const container = document.getElementById('recentList');
+  if (recentDocs.length === 0) {
+    container.innerHTML = '<div class="empty-sidebar">No documents yet. Generate your first proposal or invoice.</div>';
+    return;
+  }
+
+  container.innerHTML = recentDocs.map(doc => {
+    const date = new Date(doc.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const label = doc.type === 'proposal' ? 'Proposal' : doc.invNumber || 'Invoice';
+    return `
+      <div class="recent-item">
+        <span class="recent-item-type ${doc.type}">${doc.type === 'proposal' ? 'Proposal' : 'Invoice'}</span>
+        <div class="recent-item-name">${escapeHTML(doc.clientName)}${doc.clientBiz ? ' - ' + escapeHTML(doc.clientBiz) : ''}</div>
+        <div class="recent-item-date">${label} &middot; ${date}</div>
+        <div class="recent-item-actions">
+          <button onclick="loadRecentDoc('${doc.id}')">Load</button>
+          <button onclick="viewRecentDoc('${doc.id}')">View</button>
+          <button class="delete-btn" onclick="deleteRecentDoc('${doc.id}')">Delete</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function loadRecentDoc(id) {
+  const doc = recentDocs.find(d => d.id === id);
+  if (!doc) return;
+
+  if (doc.type === 'proposal') {
+    switchTab('proposal');
+    document.getElementById('pClientName').value = doc.clientName || '';
+    document.getElementById('pClientBiz').value = doc.clientBiz || '';
+    document.getElementById('pClientEmail').value = doc.clientEmail || '';
+    document.getElementById('pProjectType').value = doc.projectType || '';
+    document.getElementById('pPrice').value = doc.price || '';
+    document.getElementById('pTimeline').value = doc.timeline || '';
+    document.getElementById('pDeliverables').value = doc.deliverables || '';
+    document.getElementById('pNotes').value = doc.notes || '';
+    showToast('Proposal loaded into form.');
+  } else {
+    switchTab('invoice');
+    document.getElementById('iClientName').value = doc.clientName || '';
+    document.getElementById('iClientBiz').value = doc.clientBiz || '';
+    document.getElementById('iClientEmail').value = doc.clientEmail || '';
+    document.getElementById('iStatus').value = doc.status || 'unpaid';
+    document.getElementById('iTaxRate').value = doc.taxRate || 0;
+    document.getElementById('iNotes').value = doc.notes || '';
+    document.getElementById('iDueDate').value = doc.dueDate || '';
+
+    // Reload line items
+    document.getElementById('lineItemsBody').innerHTML = '';
+    if (doc.lineItems && doc.lineItems.length > 0) {
+      doc.lineItems.forEach(li => addLineItem(li.desc, li.qty, li.price));
+    } else {
+      addLineItem();
+    }
+    showToast('Invoice loaded into form.');
+  }
+}
+
+function viewRecentDoc(id) {
+  const doc = recentDocs.find(d => d.id === id);
+  if (!doc || !doc.html) return;
+
+  if (doc.type === 'proposal') {
+    switchTab('proposal');
+    document.getElementById('proposalDoc').innerHTML = doc.html;
+    document.getElementById('proposalPreview').classList.add('visible');
+    document.getElementById('proposalPreview').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    switchTab('invoice');
+    document.getElementById('invoiceDoc').innerHTML = doc.html;
+    document.getElementById('invoicePreview').classList.add('visible');
+    document.getElementById('invoicePreview').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function deleteRecentDoc(id) {
+  recentDocs = recentDocs.filter(d => d.id !== id);
+  localStorage.setItem('tayko_recent_docs', JSON.stringify(recentDocs));
+  renderRecentDocs();
+  showToast('Document deleted.');
+}
+
+// ===== DOWNLOAD HTML =====
+function downloadHTML(type) {
+  const docEl = type === 'proposal' ? document.getElementById('proposalDoc') : document.getElementById('invoiceDoc');
+  if (!docEl.innerHTML.trim()) return;
+
+  const styles = document.querySelector('style').outerHTML;
+  const fullHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>TAYKO.DEV ${type === 'proposal' ? 'Proposal' : 'Invoice'}</title>${styles}</head><body style="background:white;padding:20px">${docEl.innerHTML}</body></html>`;
+
+  const blob = new Blob([fullHTML], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `tayko-${type}-${new Date().toISOString().split('T')[0]}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Downloaded as HTML file.');
+}
+
+// ===== UTILITIES =====
+function escapeHTML(str) {
+  if (!str) return '';
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('visible');
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => toast.classList.remove('visible'), 3000);
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  initInvoice();
+  renderRecentDocs();
+});
+</script>
+</body>
+</html>
