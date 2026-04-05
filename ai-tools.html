@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools for Small Business | Custom AI Chatbots & Automation — Tayko.Dev</title>
+    <meta name="description" content="Custom AI tools built for small businesses. AI chatbots, automation, and GPT/Claude integrations starting at $2,000. Hire an experienced AI developer — Tayko.Dev.">
+    <meta name="keywords" content="AI tools for small business, hire AI developer, custom AI chatbot for business, AI automation for small business, Claude API developer, GPT integration for business, AI-powered website">
+    <meta name="author" content="Taylor Kott — Tayko.Dev">
+    <link rel="canonical" href="https://tayko.dev/ai-tools">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="AI Tools for Small Business | Custom AI Chatbots & Automation — Tayko.Dev">
+    <meta property="og:description" content="Custom AI tools built for your business. Chatbots, automation, and integrations starting at $2,000. Enterprise-grade AI at a fraction of the cost.">
+    <meta property="og:url" content="https://tayko.dev/ai-tools">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="AI Tools for Small Business — Tayko.Dev">
+    <meta name="twitter:description" content="Custom AI chatbots, automation, and integrations for small businesses. Starting at $2,000.">
+
+    <!-- FAQPage Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What kind of AI tools can you build?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "I build custom AI chatbots trained on your business data, content generation tools, data analysis dashboards, and process automation systems. Every tool is tailored to your specific workflow — whether that's customer support, lead generation, inventory management, or internal operations."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is AI safe for my business data?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely. I use enterprise-grade AI APIs from Anthropic (Claude) and OpenAI with strict data privacy policies. Your business data is never used to train AI models. I also implement encryption, access controls, and secure API handling so your information stays protected."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need technical knowledge to use it?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Not at all. Every AI tool I build comes with a simple, user-friendly interface and a hands-on training session. If you can use a web browser, you can use your custom AI tool. I also provide documentation and ongoing support."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How long does it take to build?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Most AI tools are delivered within 2 to 4 weeks depending on complexity. A single chatbot or automation tool can often be ready in under 2 weeks. Larger systems with multiple integrations typically take 3 to 6 weeks."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can the AI tool grow with my business?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Every tool is built with scalability in mind. As your business grows, I can add new features, connect additional data sources, and expand automation workflows. The AI Pro and Enterprise packages include ongoing optimization to keep your tools performing as your needs evolve."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Service Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "serviceType": "AI Development",
+        "provider": {
+            "@type": "ProfessionalService",
+            "name": "Tayko.Dev",
+            "url": "https://tayko.dev",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Gilbert",
+                "addressRegion": "AZ",
+                "addressCountry": "US"
+            }
+        },
+        "areaServed": {
+            "@type": "Country",
+            "name": "United States"
+        },
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "AI Development Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": {"@type": "Service", "name": "AI Starter", "description": "Single AI tool with one integration, training session, and 30-day support"},
+                    "price": "2000",
+                    "priceCurrency": "USD"
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {"@type": "Service", "name": "AI Pro", "description": "Multiple AI tools with custom dashboard, API integrations, and 60-day support"},
+                    "price": "3500",
+                    "priceCurrency": "USD"
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {"@type": "Service", "name": "AI Enterprise", "description": "Full AI system with multiple workflows, ongoing optimization, and priority support"},
+                    "price": "5000",
+                    "priceCurrency": "USD"
+                }
+            ]
+        }
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a2e;
+            --dim: #6b7280;
+            --accent: #2563eb;
+            --accent-light: #eff6ff;
+            --green: #059669;
+            --green-light: #ecfdf5;
+            --border: #e5e7eb;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+        /* Nav */
+        .nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 100; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { font-weight: 800; font-size: 1.2rem; color: var(--accent); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dim); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-cta { background: var(--accent); color: white !important; padding: 0.5rem 1.2rem; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: opacity 0.2s; }
+        .nav-cta:hover { opacity: 0.9; }
+
+        /* Hero */
+        .hero { max-width: 900px; margin: 0 auto; padding: 5rem 2rem 4rem; text-align: center; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 1.15rem; color: var(--dim); max-width: 620px; margin: 0 auto 1rem; }
+        .hero-price { font-size: 1rem; color: var(--accent); font-weight: 700; margin-bottom: 2rem; }
+        .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: all 0.2s; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+        .btn-secondary { background: var(--accent-light); color: var(--accent); }
+        .btn-secondary:hover { transform: translateY(-1px); }
+
+        /* Sections */
+        section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+        .section-label { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
+        .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .section-desc { color: var(--dim); margin-bottom: 2.5rem; max-width: 600px; }
+
+        /* Use Case Cards */
+        .use-cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .use-case {
+            background: white; border: 1px solid var(--border); border-radius: 16px;
+            padding: 2rem; transition: all 0.3s;
+        }
+        .use-case:hover { border-color: var(--accent); box-shadow: var(--card-shadow); transform: translateY(-2px); }
+        .use-case-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+        .use-case h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .use-case p { color: var(--dim); font-size: 0.9rem; line-height: 1.6; }
+
+        /* Process Steps */
+        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 1rem; }
+        .process-step { text-align: center; padding: 1.5rem; }
+        .step-num { width: 48px; height: 48px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; margin: 0 auto 1rem; }
+        .process-step h3 { font-weight: 700; margin-bottom: 0.5rem; font-size: 1.05rem; }
+        .process-step p { color: var(--dim); font-size: 0.9rem; }
+
+        /* Pricing Cards */
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .pricing-card {
+            background: white; border: 2px solid var(--border); border-radius: 16px;
+            padding: 2rem; transition: all 0.3s; position: relative;
+        }
+        .pricing-card:hover { border-color: var(--accent); box-shadow: var(--card-shadow); transform: translateY(-2px); }
+        .pricing-card.featured { border-color: var(--accent); }
+        .pricing-card.featured::before {
+            content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+            background: var(--accent); color: white; padding: 0.2rem 1rem; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700;
+        }
+        .pricing-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .pricing-card .price { font-size: 2rem; font-weight: 800; color: var(--accent); margin: 0.5rem 0; }
+        .pricing-card .price span { font-size: 1rem; color: var(--dim); font-weight: 400; }
+        .pricing-card p.pricing-desc { color: var(--dim); font-size: 0.88rem; margin-bottom: 1rem; }
+        .pricing-card ul { list-style: none; margin-bottom: 1.5rem; }
+        .pricing-card ul li { padding: 0.4rem 0; font-size: 0.88rem; color: var(--text); display: flex; align-items: start; gap: 0.5rem; }
+        .pricing-card ul li::before { content: '\2713'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+        .pricing-card .pkg-btn { display: block; text-align: center; padding: 0.7rem; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 0.9rem; transition: all 0.2s; }
+        .pricing-card .pkg-btn.primary { background: var(--accent); color: white; }
+        .pricing-card .pkg-btn.primary:hover { opacity: 0.9; }
+        .pricing-card .pkg-btn.secondary { background: var(--accent-light); color: var(--accent); }
+        .pricing-card .pkg-btn.secondary:hover { background: #dbeafe; }
+
+        /* Tech Section */
+        .tech-section { background: #f9fafb; border-radius: 20px; padding: 3rem; margin-top: 1rem; }
+        .tech-section h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .tech-section > p { color: var(--dim); margin-bottom: 2rem; max-width: 700px; font-size: 0.95rem; }
+        .tech-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .tech-badge { padding: 0.5rem 1.2rem; background: white; border: 1px solid var(--border); border-radius: 8px; font-size: 0.85rem; font-weight: 600; color: var(--text); }
+        .tech-note { color: var(--dim); font-size: 0.9rem; font-style: italic; line-height: 1.6; max-width: 700px; }
+
+        /* FAQ */
+        .faq-list { max-width: 750px; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-question {
+            width: 100%; background: none; border: none; cursor: pointer;
+            padding: 1.25rem 0; font-size: 1rem; font-weight: 600; color: var(--text);
+            text-align: left; display: flex; justify-content: space-between; align-items: center;
+            font-family: inherit; line-height: 1.4;
+        }
+        .faq-question:hover { color: var(--accent); }
+        .faq-arrow { font-size: 1.2rem; transition: transform 0.3s; color: var(--dim); flex-shrink: 0; margin-left: 1rem; }
+        .faq-item.open .faq-arrow { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-answer-inner { padding: 0 0 1.25rem; color: var(--dim); font-size: 0.92rem; line-height: 1.7; }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            color: white; text-align: center; padding: 4rem 2rem; border-radius: 20px;
+            margin: 2rem auto; max-width: 1100px;
+        }
+        .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .cta-section p { opacity: 0.85; margin-bottom: 2rem; max-width: 550px; margin-left: auto; margin-right: auto; }
+        .cta-section .btn { background: white; color: var(--accent); }
+        .cta-section .btn:hover { transform: translateY(-1px); }
+
+        /* Footer */
+        footer { text-align: center; padding: 3rem 2rem; border-top: 1px solid var(--border); color: var(--dim); font-size: 0.85rem; }
+        footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        footer a:hover { text-decoration: underline; }
+
+        /* Mobile Nav Toggle */
+        .nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text); padding: 0.25rem; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-toggle { display: block; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: white; padding: 1rem 2rem 1.5rem; border-bottom: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.08); gap: 1rem; }
+            .nav-links.open { display: flex; }
+            .nav-cta { text-align: center; }
+            .hero { padding: 3rem 1.5rem 2.5rem; }
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            section { padding: 3rem 1.5rem; }
+            .section-title { font-size: 1.6rem; }
+            .tech-section { padding: 2rem 1.5rem; }
+            .cta-section { margin: 2rem 1rem; padding: 3rem 1.5rem; }
+            .cta-section h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <a href="https://tayko.dev/" class="nav-brand">TAYKO.DEV</a>
+        <button class="nav-toggle" aria-label="Toggle navigation menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+        <div class="nav-links">
+            <a href="https://tayko.dev/">Home</a>
+            <a href="https://tayko.dev/#services">Services</a>
+            <a href="https://tayko.dev/ai-tools">AI Tools</a>
+            <a href="https://tayko.dev/#work">Work</a>
+            <a href="https://tayko.dev/#contact" class="nav-cta">Get a Free Quote</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <p class="section-label">AI Development Services</p>
+        <h1><span>AI-Powered Tools</span> Built for Your Business</h1>
+        <p>AI isn't just for big tech companies anymore. I build custom AI tools that save small businesses real time and money — tailored to the way you actually work.</p>
+        <p class="hero-price">Custom AI tools starting at $2,000</p>
+        <div class="hero-ctas">
+            <a href="https://tayko.dev/#contact" class="btn btn-primary">Book a Free Consultation</a>
+            <a href="#pricing" class="btn btn-secondary">View Pricing</a>
+        </div>
+    </header>
+
+    <!-- What AI Can Do -->
+    <section>
+        <p class="section-label">Capabilities</p>
+        <h2 class="section-title">What AI Can Do for Your Business</h2>
+        <p class="section-desc">From customer support to data analysis, AI tools handle the work that eats up your day so you can focus on growing your business.</p>
+        <div class="use-cases">
+            <div class="use-case">
+                <div class="use-case-icon" aria-hidden="true">&#x1F4AC;</div>
+                <h3>Smart Customer Support</h3>
+                <p>An AI chatbot trained on YOUR business info. It answers customer questions 24/7, handles FAQs, and routes complex issues to your team — no missed leads, no wait times.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon" aria-hidden="true">&#x270D;&#xFE0F;</div>
+                <h3>Content Generation</h3>
+                <p>Auto-generate social media posts, email campaigns, and product descriptions in your brand voice. Weeks of content created in minutes, not hours.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon" aria-hidden="true">&#x1F4CA;</div>
+                <h3>Data Analysis</h3>
+                <p>Turn your spreadsheets and business data into clear insights, trend reports, and actionable recommendations. Make smarter decisions without hiring an analyst.</p>
+            </div>
+            <div class="use-case">
+                <div class="use-case-icon" aria-hidden="true">&#x26A1;</div>
+                <h3>Process Automation</h3>
+                <p>Automate the repetitive tasks draining your week — scheduling, invoicing, inventory alerts, customer follow-ups, and more. Set it and forget it.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section>
+        <p class="section-label">The Process</p>
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-desc">No jargon. No bloated timelines. Just a clear path from your biggest time-wasters to a working AI tool.</p>
+        <div class="process-steps">
+            <div class="process-step">
+                <div class="step-num">1</div>
+                <h3>Tell Me What's Eating Your Time</h3>
+                <p>We hop on a free 30-minute call to map out the tasks and workflows that slow your business down.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">2</div>
+                <h3>I Build Your Custom AI Tool</h3>
+                <p>I design and develop an AI solution built around your specific data, processes, and goals. No cookie-cutter templates.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-num">3</div>
+                <h3>You Save Hours Every Week</h3>
+                <p>Your tool goes live, you get trained on how to use it, and the AI handles the heavy lifting from day one.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+        <p class="section-label">Pricing</p>
+        <h2 class="section-title">AI Tools for Every Budget</h2>
+        <p class="section-desc">Transparent pricing. No hidden fees. Every package includes a training session and dedicated support.</p>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>AI Starter</h3>
+                <div class="price">$2,000</div>
+                <p class="pricing-desc">Perfect for businesses ready to test the waters with their first AI tool.</p>
+                <ul>
+                    <li>Single custom AI tool</li>
+                    <li>One platform integration</li>
+                    <li>Hands-on training session</li>
+                    <li>30-day support &amp; bug fixes</li>
+                    <li>User-friendly interface</li>
+                </ul>
+                <a href="https://tayko.dev/#contact" class="pkg-btn secondary">Get Started</a>
+            </div>
+            <div class="pricing-card featured">
+                <h3>AI Pro</h3>
+                <div class="price">$3,500</div>
+                <p class="pricing-desc">Multiple AI tools working together with a custom dashboard and integrations.</p>
+                <ul>
+                    <li>Multiple AI tools</li>
+                    <li>Custom dashboard</li>
+                    <li>API integrations (CRM, email, etc.)</li>
+                    <li>60-day support &amp; optimization</li>
+                    <li>Performance analytics</li>
+                </ul>
+                <a href="https://tayko.dev/#contact" class="pkg-btn primary">Get Started</a>
+            </div>
+            <div class="pricing-card">
+                <h3>AI Enterprise</h3>
+                <div class="price">$5,000<span>+</span></div>
+                <p class="pricing-desc">A full AI system designed around your entire operation.</p>
+                <ul>
+                    <li>Full AI system build-out</li>
+                    <li>Multiple workflow automations</li>
+                    <li>Ongoing optimization &amp; updates</li>
+                    <li>Priority support</li>
+                    <li>Scalable architecture</li>
+                </ul>
+                <a href="https://tayko.dev/#contact" class="pkg-btn secondary">Contact Me</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section>
+        <div class="tech-section">
+            <p class="section-label">Technology</p>
+            <h2>Built With Enterprise-Grade AI</h2>
+            <p>The same AI technology powering tools at Amazon and Google, custom-built for YOUR business at a fraction of the cost.</p>
+            <div class="tech-grid">
+                <span class="tech-badge">Claude API (Anthropic)</span>
+                <span class="tech-badge">OpenAI / GPT</span>
+                <span class="tech-badge">Vector Databases</span>
+                <span class="tech-badge">Python</span>
+                <span class="tech-badge">FastAPI</span>
+                <span class="tech-badge">LangChain</span>
+                <span class="tech-badge">REST APIs</span>
+                <span class="tech-badge">React Dashboards</span>
+            </div>
+            <p class="tech-note">Every tool is built with security, reliability, and scalability as the foundation. Your data stays private and your AI tool works around the clock.</p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+        <p class="section-label">FAQ</p>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-desc">Common questions about AI tools for your business.</p>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px';" aria-expanded="false">
+                    What kind of AI tools can you build?
+                    <span class="faq-arrow" aria-hidden="true">&#x25BC;</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">I build custom AI chatbots trained on your business data, content generation tools, data analysis dashboards, and process automation systems. Every tool is tailored to your specific workflow — whether that's customer support, lead generation, inventory management, or internal operations.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px';" aria-expanded="false">
+                    Is AI safe for my business data?
+                    <span class="faq-arrow" aria-hidden="true">&#x25BC;</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">Absolutely. I use enterprise-grade AI APIs from Anthropic (Claude) and OpenAI with strict data privacy policies. Your business data is never used to train AI models. I also implement encryption, access controls, and secure API handling so your information stays protected.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px';" aria-expanded="false">
+                    Do I need technical knowledge to use it?
+                    <span class="faq-arrow" aria-hidden="true">&#x25BC;</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">Not at all. Every AI tool I build comes with a simple, user-friendly interface and a hands-on training session. If you can use a web browser, you can use your custom AI tool. I also provide documentation and ongoing support.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px';" aria-expanded="false">
+                    How long does it take to build?
+                    <span class="faq-arrow" aria-hidden="true">&#x25BC;</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">Most AI tools are delivered within 2 to 4 weeks depending on complexity. A single chatbot or automation tool can often be ready in under 2 weeks. Larger systems with multiple integrations typically take 3 to 6 weeks.</div>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('open'); var a=this.nextElementSibling; a.style.maxHeight=a.style.maxHeight?null:a.scrollHeight+'px';" aria-expanded="false">
+                    Can the AI tool grow with my business?
+                    <span class="faq-arrow" aria-hidden="true">&#x25BC;</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-inner">Yes. Every tool is built with scalability in mind. As your business grows, I can add new features, connect additional data sources, and expand automation workflows. The AI Pro and Enterprise packages include ongoing optimization to keep your tools performing as your needs evolve.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <h2>Let's Find Where AI Saves You Time</h2>
+        <p>Book a free 30-minute consultation. I'll map out exactly where AI can cut hours from your week — no commitment, no jargon, just a clear plan.</p>
+        <a href="https://tayko.dev/#contact" class="btn">Book My Free Consultation</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 TAYKO.DEV</p>
+        <p style="margin-top: 0.5rem;"><a href="https://tayko.dev/">Home</a> &middot; <a href="https://tayko.dev/#services">Services</a> &middot; <a href="https://tayko.dev/ai-tools">AI Tools</a> &middot; <a href="https://tayko.dev/#contact">Contact</a></p>
+    </footer>
+
+</body>
+</html>
