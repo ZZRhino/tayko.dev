@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Listings — Tayko.Dev SEO Backlinks</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #e2e8f0;
+            --dim: #94a3b8;
+            --accent: #2563eb;
+            --green: #10b981;
+            --border: #334155;
+            --yellow: #eab308;
+            --orange: #f97316;
+            --red: #ef4444;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+        .header { text-align: center; padding: 3rem 2rem 1rem; }
+        .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .header p { color: var(--dim); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 1rem 2rem 4rem; }
+
+        /* Progress Tracker */
+        .progress-tracker { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+        .progress-tracker h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem; }
+        .progress-bar-bg { background: #0f172a; border-radius: 10px; height: 20px; overflow: hidden; margin-bottom: 0.8rem; }
+        .progress-bar-fill { background: linear-gradient(90deg, var(--accent), var(--green)); height: 100%; border-radius: 10px; transition: width 0.4s ease; }
+        .progress-text { font-size: 1.5rem; font-weight: 800; color: var(--green); }
+        .progress-text span { color: var(--dim); font-weight: 400; font-size: 1rem; }
+
+        .progress-breakdown { display: flex; justify-content: center; gap: 2rem; margin-top: 1rem; flex-wrap: wrap; }
+        .progress-breakdown .stat { font-size: 0.85rem; color: var(--dim); }
+        .progress-breakdown .stat strong { color: var(--text); }
+
+        /* Section Headers */
+        .section-header { margin: 2.5rem 0 1rem; padding: 0.8rem 1.2rem; border-radius: 10px; font-size: 1.1rem; font-weight: 700; }
+        .section-high { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .section-medium { background: rgba(234, 179, 8, 0.15); color: #fde047; border: 1px solid rgba(234, 179, 8, 0.3); }
+        .section-low { background: rgba(148, 163, 184, 0.15); color: var(--dim); border: 1px solid rgba(148, 163, 184, 0.3); }
+
+        /* Directory Card */
+        .dir-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 2rem; margin-bottom: 1rem; transition: border-color 0.2s; }
+        .dir-card.completed { border-color: var(--green); opacity: 0.7; }
+        .dir-card.completed .dir-name { text-decoration: line-through; color: var(--dim); }
+
+        .dir-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .dir-checkbox { width: 22px; height: 22px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+        .dir-name { font-size: 1.2rem; font-weight: 700; flex: 1; }
+        .dir-priority { font-size: 0.7rem; font-weight: 600; padding: 0.25rem 0.7rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .priority-high { background: #059669; color: white; }
+        .priority-medium { background: #ca8a04; color: white; }
+        .priority-low { background: #475569; color: white; }
+
+        .dir-link { display: inline-block; margin-bottom: 1rem; }
+        .dir-link a { color: var(--accent); text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+        .dir-link a:hover { text-decoration: underline; }
+
+        .dir-note { font-size: 0.85rem; color: var(--dim); font-style: italic; margin-bottom: 1rem; }
+
+        /* Pre-filled Info */
+        .prefilled { background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; font-size: 0.88rem; position: relative; margin-top: 0.5rem; }
+        .prefilled-label { font-size: 0.75rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .prefilled-row { display: flex; gap: 0.5rem; margin-bottom: 0.3rem; }
+        .prefilled-key { color: var(--dim); min-width: 100px; flex-shrink: 0; font-weight: 500; }
+        .prefilled-val { color: var(--text); word-break: break-word; }
+
+        .copy-all-btn { position: absolute; top: 0.6rem; right: 0.6rem; background: var(--accent); color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .copy-all-btn:hover { opacity: 0.9; }
+        .copy-all-btn.copied { background: var(--green); }
+
+        .toggle-info { background: none; border: 1px solid var(--border); color: var(--dim); padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; cursor: pointer; transition: all 0.2s; }
+        .toggle-info:hover { color: var(--text); border-color: var(--text); }
+
+        .prefilled-section { display: none; }
+        .prefilled-section.open { display: block; }
+
+        @media (max-width: 768px) {
+            .dir-card { padding: 1.2rem; }
+            .header h1 { font-size: 1.5rem; }
+            .prefilled-row { flex-direction: column; gap: 0; }
+            .prefilled-key { min-width: unset; }
+            .progress-breakdown { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Directory Listings Checklist</h1>
+    <p>Free business directories to submit Tayko.Dev for SEO backlinks. Check off as you complete each one.</p>
+</div>
+
+<div class="container">
+
+<!-- Progress Tracker -->
+<div class="progress-tracker">
+    <h2>Submission Progress</h2>
+    <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+    </div>
+    <div class="progress-text"><span id="completedCount">0</span> of 24 completed</div>
+    <div class="progress-breakdown">
+        <div class="stat">High: <strong id="highCount">0</strong>/8</div>
+        <div class="stat">Medium: <strong id="medCount">0</strong>/8</div>
+        <div class="stat">Low: <strong id="lowCount">0</strong>/8</div>
+    </div>
+</div>
+
+<!-- HIGH PRIORITY -->
+<div class="section-header section-high">HIGH PRIORITY -- Do Today</div>
+
+<div class="dir-card" data-id="google-business" data-priority="high">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Google Business Profile</div>
+        <span class="dir-priority priority-high">High</span>
+    </div>
+    <div class="dir-link"><a href="https://business.google.com" target="_blank">business.google.com</a></div>
+    <div class="dir-note">Already started -- finish setting up the profile.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="bing-places" data-priority="high">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Bing Places</div>
+        <span class="dir-priority priority-high">High</span>
+    </div>
+    <div class="dir-link"><a href="https://bingplaces.com" target="_blank">bingplaces.com</a></div>
+    <div class="dir-note">Can import from Google Business Profile to save time.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Software Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="apple-maps" data-priority="high">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Apple Maps</div>
+        <span class="dir-priority priority-high">High</span>
+    </div>
+    <div class="dir-link"><a href="https://mapsconnect.apple.com" target="_blank">mapsconnect.apple.com</a></div>
+    <div class="dir-note">Use your Apple ID to sign in. Shows up on Siri and iPhone searches.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="yelp" data-priority="high">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Yelp</div>
+        <span class="dir-priority priority-high">High</span>
+    </div>
+    <div class="dir-link"><a href="https://biz.yelp.com" target="_blank">biz.yelp.com</a></div>
+    <div class="dir-note">Claim your business page. Add photos of your work (screenshots of tayko.dev).</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Design / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="facebook-business" data-priority="high">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Facebook Business Page</div>
+        <span class="dir-priority priority-high">High</span>
+    </div>
+    <div class="dir-link"><a href="https://facebook.com/pages/create" target="_blank">facebook.com/pages/create</a></div>
+    <div class="dir-note">Create a Business page (not personal profile). Choose "Local Business" category.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Software Company</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="linkedin-company" data-priority="high">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">LinkedIn Company Page</div>
+        <span class="dir-priority priority-high">High</span>
+    </div>
+    <div class="dir-link"><a href="https://linkedin.com/company/setup" target="_blank">linkedin.com/company/setup</a></div>
+    <div class="dir-note">Create a Company page (separate from your personal profile). Add tayko.dev as the website.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Software Development / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="clutch" data-priority="high">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Clutch.co</div>
+        <span class="dir-priority priority-high">High</span>
+    </div>
+    <div class="dir-link"><a href="https://clutch.co" target="_blank">clutch.co</a></div>
+    <div class="dir-note">Top web development directory. Create a company profile -- strong backlink for dev agencies.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Development / Custom Software Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="github-profile" data-priority="high">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">GitHub Profile</div>
+        <span class="dir-priority priority-high">High</span>
+    </div>
+    <div class="dir-link"><a href="https://github.com/ZZRhino" target="_blank">github.com/ZZRhino</a></div>
+    <div class="dir-note">Already have account. Make sure bio includes tayko.dev link and description. Pin best repos.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Bio:</span><span class="prefilled-val">Full-stack web developer | Next.js, React, TypeScript, Python | Building tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Location:</span><span class="prefilled-val">Gilbert, AZ</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- MEDIUM PRIORITY -->
+<div class="section-header section-medium">MEDIUM PRIORITY -- This Week</div>
+
+<div class="dir-card" data-id="alignable" data-priority="medium">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Alignable</div>
+        <span class="dir-priority priority-medium">Medium</span>
+    </div>
+    <div class="dir-link"><a href="https://alignable.com" target="_blank">alignable.com</a></div>
+    <div class="dir-note">Local business networking platform. Great for connecting with Gilbert/Phoenix business owners.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="nextdoor" data-priority="medium">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Nextdoor Business</div>
+        <span class="dir-priority priority-medium">Medium</span>
+    </div>
+    <div class="dir-link"><a href="https://business.nextdoor.com" target="_blank">business.nextdoor.com</a></div>
+    <div class="dir-note">Hyper-local. Neighbors recommend businesses here. Free business page.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="thumbtack" data-priority="medium">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Thumbtack</div>
+        <span class="dir-priority priority-medium">Medium</span>
+    </div>
+    <div class="dir-link"><a href="https://thumbtack.com" target="_blank">thumbtack.com</a></div>
+    <div class="dir-note">Service marketplace. People actively search for web developers here.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Design</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="bark" data-priority="medium">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Bark.com</div>
+        <span class="dir-priority priority-medium">Medium</span>
+    </div>
+    <div class="dir-link"><a href="https://bark.com" target="_blank">bark.com</a></div>
+    <div class="dir-note">Lead generation for service providers. You get matched with clients looking for web devs.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Design</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="designrush" data-priority="medium">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">DesignRush</div>
+        <span class="dir-priority priority-medium">Medium</span>
+    </div>
+    <div class="dir-link"><a href="https://designrush.com" target="_blank">designrush.com</a></div>
+    <div class="dir-note">Agency/freelancer directory focused on design and development. Good industry backlink.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Development / Web Design / Software Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="goodfirms" data-priority="medium">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">GoodFirms</div>
+        <span class="dir-priority priority-medium">Medium</span>
+    </div>
+    <div class="dir-link"><a href="https://goodfirms.co" target="_blank">goodfirms.co</a></div>
+    <div class="dir-note">IT and software company directory. High domain authority backlink.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Development / Software Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="expertise" data-priority="medium">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Expertise.com</div>
+        <span class="dir-priority priority-medium">Medium</span>
+    </div>
+    <div class="dir-link"><a href="https://expertise.com" target="_blank">expertise.com</a></div>
+    <div class="dir-note">Ranks "best of" lists for local services. Claim or add your business listing.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Design</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="bbb" data-priority="medium">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">BBB (Better Business Bureau)</div>
+        <span class="dir-priority priority-medium">Medium</span>
+    </div>
+    <div class="dir-link"><a href="https://bbb.org" target="_blank">bbb.org</a></div>
+    <div class="dir-note">Builds trust. Free listing available (paid accreditation is optional). High authority backlink.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Design / Software Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- LOW PRIORITY -->
+<div class="section-header section-low">LOW PRIORITY -- When You Have Time</div>
+
+<div class="dir-card" data-id="hotfrog" data-priority="low">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Hotfrog</div>
+        <span class="dir-priority priority-low">Low</span>
+    </div>
+    <div class="dir-link"><a href="https://hotfrog.com" target="_blank">hotfrog.com</a></div>
+    <div class="dir-note">Free business directory. Quick to set up.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="manta" data-priority="low">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Manta</div>
+        <span class="dir-priority priority-low">Low</span>
+    </div>
+    <div class="dir-link"><a href="https://manta.com" target="_blank">manta.com</a></div>
+    <div class="dir-note">Small business directory. Free listing with backlink.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="mapquest" data-priority="low">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">MapQuest</div>
+        <span class="dir-priority priority-low">Low</span>
+    </div>
+    <div class="dir-link"><a href="https://mapquest.com" target="_blank">mapquest.com</a></div>
+    <div class="dir-note">Pulls from Yext/other aggregators. Add listing for citation consistency.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="yellowpages" data-priority="low">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">YellowPages</div>
+        <span class="dir-priority priority-low">Low</span>
+    </div>
+    <div class="dir-link"><a href="https://yellowpages.com" target="_blank">yellowpages.com</a></div>
+    <div class="dir-note">Classic directory. Still has decent domain authority for backlinks.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="superpages" data-priority="low">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Superpages</div>
+        <span class="dir-priority priority-low">Low</span>
+    </div>
+    <div class="dir-link"><a href="https://superpages.com" target="_blank">superpages.com</a></div>
+    <div class="dir-note">Owned by same company as YellowPages. Additional citation/backlink.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="citysearch" data-priority="low">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">CitySearch</div>
+        <span class="dir-priority priority-low">Low</span>
+    </div>
+    <div class="dir-link"><a href="https://citysearch.com" target="_blank">citysearch.com</a></div>
+    <div class="dir-note">Local business directory. Free listing available.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="local" data-priority="low">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">Local.com</div>
+        <span class="dir-priority priority-low">Low</span>
+    </div>
+    <div class="dir-link"><a href="https://local.com" target="_blank">local.com</a></div>
+    <div class="dir-note">Aggregator directory. Another citation for NAP consistency.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="dir-card" data-id="merchantcircle" data-priority="low">
+    <div class="dir-top">
+        <input type="checkbox" class="dir-checkbox" onchange="toggleDone(this)">
+        <div class="dir-name">MerchantCircle</div>
+        <span class="dir-priority priority-low">Low</span>
+    </div>
+    <div class="dir-link"><a href="https://merchantcircle.com" target="_blank">merchantcircle.com</a></div>
+    <div class="dir-note">Free local business directory and networking. Quick sign-up.</div>
+    <button class="toggle-info" onclick="togglePrefilled(this)">Show pre-filled info</button>
+    <div class="prefilled-section">
+        <div class="prefilled">
+            <button class="copy-all-btn" onclick="copyPrefilled(this)">Copy All</button>
+            <div class="prefilled-label">What to Enter</div>
+            <div class="prefilled-row"><span class="prefilled-key">Business Name:</span><span class="prefilled-val">Tayko.Dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Category:</span><span class="prefilled-val">Web Developer / Web Development</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Address:</span><span class="prefilled-val">Gilbert, AZ (service area business)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Phone:</span><span class="prefilled-val">(add later)</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Website:</span><span class="prefilled-val">https://tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Email:</span><span class="prefilled-val">taylor@tayko.dev</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Description:</span><span class="prefilled-val">Custom websites, web apps, and AI-powered business tools for small businesses. Modern, fast, mobile-friendly. Starting at $500. Serving Gilbert, Phoenix metro, and clients nationwide.</span></div>
+            <div class="prefilled-row"><span class="prefilled-key">Hours:</span><span class="prefilled-val">Mon-Fri 9am-6pm MST</span></div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+const STORAGE_KEY = 'tayko-directory-listings';
+
+function loadState() {
+    try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+    } catch { return {}; }
+}
+
+function saveState(state) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function toggleDone(checkbox) {
+    const card = checkbox.closest('.dir-card');
+    const id = card.dataset.id;
+    const state = loadState();
+    state[id] = checkbox.checked;
+    saveState(state);
+    card.classList.toggle('completed', checkbox.checked);
+    updateProgress();
+}
+
+function updateProgress() {
+    const state = loadState();
+    const cards = document.querySelectorAll('.dir-card');
+    let total = 0, high = 0, med = 0, low = 0;
+
+    cards.forEach(card => {
+        if (state[card.dataset.id]) {
+            total++;
+            if (card.dataset.priority === 'high') high++;
+            if (card.dataset.priority === 'medium') med++;
+            if (card.dataset.priority === 'low') low++;
+        }
+    });
+
+    document.getElementById('completedCount').textContent = total;
+    document.getElementById('highCount').textContent = high;
+    document.getElementById('medCount').textContent = med;
+    document.getElementById('lowCount').textContent = low;
+    document.getElementById('progressBar').style.width = ((total / 24) * 100) + '%';
+}
+
+function togglePrefilled(btn) {
+    const section = btn.nextElementSibling;
+    const isOpen = section.classList.toggle('open');
+    btn.textContent = isOpen ? 'Hide pre-filled info' : 'Show pre-filled info';
+}
+
+function copyPrefilled(btn) {
+    const container = btn.parentElement;
+    const rows = container.querySelectorAll('.prefilled-row');
+    let text = '';
+    rows.forEach(row => {
+        const key = row.querySelector('.prefilled-key').textContent;
+        const val = row.querySelector('.prefilled-val').textContent;
+        text += key + ' ' + val + '\n';
+    });
+    navigator.clipboard.writeText(text.trim()).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = 'Copy All';
+            btn.classList.remove('copied');
+        }, 2000);
+    });
+}
+
+// Restore state on load
+document.addEventListener('DOMContentLoaded', () => {
+    const state = loadState();
+    document.querySelectorAll('.dir-card').forEach(card => {
+        const id = card.dataset.id;
+        if (state[id]) {
+            const cb = card.querySelector('.dir-checkbox');
+            cb.checked = true;
+            card.classList.add('completed');
+        }
+    });
+    updateProgress();
+});
+</script>
+
+</body>
+</html>
