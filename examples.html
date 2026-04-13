@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Design Examples & Templates | Tayko.Dev Portfolio</title>
+    <meta name="description" content="Browse real website design examples and small business website templates built by Tayko.Dev. Restaurant, auto shop, salon, gym, real estate, and education sites — all mobile-friendly and ready to launch.">
+    <meta name="keywords" content="website design examples, small business website templates, restaurant website, auto shop website, salon website, gym website, real estate website, education website">
+    <meta name="author" content="Taylor Kott — Tayko.Dev">
+    <meta name="google-site-verification" content="URC-SxnHtgKV9QNDCQEIv4MzHNPlGWQsI3E57-aoDeI">
+    <link rel="canonical" href="https://tayko.dev/examples">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Website Design Examples & Templates | Tayko.Dev Portfolio">
+    <meta property="og:description" content="Browse real website design examples built by Tayko.Dev. Custom, mobile-friendly sites for restaurants, auto shops, salons, gyms, real estate, and more.">
+    <meta property="og:url" content="https://tayko.dev/examples">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Website Design Examples & Templates | Tayko.Dev Portfolio">
+    <meta name="twitter:description" content="Browse real website design examples built by Tayko.Dev. Custom, mobile-friendly sites for small businesses.">
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a2e;
+            --dim: #6b7280;
+            --accent: #2563eb;
+            --accent-light: #eff6ff;
+            --green: #059669;
+            --green-light: #ecfdf5;
+            --border: #e5e7eb;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            --card-shadow-lg: 0 4px 6px rgba(0,0,0,0.07), 0 10px 40px rgba(0,0,0,0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+
+        /* Nav */
+        .nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 100; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-brand { font-weight: 800; font-size: 1.2rem; color: var(--accent); text-decoration: none; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: var(--dim); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-cta { background: var(--accent); color: white !important; padding: 0.5rem 1.2rem; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: opacity 0.2s; }
+        .nav-cta:hover { opacity: 0.9; }
+
+        /* Hero */
+        .hero { max-width: 900px; margin: 0 auto; padding: 5rem 2rem 3rem; text-align: center; }
+        .hero-badge { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 0.4rem 1.2rem; border-radius: 100px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 1.5rem; text-transform: uppercase; }
+        .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+        .hero h1 span { color: var(--accent); }
+        .hero p { font-size: 1.15rem; color: var(--dim); max-width: 640px; margin: 0 auto 2rem; }
+        .hero-stats { display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+        .hero-stat { text-align: center; }
+        .hero-stat .num { font-size: 1.8rem; font-weight: 800; color: var(--accent); }
+        .hero-stat .label { font-size: 0.8rem; color: var(--dim); font-weight: 500; }
+
+        /* Gallery */
+        .gallery-section { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2rem; }
+
+        /* Template Card */
+        .template-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        .template-card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--card-shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        /* Browser Preview */
+        .browser-frame {
+            background: #f8f9fa;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .browser-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 14px;
+            background: #e9ecef;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .browser-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .browser-dot.red { background: #ff5f57; }
+        .browser-dot.yellow { background: #febc2e; }
+        .browser-dot.green { background: #28c840; }
+        .browser-url {
+            flex: 1;
+            margin-left: 8px;
+            background: white;
+            border-radius: 4px;
+            padding: 3px 10px;
+            font-size: 0.65rem;
+            color: var(--dim);
+            font-family: monospace;
+        }
+        .browser-content {
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Mini site previews */
+        .mini-site { width: 100%; height: 100%; position: relative; }
+
+        /* The Ember Table - Restaurant */
+        .preview-restaurant {
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+        .preview-restaurant .mini-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 16px; background: rgba(0,0,0,0.4);
+        }
+        .preview-restaurant .mini-logo { font-size: 0.6rem; font-weight: 800; color: #c4a962; letter-spacing: 1px; }
+        .preview-restaurant .mini-nav-links { display: flex; gap: 8px; }
+        .preview-restaurant .mini-nav-link { width: 20px; height: 2px; background: rgba(255,255,255,0.3); border-radius: 1px; }
+        .preview-restaurant .mini-hero {
+            text-align: center; padding: 24px 16px 12px;
+        }
+        .preview-restaurant .mini-hero-title { font-size: 0.9rem; font-weight: 800; color: #c4a962; margin-bottom: 4px; }
+        .preview-restaurant .mini-hero-sub { font-size: 0.45rem; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+        .preview-restaurant .mini-hero-btn { display: inline-block; padding: 3px 12px; background: #4a7c59; color: white; font-size: 0.4rem; border-radius: 3px; font-weight: 600; }
+        .preview-restaurant .mini-cards {
+            display: flex; gap: 6px; padding: 8px 16px; justify-content: center;
+        }
+        .preview-restaurant .mini-card {
+            width: 60px; height: 40px; background: rgba(196,169,98,0.1); border: 1px solid rgba(196,169,98,0.2);
+            border-radius: 4px; padding: 4px; text-align: center;
+        }
+        .preview-restaurant .mini-card-icon { font-size: 0.5rem; margin-bottom: 2px; }
+        .preview-restaurant .mini-card-text { width: 80%; height: 2px; background: rgba(255,255,255,0.15); margin: 2px auto; border-radius: 1px; }
+
+        /* Precision Auto - Auto Shop */
+        .preview-auto {
+            background: linear-gradient(180deg, #0f0f0f 0%, #1a1a2e 100%);
+        }
+        .preview-auto .mini-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 16px; border-bottom: 2px solid #e63946;
+        }
+        .preview-auto .mini-logo { font-size: 0.55rem; font-weight: 900; color: #e63946; text-transform: uppercase; letter-spacing: 1px; }
+        .preview-auto .mini-hero {
+            padding: 20px 16px 10px; display: flex; gap: 12px; align-items: center;
+        }
+        .preview-auto .mini-hero-text { flex: 1; }
+        .preview-auto .mini-hero-title { font-size: 0.7rem; font-weight: 800; color: white; margin-bottom: 3px; line-height: 1.2; }
+        .preview-auto .mini-hero-sub { font-size: 0.4rem; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+        .preview-auto .mini-hero-btn { display: inline-block; padding: 3px 10px; background: #e63946; color: white; font-size: 0.4rem; border-radius: 3px; font-weight: 700; }
+        .preview-auto .mini-hero-img { width: 80px; height: 60px; background: linear-gradient(135deg, #1a1a2e, #2a2a4e); border-radius: 6px; border: 1px solid rgba(230,57,70,0.3); display: flex; align-items: center; justify-content: center; }
+        .preview-auto .mini-hero-img::after { content: ''; display: block; width: 24px; height: 24px; border: 2px solid rgba(230,57,70,0.4); border-radius: 50%; }
+        .preview-auto .mini-services {
+            display: flex; gap: 4px; padding: 8px 16px;
+        }
+        .preview-auto .mini-service {
+            flex: 1; background: rgba(230,57,70,0.08); border: 1px solid rgba(230,57,70,0.15);
+            border-radius: 4px; padding: 6px 4px; text-align: center;
+        }
+        .preview-auto .mini-service-icon { font-size: 0.55rem; margin-bottom: 2px; }
+        .preview-auto .mini-service-text { width: 70%; height: 2px; background: rgba(255,255,255,0.12); margin: 2px auto; border-radius: 1px; }
+
+        /* Bloom & Co - Salon */
+        .preview-salon {
+            background: linear-gradient(180deg, #fdf2f8 0%, #fff1f5 100%);
+        }
+        .preview-salon .mini-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 16px; background: white; border-bottom: 1px solid #f3d5e0;
+        }
+        .preview-salon .mini-logo { font-size: 0.6rem; font-weight: 700; color: #be185d; font-style: italic; }
+        .preview-salon .mini-hero {
+            text-align: center; padding: 18px 16px 10px;
+        }
+        .preview-salon .mini-hero-title { font-size: 0.8rem; font-weight: 700; color: #be185d; margin-bottom: 3px; font-style: italic; }
+        .preview-salon .mini-hero-sub { font-size: 0.4rem; color: #9ca3af; margin-bottom: 6px; }
+        .preview-salon .mini-hero-btn { display: inline-block; padding: 3px 14px; background: linear-gradient(135deg, #be185d, #db2777); color: white; font-size: 0.4rem; border-radius: 20px; font-weight: 600; }
+        .preview-salon .mini-cards {
+            display: flex; gap: 6px; padding: 8px 16px; justify-content: center;
+        }
+        .preview-salon .mini-card {
+            width: 65px; height: 50px; background: white; border: 1px solid #f3d5e0;
+            border-radius: 8px; padding: 6px; text-align: center; box-shadow: 0 1px 3px rgba(190,24,93,0.05);
+        }
+        .preview-salon .mini-card-dot { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #fce7f3, #fbcfe8); margin: 0 auto 3px; border: 1px solid #f9a8d4; }
+        .preview-salon .mini-card-text { width: 70%; height: 2px; background: #f3d5e0; margin: 2px auto; border-radius: 1px; }
+
+        /* Summit Fitness - Gym */
+        .preview-gym {
+            background: linear-gradient(180deg, #0c0c0c 0%, #1a1a1a 100%);
+        }
+        .preview-gym .mini-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 16px; background: rgba(0,0,0,0.5);
+        }
+        .preview-gym .mini-logo { font-size: 0.6rem; font-weight: 900; color: #f97316; text-transform: uppercase; letter-spacing: 2px; }
+        .preview-gym .mini-hero {
+            text-align: center; padding: 16px 16px 8px;
+            background: linear-gradient(180deg, rgba(249,115,22,0.1) 0%, transparent 100%);
+        }
+        .preview-gym .mini-hero-title { font-size: 0.75rem; font-weight: 900; color: white; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+        .preview-gym .mini-hero-accent { font-size: 0.75rem; font-weight: 900; color: #f97316; }
+        .preview-gym .mini-hero-sub { font-size: 0.4rem; color: rgba(255,255,255,0.4); margin: 4px 0 6px; }
+        .preview-gym .mini-hero-btn { display: inline-block; padding: 3px 12px; background: #f97316; color: white; font-size: 0.4rem; border-radius: 3px; font-weight: 800; text-transform: uppercase; }
+        .preview-gym .mini-tiers {
+            display: flex; gap: 4px; padding: 8px 16px;
+        }
+        .preview-gym .mini-tier {
+            flex: 1; border: 1px solid rgba(249,115,22,0.2); background: rgba(249,115,22,0.05);
+            border-radius: 4px; padding: 6px 4px; text-align: center;
+        }
+        .preview-gym .mini-tier.featured { border-color: #f97316; background: rgba(249,115,22,0.12); }
+        .preview-gym .mini-tier-price { font-size: 0.5rem; font-weight: 800; color: #f97316; }
+        .preview-gym .mini-tier-text { width: 60%; height: 2px; background: rgba(255,255,255,0.1); margin: 3px auto; border-radius: 1px; }
+
+        /* Haven Realty - Real Estate */
+        .preview-realty {
+            background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+        }
+        .preview-realty .mini-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 16px; background: #1e3a5f; border-bottom: 2px solid #c9a84c;
+        }
+        .preview-realty .mini-logo { font-size: 0.55rem; font-weight: 700; color: white; letter-spacing: 1px; }
+        .preview-realty .mini-nav-btn { padding: 2px 8px; background: #c9a84c; color: #1e3a5f; font-size: 0.35rem; border-radius: 2px; font-weight: 700; }
+        .preview-realty .mini-hero {
+            padding: 14px 16px 8px; background: #1e3a5f; text-align: center;
+        }
+        .preview-realty .mini-hero-title { font-size: 0.65rem; font-weight: 700; color: white; margin-bottom: 3px; }
+        .preview-realty .mini-hero-sub { font-size: 0.4rem; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+        .preview-realty .mini-search { display: flex; gap: 3px; max-width: 160px; margin: 0 auto; }
+        .preview-realty .mini-search-input { flex: 1; height: 12px; background: white; border-radius: 2px; }
+        .preview-realty .mini-search-btn { width: 24px; height: 12px; background: #c9a84c; border-radius: 2px; }
+        .preview-realty .mini-listings {
+            display: flex; gap: 6px; padding: 10px 16px;
+        }
+        .preview-realty .mini-listing {
+            flex: 1; background: white; border-radius: 4px; overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;
+        }
+        .preview-realty .mini-listing-img { height: 28px; background: linear-gradient(135deg, #cbd5e1, #94a3b8); }
+        .preview-realty .mini-listing-body { padding: 4px; }
+        .preview-realty .mini-listing-price { font-size: 0.4rem; font-weight: 800; color: #1e3a5f; }
+        .preview-realty .mini-listing-text { width: 80%; height: 2px; background: #e2e8f0; margin: 2px 0; border-radius: 1px; }
+
+        /* Bright Minds - Education */
+        .preview-education {
+            background: linear-gradient(180deg, #fffbeb 0%, #fef9c3 30%, #ffffff 100%);
+        }
+        .preview-education .mini-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 16px; background: white; border-bottom: 2px solid #2563eb;
+        }
+        .preview-education .mini-logo { font-size: 0.55rem; font-weight: 800; color: #2563eb; }
+        .preview-education .mini-logo-dot { display: inline-block; width: 5px; height: 5px; background: #eab308; border-radius: 50%; margin-left: 2px; vertical-align: middle; }
+        .preview-education .mini-hero {
+            text-align: center; padding: 16px 16px 8px;
+        }
+        .preview-education .mini-hero-title { font-size: 0.7rem; font-weight: 800; color: #1e3a8a; margin-bottom: 3px; }
+        .preview-education .mini-hero-highlight { color: #eab308; }
+        .preview-education .mini-hero-sub { font-size: 0.4rem; color: #6b7280; margin-bottom: 6px; }
+        .preview-education .mini-hero-btn { display: inline-block; padding: 3px 12px; background: #2563eb; color: white; font-size: 0.4rem; border-radius: 20px; font-weight: 600; }
+        .preview-education .mini-features {
+            display: flex; gap: 5px; padding: 8px 16px;
+        }
+        .preview-education .mini-feature {
+            flex: 1; background: white; border: 1px solid #e5e7eb;
+            border-radius: 6px; padding: 6px 4px; text-align: center;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        }
+        .preview-education .mini-feature-icon { width: 16px; height: 16px; border-radius: 50%; margin: 0 auto 3px; }
+        .preview-education .mini-feature-icon.blue { background: #dbeafe; }
+        .preview-education .mini-feature-icon.yellow { background: #fef3c7; }
+        .preview-education .mini-feature-icon.green { background: #d1fae5; }
+        .preview-education .mini-feature-text { width: 70%; height: 2px; background: #e5e7eb; margin: 2px auto; border-radius: 1px; }
+
+        /* Card Body */
+        .card-body { padding: 1.5rem; }
+        .card-meta { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem; }
+        .card-title { font-size: 1.25rem; font-weight: 800; color: var(--text); }
+        .card-industry { display: inline-block; padding: 0.2rem 0.7rem; background: var(--accent-light); color: var(--accent); border-radius: 100px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
+        .card-price { font-size: 1.1rem; font-weight: 800; color: var(--green); margin-top: 2px; }
+        .card-price span { font-size: 0.75rem; color: var(--dim); font-weight: 400; }
+        .card-features { list-style: none; margin: 0.75rem 0 1.25rem; }
+        .card-features li {
+            padding: 0.3rem 0; font-size: 0.85rem; color: var(--dim);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .card-features li::before { content: ''; display: inline-block; width: 5px; height: 5px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+        .card-btn {
+            display: block; width: 100%; text-align: center; padding: 0.75rem;
+            background: var(--accent); color: white; text-decoration: none;
+            border-radius: 10px; font-weight: 700; font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .card-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Included Section */
+        .included-section {
+            max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;
+        }
+        .included-inner {
+            background: linear-gradient(135deg, #f8fafc 0%, var(--accent-light) 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+        }
+        .included-title { font-size: 1.8rem; font-weight: 800; text-align: center; margin-bottom: 0.5rem; }
+        .included-subtitle { text-align: center; color: var(--dim); margin-bottom: 2.5rem; font-size: 1rem; }
+        .included-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;
+        }
+        .included-item {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: white;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .included-check {
+            width: 28px; height: 28px; background: var(--green-light); color: var(--green);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 0.85rem; flex-shrink: 0;
+        }
+        .included-item span { font-size: 0.9rem; font-weight: 600; color: var(--text); }
+
+        /* Pricing Bar */
+        .pricing-bar {
+            max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+        }
+        .pricing-bar-inner {
+            background: var(--text);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .pricing-tier {
+            display: flex; align-items: center; gap: 0.5rem;
+            color: white;
+            font-size: 0.95rem;
+        }
+        .pricing-tier strong { font-weight: 800; color: #60a5fa; }
+        .pricing-divider {
+            width: 1px; height: 24px; background: rgba(255,255,255,0.15);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            max-width: 1200px; margin: 3rem auto; padding: 0 2rem;
+        }
+        .cta-inner {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+            color: white; text-align: center; padding: 4rem 2rem; border-radius: 20px;
+        }
+        .cta-inner h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.75rem; }
+        .cta-inner p { font-size: 1.1rem; opacity: 0.85; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+        .cta-btn {
+            display: inline-block; padding: 1rem 2.5rem; background: white;
+            color: var(--accent); border-radius: 12px; font-weight: 700;
+            font-size: 1.05rem; text-decoration: none; transition: all 0.2s;
+        }
+        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+        /* Footer */
+        .footer {
+            text-align: center; padding: 2.5rem 2rem; color: var(--dim); font-size: 0.8rem;
+            border-top: 1px solid var(--border); margin-top: 3rem;
+        }
+        .footer a { color: var(--accent); text-decoration: none; font-weight: 600; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-stats { gap: 1.5rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+            .included-inner { padding: 2rem 1.5rem; }
+            .pricing-bar-inner { flex-direction: column; gap: 0.5rem; text-align: center; }
+            .pricing-divider { display: none; }
+            .cta-inner h2 { font-size: 1.6rem; }
+            .nav-links { gap: 0.75rem; }
+        }
+        @media (max-width: 480px) {
+            .hero { padding: 3rem 1rem 2rem; }
+            .hero h1 { font-size: 1.6rem; }
+            .card-meta { flex-direction: column; gap: 0.5rem; }
+            .gallery-section { padding: 2rem 1rem; }
+        }
+
+        /* Animations */
+        .template-card { opacity: 0; transform: translateY(20px); animation: fadeUp 0.5s ease forwards; }
+        .template-card:nth-child(1) { animation-delay: 0.05s; }
+        .template-card:nth-child(2) { animation-delay: 0.1s; }
+        .template-card:nth-child(3) { animation-delay: 0.15s; }
+        .template-card:nth-child(4) { animation-delay: 0.2s; }
+        .template-card:nth-child(5) { animation-delay: 0.25s; }
+        .template-card:nth-child(6) { animation-delay: 0.3s; }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+    <a href="index.html" class="nav-brand">TAYKO.DEV</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="blog.html">Blog</a>
+        <a href="index.html#contact" class="nav-cta">Get a Quote</a>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="hero-badge">Portfolio Showcase</div>
+    <h1>See What We Can Build <span>For Your Business</span></h1>
+    <p>Every design is custom-built, mobile-friendly, and ready to launch. Click any example to see it live.</p>
+    <div class="hero-stats">
+        <div class="hero-stat">
+            <div class="num">6</div>
+            <div class="label">Live Templates</div>
+        </div>
+        <div class="hero-stat">
+            <div class="num">7</div>
+            <div class="label">Day Turnaround</div>
+        </div>
+        <div class="hero-stat">
+            <div class="num">100%</div>
+            <div class="label">Mobile-Friendly</div>
+        </div>
+    </div>
+</section>
+
+<!-- Template Gallery -->
+<section class="gallery-section">
+    <div class="gallery-grid">
+
+        <!-- The Ember Table -->
+        <div class="template-card">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dot red"></div>
+                    <div class="browser-dot yellow"></div>
+                    <div class="browser-dot green"></div>
+                    <div class="browser-url">theembertable.com</div>
+                </div>
+                <div class="browser-content">
+                    <div class="mini-site preview-restaurant">
+                        <div class="mini-nav">
+                            <div class="mini-logo">THE EMBER TABLE</div>
+                            <div class="mini-nav-links">
+                                <div class="mini-nav-link"></div>
+                                <div class="mini-nav-link"></div>
+                                <div class="mini-nav-link"></div>
+                            </div>
+                        </div>
+                        <div class="mini-hero">
+                            <div class="mini-hero-title">Farm to Flame</div>
+                            <div class="mini-hero-sub">WOOD-FIRED DINING EXPERIENCE</div>
+                            <div class="mini-hero-btn">Reserve a Table</div>
+                        </div>
+                        <div class="mini-cards">
+                            <div class="mini-card">
+                                <div class="mini-card-icon" style="color:#c4a962;">&#9733;</div>
+                                <div class="mini-card-text"></div>
+                                <div class="mini-card-text" style="width:50%;"></div>
+                            </div>
+                            <div class="mini-card">
+                                <div class="mini-card-icon" style="color:#4a7c59;">&#9741;</div>
+                                <div class="mini-card-text"></div>
+                                <div class="mini-card-text" style="width:50%;"></div>
+                            </div>
+                            <div class="mini-card">
+                                <div class="mini-card-icon" style="color:#c4a962;">&#9737;</div>
+                                <div class="mini-card-text"></div>
+                                <div class="mini-card-text" style="width:50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <div>
+                        <div class="card-title">The Ember Table</div>
+                        <span class="card-industry">Restaurant</span>
+                    </div>
+                    <div class="card-price">$1,200 <span>value</span></div>
+                </div>
+                <ul class="card-features">
+                    <li>Full menu with categories and photos</li>
+                    <li>Online reservation system</li>
+                    <li>Photo gallery with lightbox</li>
+                    <li>Warm green and gold color palette</li>
+                </ul>
+                <a href="business-template.html" class="card-btn">View Live Demo</a>
+            </div>
+        </div>
+
+        <!-- Precision Auto -->
+        <div class="template-card">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dot red"></div>
+                    <div class="browser-dot yellow"></div>
+                    <div class="browser-dot green"></div>
+                    <div class="browser-url">precisionautoaz.com</div>
+                </div>
+                <div class="browser-content">
+                    <div class="mini-site preview-auto">
+                        <div class="mini-nav">
+                            <div class="mini-logo">PRECISION AUTO</div>
+                            <div style="display:flex;gap:6px;">
+                                <div style="width:18px;height:2px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
+                                <div style="width:18px;height:2px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
+                            </div>
+                        </div>
+                        <div class="mini-hero">
+                            <div class="mini-hero-text">
+                                <div class="mini-hero-title">Expert Auto Care<br>You Can Trust</div>
+                                <div class="mini-hero-sub">ASE-CERTIFIED TECHNICIANS</div>
+                                <div class="mini-hero-btn">Book Service</div>
+                            </div>
+                            <div class="mini-hero-img"></div>
+                        </div>
+                        <div class="mini-services">
+                            <div class="mini-service">
+                                <div class="mini-service-icon" style="color:#e63946;">&#9881;</div>
+                                <div class="mini-service-text"></div>
+                            </div>
+                            <div class="mini-service">
+                                <div class="mini-service-icon" style="color:#e63946;">&#9883;</div>
+                                <div class="mini-service-text"></div>
+                            </div>
+                            <div class="mini-service">
+                                <div class="mini-service-icon" style="color:#e63946;">&#8635;</div>
+                                <div class="mini-service-text"></div>
+                            </div>
+                            <div class="mini-service">
+                                <div class="mini-service-icon" style="color:#e63946;">&#9670;</div>
+                                <div class="mini-service-text"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <div>
+                        <div class="card-title">Precision Auto</div>
+                        <span class="card-industry">Auto Shop</span>
+                    </div>
+                    <div class="card-price">$1,200 <span>value</span></div>
+                </div>
+                <ul class="card-features">
+                    <li>Full service menu with pricing</li>
+                    <li>Online appointment booking</li>
+                    <li>Dark industrial aesthetic</li>
+                    <li>Customer reviews and trust badges</li>
+                </ul>
+                <a href="template-auto.html" class="card-btn">View Live Demo</a>
+            </div>
+        </div>
+
+        <!-- Bloom & Co -->
+        <div class="template-card">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dot red"></div>
+                    <div class="browser-dot yellow"></div>
+                    <div class="browser-dot green"></div>
+                    <div class="browser-url">bloomandco.com</div>
+                </div>
+                <div class="browser-content">
+                    <div class="mini-site preview-salon">
+                        <div class="mini-nav">
+                            <div class="mini-logo">Bloom & Co</div>
+                            <div style="display:flex;gap:6px;">
+                                <div style="width:18px;height:2px;background:#f9a8d4;border-radius:1px;"></div>
+                                <div style="width:18px;height:2px;background:#f9a8d4;border-radius:1px;"></div>
+                            </div>
+                        </div>
+                        <div class="mini-hero">
+                            <div class="mini-hero-title">Glow From Within</div>
+                            <div class="mini-hero-sub">LUXURY SALON & SPA EXPERIENCE</div>
+                            <div class="mini-hero-btn">Book Now</div>
+                        </div>
+                        <div class="mini-cards">
+                            <div class="mini-card">
+                                <div class="mini-card-dot"></div>
+                                <div class="mini-card-text"></div>
+                                <div class="mini-card-text" style="width:50%;"></div>
+                            </div>
+                            <div class="mini-card">
+                                <div class="mini-card-dot"></div>
+                                <div class="mini-card-text"></div>
+                                <div class="mini-card-text" style="width:50%;"></div>
+                            </div>
+                            <div class="mini-card">
+                                <div class="mini-card-dot"></div>
+                                <div class="mini-card-text"></div>
+                                <div class="mini-card-text" style="width:50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <div>
+                        <div class="card-title">Bloom & Co</div>
+                        <span class="card-industry">Salon / Spa</span>
+                    </div>
+                    <div class="card-price">$1,200 <span>value</span></div>
+                </div>
+                <ul class="card-features">
+                    <li>Service menu with pricing tiers</li>
+                    <li>Online booking integration</li>
+                    <li>Team profiles with photos</li>
+                    <li>Soft pink and gold palette</li>
+                </ul>
+                <a href="template-salon.html" class="card-btn">View Live Demo</a>
+            </div>
+        </div>
+
+        <!-- Summit Fitness -->
+        <div class="template-card">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dot red"></div>
+                    <div class="browser-dot yellow"></div>
+                    <div class="browser-dot green"></div>
+                    <div class="browser-url">summitfitnessaz.com</div>
+                </div>
+                <div class="browser-content">
+                    <div class="mini-site preview-gym">
+                        <div class="mini-nav">
+                            <div class="mini-logo">SUMMIT</div>
+                            <div style="display:flex;gap:6px;">
+                                <div style="width:18px;height:2px;background:rgba(249,115,22,0.4);border-radius:1px;"></div>
+                                <div style="width:18px;height:2px;background:rgba(249,115,22,0.4);border-radius:1px;"></div>
+                            </div>
+                        </div>
+                        <div class="mini-hero">
+                            <div class="mini-hero-title">PUSH YOUR</div>
+                            <div class="mini-hero-accent">LIMITS</div>
+                            <div class="mini-hero-sub">GILBERT'S PREMIER FITNESS CENTER</div>
+                            <div class="mini-hero-btn">Start Free Trial</div>
+                        </div>
+                        <div class="mini-tiers">
+                            <div class="mini-tier">
+                                <div class="mini-tier-price">$29</div>
+                                <div class="mini-tier-text"></div>
+                                <div class="mini-tier-text" style="width:40%;"></div>
+                            </div>
+                            <div class="mini-tier featured">
+                                <div class="mini-tier-price">$59</div>
+                                <div class="mini-tier-text"></div>
+                                <div class="mini-tier-text" style="width:40%;"></div>
+                            </div>
+                            <div class="mini-tier">
+                                <div class="mini-tier-price">$99</div>
+                                <div class="mini-tier-text"></div>
+                                <div class="mini-tier-text" style="width:40%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <div>
+                        <div class="card-title">Summit Fitness</div>
+                        <span class="card-industry">Gym / Fitness</span>
+                    </div>
+                    <div class="card-price">$1,200 <span>value</span></div>
+                </div>
+                <ul class="card-features">
+                    <li>Membership tier comparison</li>
+                    <li>Class schedule and calendar</li>
+                    <li>Trainer profiles and bios</li>
+                    <li>Bold dark and orange branding</li>
+                </ul>
+                <a href="template-gym.html" class="card-btn">View Live Demo</a>
+            </div>
+        </div>
+
+        <!-- Haven Realty -->
+        <div class="template-card">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dot red"></div>
+                    <div class="browser-dot yellow"></div>
+                    <div class="browser-dot green"></div>
+                    <div class="browser-url">havenrealtyaz.com</div>
+                </div>
+                <div class="browser-content">
+                    <div class="mini-site preview-realty">
+                        <div class="mini-nav">
+                            <div class="mini-logo">HAVEN REALTY</div>
+                            <div class="mini-nav-btn">CONTACT</div>
+                        </div>
+                        <div class="mini-hero">
+                            <div class="mini-hero-title">Find Your Dream Home</div>
+                            <div class="mini-hero-sub">GILBERT & EAST VALLEY PROPERTIES</div>
+                            <div class="mini-search">
+                                <div class="mini-search-input"></div>
+                                <div class="mini-search-btn"></div>
+                            </div>
+                        </div>
+                        <div class="mini-listings">
+                            <div class="mini-listing">
+                                <div class="mini-listing-img" style="background:linear-gradient(135deg,#93c5fd,#60a5fa);"></div>
+                                <div class="mini-listing-body">
+                                    <div class="mini-listing-price">$425,000</div>
+                                    <div class="mini-listing-text"></div>
+                                </div>
+                            </div>
+                            <div class="mini-listing">
+                                <div class="mini-listing-img" style="background:linear-gradient(135deg,#a5b4fc,#818cf8);"></div>
+                                <div class="mini-listing-body">
+                                    <div class="mini-listing-price">$589,000</div>
+                                    <div class="mini-listing-text"></div>
+                                </div>
+                            </div>
+                            <div class="mini-listing">
+                                <div class="mini-listing-img" style="background:linear-gradient(135deg,#86efac,#4ade80);"></div>
+                                <div class="mini-listing-body">
+                                    <div class="mini-listing-price">$375,000</div>
+                                    <div class="mini-listing-text"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <div>
+                        <div class="card-title">Haven Realty</div>
+                        <span class="card-industry">Real Estate</span>
+                    </div>
+                    <div class="card-price">$1,200 <span>value</span></div>
+                </div>
+                <ul class="card-features">
+                    <li>Property listing cards with details</li>
+                    <li>Agent profile and credentials</li>
+                    <li>Search and filter functionality</li>
+                    <li>Clean navy and white design</li>
+                </ul>
+                <a href="template-realty.html" class="card-btn">View Live Demo</a>
+            </div>
+        </div>
+
+        <!-- Bright Minds -->
+        <div class="template-card">
+            <div class="browser-frame">
+                <div class="browser-bar">
+                    <div class="browser-dot red"></div>
+                    <div class="browser-dot yellow"></div>
+                    <div class="browser-dot green"></div>
+                    <div class="browser-url">brightmindstutoring.com</div>
+                </div>
+                <div class="browser-content">
+                    <div class="mini-site preview-education">
+                        <div class="mini-nav">
+                            <div class="mini-logo">Bright Minds <span class="mini-logo-dot"></span></div>
+                            <div style="display:flex;gap:6px;">
+                                <div style="width:18px;height:2px;background:#93c5fd;border-radius:1px;"></div>
+                                <div style="width:18px;height:2px;background:#93c5fd;border-radius:1px;"></div>
+                            </div>
+                        </div>
+                        <div class="mini-hero">
+                            <div class="mini-hero-title">Unlock Your <span class="mini-hero-highlight">Potential</span></div>
+                            <div class="mini-hero-sub">K-12 TUTORING & TEST PREP</div>
+                            <div class="mini-hero-btn">Get Started</div>
+                        </div>
+                        <div class="mini-features">
+                            <div class="mini-feature">
+                                <div class="mini-feature-icon blue"></div>
+                                <div class="mini-feature-text"></div>
+                                <div class="mini-feature-text" style="width:50%;"></div>
+                            </div>
+                            <div class="mini-feature">
+                                <div class="mini-feature-icon yellow"></div>
+                                <div class="mini-feature-text"></div>
+                                <div class="mini-feature-text" style="width:50%;"></div>
+                            </div>
+                            <div class="mini-feature">
+                                <div class="mini-feature-icon green"></div>
+                                <div class="mini-feature-text"></div>
+                                <div class="mini-feature-text" style="width:50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-meta">
+                    <div>
+                        <div class="card-title">Bright Minds</div>
+                        <span class="card-industry">Tutoring / Education</span>
+                    </div>
+                    <div class="card-price">$1,200 <span>value</span></div>
+                </div>
+                <ul class="card-features">
+                    <li>Program listings with pricing</li>
+                    <li>Testimonials from parents</li>
+                    <li>Friendly blue and yellow palette</li>
+                    <li>Online enrollment form</li>
+                </ul>
+                <a href="template-education.html" class="card-btn">View Live Demo</a>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- What's Included -->
+<section class="included-section">
+    <div class="included-inner">
+        <h2 class="included-title">What's Included With Every Template</h2>
+        <p class="included-subtitle">No hidden fees. No surprise charges. Every site ships with these essentials built in.</p>
+        <div class="included-grid">
+            <div class="included-item">
+                <div class="included-check">&#10003;</div>
+                <span>Mobile-responsive design</span>
+            </div>
+            <div class="included-item">
+                <div class="included-check">&#10003;</div>
+                <span>Contact form</span>
+            </div>
+            <div class="included-item">
+                <div class="included-check">&#10003;</div>
+                <span>SEO optimization</span>
+            </div>
+            <div class="included-item">
+                <div class="included-check">&#10003;</div>
+                <span>Google Maps integration</span>
+            </div>
+            <div class="included-item">
+                <div class="included-check">&#10003;</div>
+                <span>Social media links</span>
+            </div>
+            <div class="included-item">
+                <div class="included-check">&#10003;</div>
+                <span>1 round of revisions</span>
+            </div>
+            <div class="included-item">
+                <div class="included-check">&#10003;</div>
+                <span>Deployed and live within 7 days</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Bar -->
+<section class="pricing-bar">
+    <div class="pricing-bar-inner">
+        <div class="pricing-tier">Starter sites from <strong>&nbsp;$500</strong></div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-tier">Business Pro from <strong>&nbsp;$1,200</strong></div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-tier">Custom apps from <strong>&nbsp;$2,500</strong></div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="cta-inner">
+        <h2>Which style fits your business?</h2>
+        <p>Pick a template you love, and we'll customize it to match your brand perfectly. Let's talk.</p>
+        <a href="index.html#contact" class="cta-btn">Get Your Free Quote</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    &copy; 2026 <a href="index.html">Tayko.Dev</a> &mdash; Custom websites for local businesses
+</footer>
+
+</body>
+</html>
