@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freelance Profile Copy — Ready to Paste</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #e2e8f0;
+            --dim: #94a3b8;
+            --accent: #2563eb;
+            --green: #10b981;
+            --border: #334155;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+
+        .header { text-align: center; padding: 3rem 2rem 1rem; }
+        .header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .header p { color: var(--dim); }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 1rem 2rem 4rem; }
+
+        .platform { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; }
+        .platform-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+        .platform-name { font-size: 1.4rem; font-weight: 700; }
+        .platform-priority { font-size: 0.75rem; font-weight: 600; padding: 0.3rem 0.8rem; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .priority-1 { background: #059669; color: white; }
+        .priority-2 { background: #2563eb; color: white; }
+        .priority-3 { background: #7c3aed; color: white; }
+        .priority-4 { background: #d97706; color: white; }
+
+        .field { margin-bottom: 1.5rem; }
+        .field-label { font-size: 0.8rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.4rem; }
+        .field-content { background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.2rem; font-size: 0.95rem; position: relative; white-space: pre-wrap; }
+
+        .copy-btn { position: absolute; top: 0.5rem; right: 0.5rem; background: var(--accent); color: white; border: none; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .copy-btn:hover { opacity: 0.9; }
+        .copy-btn.copied { background: var(--green); }
+
+        .skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-tag { background: rgba(37, 99, 235, 0.15); color: #60a5fa; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.85rem; font-weight: 500; }
+
+        .tip { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 1rem 1.2rem; margin-top: 1rem; font-size: 0.9rem; color: #6ee7b7; }
+        .tip strong { color: #10b981; }
+
+        .steps { margin-top: 1rem; }
+        .step { display: flex; gap: 0.8rem; margin-bottom: 0.5rem; font-size: 0.9rem; color: var(--dim); }
+        .step-num { background: var(--accent); color: white; min-width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+
+        .gig-card { background: #0f172a; border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; margin-bottom: 0.8rem; }
+        .gig-title { font-weight: 600; font-size: 1rem; margin-bottom: 0.3rem; }
+        .gig-price { color: var(--green); font-weight: 700; font-size: 0.9rem; }
+        .gig-desc { color: var(--dim); font-size: 0.85rem; margin-top: 0.3rem; }
+
+        h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--dim); }
+
+        .section-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+        @media (max-width: 768px) {
+            .platform { padding: 1.5rem; }
+            .header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Freelance Profile Copy</h1>
+    <p>Click "Copy" on any field and paste directly into your profile. Set up all 4 today.</p>
+</div>
+
+<div class="container">
+
+<!-- UPWORK -->
+<div class="platform">
+    <div class="platform-header">
+        <div class="platform-name">Upwork</div>
+        <div class="platform-priority priority-1">Do First — Biggest Client Pool</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Profile Title / Headline</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>Full-Stack Web Developer | Next.js, React, TypeScript, Python | AI Integration Specialist</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Hourly Rate</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>$55/hr</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Professional Overview / Bio</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>I build modern, fast, production-ready web applications for businesses that need results — not excuses.
+
+My recent work includes a full-scale local deals platform (22,000+ lines of TypeScript) with real-time maps, Stripe payments, JWT authentication, business dashboards, and a viral waitlist system. I also built an AI-powered analytics platform integrating the Claude API with real-time data visualization.
+
+What I bring to your project:
+
+Frontend: Next.js 14, React, TypeScript, Tailwind CSS — responsive, fast, SEO-optimized
+Backend: Node.js, Python, FastAPI — REST APIs, database design, authentication
+Database: SQLite, PostgreSQL — schema design, proper indexing, migrations
+Payments: Stripe integration — subscriptions, one-time payments, webhooks
+AI/LLM: Claude API, OpenAI — chatbots, content generation, data analysis tools
+Mobile: React Native / Expo — cross-platform iOS & Android
+DevOps: Vercel, GitHub Actions, CI/CD pipelines
+
+I work fast, communicate clearly, and deliver on time. I don't disappear. I don't overcharge. I build what you actually need.
+
+See my live portfolio: tayko.dev</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Skills to Select</div>
+        <div class="skills-grid">
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">Node.js</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">REST API</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">SQLite</span>
+            <span class="skill-tag">Stripe</span>
+            <span class="skill-tag">React Native</span>
+            <span class="skill-tag">AI/ChatGPT Integration</span>
+            <span class="skill-tag">Web Scraping</span>
+            <span class="skill-tag">Responsive Web Design</span>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Portfolio Link</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>https://tayko.dev</div>
+    </div>
+
+    <div class="tip">
+        <strong>Tip:</strong> After creating your profile, immediately send 5-10 proposals to active jobs. Search for: "Next.js", "React website", "small business website", "AI chatbot", "Python API". Write personalized proposals — mention their specific project, not generic copy. First 3 jobs, bid low ($35-45/hr) to build reviews. After 3 five-star reviews, raise to $55-75.
+    </div>
+</div>
+
+<!-- FIVERR -->
+<div class="platform">
+    <div class="platform-header">
+        <div class="platform-name">Fiverr</div>
+        <div class="platform-priority priority-2">Do Second — Fixed-Price Packages</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Profile Description</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>Full-stack web developer specializing in modern, high-performance websites and web applications. I've built production platforms with 22,000+ lines of code, real-time features, payment systems, and AI integrations. I deliver clean, fast, mobile-responsive sites that help businesses grow. Portfolio: tayko.dev</div>
+    </div>
+
+    <h3 style="margin-top: 1.5rem;">Create These 3 Gigs:</h3>
+
+    <div class="gig-card">
+        <div class="gig-title">Gig 1: "I will build a modern responsive website for your business"</div>
+        <div class="gig-price">Basic: $500 | Standard: $1,200 | Premium: $2,500</div>
+        <div class="field" style="margin-top: 1rem; margin-bottom: 0;">
+            <div class="field-label">Gig Description</div>
+            <div class="field-content">
+                <button class="copy-btn" onclick="copyField(this)">Copy</button>I'll build you a modern, fast, mobile-friendly website that makes your business look professional and brings in customers.
+
+What you get:
+
+BASIC ($500) — Starter Website
+- Up to 5 pages (Home, About, Services, Contact, etc.)
+- Mobile-responsive design
+- Contact form
+- SEO-friendly structure
+- Delivered in 7 days
+
+STANDARD ($1,200) — Business Pro
+- Up to 10 pages
+- Everything in Basic plus:
+- Photo gallery
+- Customer testimonials
+- Google Maps integration
+- Social media links
+- Basic SEO setup
+- Delivered in 14 days
+
+PREMIUM ($2,500) — Custom Web App
+- Full custom web application
+- User authentication
+- Admin dashboard
+- Database integration
+- API connections
+- Delivered in 21-30 days
+
+Built with Next.js, React, and Tailwind CSS — the same technology used by Netflix, TikTok, and Twitch. Your site will be fast, secure, and built to grow with your business.
+
+See examples of my work: tayko.dev</div>
+        </div>
+    </div>
+
+    <div class="gig-card">
+        <div class="gig-title">Gig 2: "I will build a custom AI-powered tool for your business"</div>
+        <div class="gig-price">Basic: $2,000 | Standard: $3,500 | Premium: $5,000</div>
+        <div class="field" style="margin-top: 1rem; margin-bottom: 0;">
+            <div class="field-label">Gig Description</div>
+            <div class="field-content">
+                <button class="copy-btn" onclick="copyField(this)">Copy</button>I'll build a custom AI-powered tool that saves your business time and money. Using Claude API and OpenAI, I create tools tailored to YOUR specific workflow.
+
+What I can build:
+- AI chatbots trained on your business info
+- Automated content generation (social media, emails, product descriptions)
+- Data analysis dashboards that turn spreadsheets into insights
+- Customer support automation
+- Document processing and summarization
+
+BASIC ($2,000) — Single AI Tool
+- One AI-powered feature
+- One integration (email, Slack, website, etc.)
+- Training session
+- 30 days of support
+
+STANDARD ($3,500) — AI Pro
+- Multiple AI tools
+- Custom dashboard
+- API integrations
+- 60 days of support
+
+PREMIUM ($5,000) — AI Enterprise
+- Full AI system for your business
+- Multiple workflows automated
+- Ongoing optimization
+- Priority support
+
+I've built AI-powered analytics platforms with real-time data processing. See my work: tayko.dev/ai-tools</div>
+        </div>
+    </div>
+
+    <div class="gig-card">
+        <div class="gig-title">Gig 3: "I will build a business dashboard with analytics"</div>
+        <div class="gig-price">Basic: $1,500 | Standard: $2,500 | Premium: $4,000</div>
+        <div class="field" style="margin-top: 1rem; margin-bottom: 0;">
+            <div class="field-label">Gig Description</div>
+            <div class="field-content">
+                <button class="copy-btn" onclick="copyField(this)">Copy</button>I'll build a custom business dashboard that gives you real-time visibility into your operations. Stop guessing — start knowing.
+
+BASIC ($1,500) — Essential Dashboard
+- Key metrics overview
+- Data visualization (charts, graphs)
+- Mobile-friendly
+- CSV/Excel data import
+- Delivered in 14 days
+
+STANDARD ($2,500) — Pro Dashboard
+- Everything in Basic plus:
+- Real-time data updates
+- Multiple data sources
+- Custom reports
+- Export functionality
+- Delivered in 21 days
+
+PREMIUM ($4,000) — Enterprise Dashboard
+- Everything in Pro plus:
+- User roles and permissions
+- API integrations (Stripe, QuickBooks, etc.)
+- Automated alerts and notifications
+- Custom branding
+- Delivered in 30 days
+
+Built with React, Chart.js, and Python. I've built dashboards with real-time analytics, customer tracking, and deal performance monitoring. See my work: tayko.dev</div>
+        </div>
+    </div>
+
+    <div class="tip">
+        <strong>Tip:</strong> Fiverr ranks new gigs higher for the first 30 days. Set your first gig live TODAY. Use "website" "web developer" "react" as search tags. For your gig images, take screenshots of tayko.dev and the business template.
+    </div>
+</div>
+
+<!-- LINKEDIN -->
+<div class="platform">
+    <div class="platform-header">
+        <div class="platform-name">LinkedIn</div>
+        <div class="platform-priority priority-3">Do Third — Professional Network</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Headline (shown everywhere on LinkedIn)</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>Full-Stack Web Developer | I build websites & AI tools that help businesses grow | Next.js, React, Python | tayko.dev</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">About Section</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>I help businesses get online and grow with modern, fast, affordable web technology.
+
+Most small businesses either have no website, an outdated one, or paid an agency $10K+ for something they could have gotten for a fraction of the cost. I fix that.
+
+What I build:
+- Custom websites that look great on every device ($500-$1,500)
+- Web applications with dashboards, payments, and user accounts ($2,500+)
+- AI-powered tools that automate repetitive work ($2,000-$5,000)
+
+My tech stack: Next.js, React, TypeScript, Tailwind CSS, Python, FastAPI, Node.js, Stripe, Claude API, OpenAI
+
+Recent work includes a 22,000+ line deal discovery platform with real-time maps, business dashboards, and Stripe payments, plus an AI-powered analytics system with pattern detection across multiple data sources.
+
+I work fast, communicate clearly, and charge fairly. No agency overhead. No junior devs learning on your project. Just one experienced developer who ships.
+
+Free quote within 24 hours: tayko.dev
+Email: taylor@tayko.dev</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Featured Section — Add These Links</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>1. https://tayko.dev — My Portfolio
+2. https://tayko.dev/services.html — Services & Pricing
+3. https://tayko.dev/ai-tools.html — AI Tools for Business
+4. https://github.com/ZZRhino — My Code on GitHub</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Post This After Setting Up (Your First Post)</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>I just launched my web development practice and I'm taking on new clients.
+
+If you're a small business owner who needs:
+- A modern website that actually brings in customers
+- A dashboard to track your business metrics
+- An AI tool to automate the stuff you hate doing
+
+I can help. Websites start at $500. AI tools start at $2,000.
+
+I've been building full-stack applications with Next.js, React, Python, and AI — and I'm offering competitive rates to build my client base.
+
+Check out my work: tayko.dev
+
+DM me or email taylor@tayko.dev for a free quote.
+
+#webdevelopment #smallbusiness #freelance #nextjs #react #ai</div>
+    </div>
+
+    <div class="tip">
+        <strong>Tip:</strong> After posting, join these LinkedIn groups and engage: "Small Business Owners", "Web Development", "Freelance Developers", local Phoenix/Gilbert business groups. Comment on other people's posts — don't just post and ghost. LinkedIn rewards engagement with visibility.
+    </div>
+</div>
+
+<!-- LOCAL FACEBOOK + REDDIT -->
+<div class="platform">
+    <div class="platform-header">
+        <div class="platform-name">Facebook Groups + Reddit</div>
+        <div class="platform-priority priority-4">Do Fourth — Local & Niche Clients</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Facebook Groups to Join (Search for these)</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>- Gilbert AZ Small Business Network
+- Gilbert Arizona Community
+- Mesa AZ Small Business Owners
+- Chandler AZ Business Network
+- Phoenix Small Business Owners
+- East Valley Business Network
+- Arizona Entrepreneurs
+- Small Business Owners (national)
+- Web Design Clients (national)</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Facebook Post Template (Customize per group)</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>Hey everyone! I'm a web developer based here in Gilbert and I'm offering affordable websites for local businesses.
+
+If your business doesn't have a website yet, or if your current one looks like it's from 2010 — I can help.
+
+What I offer:
+- Modern, mobile-friendly websites starting at $500
+- Business dashboards and analytics
+- AI-powered tools (chatbots, content generation, automation)
+
+I use the same technology that powers Netflix and TikTok — just built for YOUR small business at a price that makes sense.
+
+Free quotes, no pressure. Check out my work at tayko.dev or DM me!
+
+Based in Gilbert, serving the entire Phoenix metro area and beyond.</div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Reddit — Post on r/forhire (Follow their format)</div>
+        <div class="field-content">
+            <button class="copy-btn" onclick="copyField(this)">Copy</button>[For Hire] Full-Stack Web Developer | Next.js, React, TypeScript, Python | $55/hr or fixed-price
+
+I build modern web applications, business websites, dashboards, and AI-powered tools.
+
+Tech stack: Next.js 14, React, TypeScript, Tailwind CSS, Python, FastAPI, Node.js, SQLite/PostgreSQL, Stripe, Claude API
+
+Recent work:
+- Full-scale deal discovery platform (22K+ lines, real-time maps, Stripe payments, business dashboards)
+- AI-powered analytics system with pattern detection
+- Interactive data visualization tools
+
+Services:
+- Business websites: $500-$1,500
+- Custom web apps: $2,500+
+- AI tools & chatbots: $2,000-$5,000
+- Business dashboards: $1,500-$3,000
+
+Portfolio: tayko.dev
+Contact: taylor@tayko.dev
+
+Fast turnaround, clear communication, fair pricing. Happy to do a free consultation call.</div>
+    </div>
+
+    <div class="tip">
+        <strong>Tip:</strong> On Facebook groups, DON'T just post ads. First spend a few days answering people's questions, being helpful, building reputation. Then post your services. Groups that see you as helpful will send you clients. Also — r/forhire posts get more response on Mondays and Tuesdays.
+    </div>
+</div>
+
+</div>
+
+<script>
+function copyField(btn) {
+    const content = btn.parentElement;
+    const text = content.textContent.replace('Copy', '').replace('Copied!', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+            btn.textContent = 'Copy';
+            btn.classList.remove('copied');
+        }, 2000);
+    });
+}
+</script>
+
+</body>
+</html>
