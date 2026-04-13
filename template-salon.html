@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloom & Co | Hair Salon & Spa</title>
+    <meta name="description" content="Bloom & Co is a luxury natural hair salon and spa offering expert hair styling, skincare, nail services, and body treatments in a botanical-inspired setting.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: #2D3B2D;
+            background: #F7F5F0;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            line-height: 1.15;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #8FA98F;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ─── Organic shapes ─── */
+        .blob-1 { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        .blob-2 { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        .blob-3 { border-radius: 50% 70% 40% 60% / 60% 40% 70% 50%; }
+        .blob-4 { border-radius: 40% 60% 70% 30% / 50% 70% 30% 60%; }
+
+        /* ─── Grain overlay ─── */
+        .grain-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.35;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            background-size: 128px 128px;
+        }
+
+        /* ─── Navigation ─── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(247, 245, 240, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 70px;
+            border-bottom: 1px solid rgba(45, 59, 45, 0.08);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: rgba(45, 59, 45, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #2D3B2D;
+        }
+
+        .nav-logo {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            color: #2D3B2D;
+        }
+
+        .nav-logo span {
+            color: #8FA98F;
+            font-style: italic;
+        }
+
+        .nav-cta {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #FFFDF7;
+            background: #2D3B2D;
+            padding: 10px 24px;
+            border-radius: 50px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            background: #3d4f3d;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: #2D3B2D;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 70px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 60px 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content .label {
+            margin-bottom: 24px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 5.5vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.05;
+            margin-bottom: 28px;
+            color: #2D3B2D;
+        }
+
+        .hero-content h1 em {
+            font-style: italic;
+            color: #8FA98F;
+        }
+
+        .hero-content p {
+            font-size: 1.05rem;
+            color: rgba(45, 59, 45, 0.65);
+            max-width: 420px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #FFFDF7;
+            background: #2D3B2D;
+            padding: 16px 36px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #3d4f3d;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #2D3B2D;
+            background: transparent;
+            padding: 16px 36px;
+            border-radius: 50px;
+            border: 1px solid rgba(45, 59, 45, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #2D3B2D;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-blob {
+            width: 460px;
+            height: 540px;
+            background: linear-gradient(135deg, #8FA98F 0%, #b8ccb8 50%, #C17E5A 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-blob-text {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: rgba(255, 253, 247, 0.7);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .hero-accent-blob {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background: #C17E5A;
+            border-radius: 70% 30% 50% 50% / 40% 60% 40% 60%;
+            opacity: 0.25;
+            top: -20px;
+            right: -30px;
+        }
+
+        .hero-leaf {
+            position: absolute;
+            bottom: 40px;
+            left: -40px;
+            opacity: 0.15;
+        }
+
+        /* ─── Decorative leaf SVGs ─── */
+        .leaf-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .leaf-divider .line {
+            width: 60px;
+            height: 1px;
+            background: rgba(143, 169, 143, 0.3);
+        }
+
+        /* ─── Section styles ─── */
+        .section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 72px;
+        }
+
+        .section-header .label {
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 300;
+            color: #2D3B2D;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: rgba(45, 59, 45, 0.55);
+            max-width: 500px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* ─── Transition gradient ─── */
+        .section-cream {
+            background: linear-gradient(180deg, #F7F5F0 0%, #FFFDF7 8%, #FFFDF7 92%, #F7F5F0 100%);
+        }
+
+        .section-linen {
+            background: #F7F5F0;
+        }
+
+        /* ─── Services ─── */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px 80px;
+        }
+
+        .service-category {
+            position: relative;
+        }
+
+        .service-category-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 28px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(45, 59, 45, 0.1);
+        }
+
+        .service-category-header h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        .service-category-icon {
+            flex-shrink: 0;
+        }
+
+        .service-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(45, 59, 45, 0.05);
+        }
+
+        .service-item:last-child {
+            border-bottom: none;
+        }
+
+        .service-name {
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        .service-desc {
+            font-size: 0.8rem;
+            color: rgba(45, 59, 45, 0.45);
+            font-weight: 300;
+            margin-top: 2px;
+        }
+
+        .service-price {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            color: #C17E5A;
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+
+        /* ─── Team ─── */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
+        }
+
+        .team-card {
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 180px;
+            height: 210px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #d4ddd4, #8FA98F);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-photo-text {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 0.85rem;
+            color: rgba(255, 253, 247, 0.6);
+        }
+
+        .team-card:nth-child(1) .team-photo { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+        .team-card:nth-child(2) .team-photo { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
+        .team-card:nth-child(3) .team-photo { border-radius: 50% 70% 40% 60% / 60% 40% 70% 50%; }
+        .team-card:nth-child(4) .team-photo { border-radius: 40% 60% 70% 30% / 50% 70% 30% 60%; }
+
+        .team-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.15rem;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #8FA98F;
+            font-weight: 500;
+        }
+
+        /* ─── Testimonials ─── */
+        .testimonials-section {
+            padding: 120px 0;
+            background: linear-gradient(180deg, #F7F5F0 0%, #FFFDF7 15%, #FFFDF7 85%, #F7F5F0 100%);
+        }
+
+        .testimonial-slider {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-item {
+            margin-bottom: 64px;
+        }
+
+        .testimonial-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .testimonial-quote {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.5;
+            color: #2D3B2D;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: rgba(45, 59, 45, 0.45);
+        }
+
+        /* ─── Gallery ─── */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: auto auto auto;
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-item-inner {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #c5d5c5, #8FA98F);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100%;
+        }
+
+        .gallery-text {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 0.8rem;
+            color: rgba(255, 253, 247, 0.5);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: 1 / 6;
+            grid-row: 1 / 2;
+            height: 320px;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-column: 6 / 13;
+            grid-row: 1 / 3;
+            height: 400px;
+            border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-column: 1 / 5;
+            grid-row: 2 / 3;
+            height: 260px;
+            border-radius: 50% 70% 40% 60% / 60% 40% 70% 50%;
+            margin-top: -40px;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: 5 / 8;
+            grid-row: 3 / 4;
+            height: 280px;
+            border-radius: 40% 60% 70% 30% / 50% 70% 30% 60%;
+            margin-top: -60px;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: 8 / 13;
+            grid-row: 3 / 4;
+            height: 240px;
+            border-radius: 60% 40% 30% 70% / 40% 60% 70% 30%;
+            margin-top: -20px;
+        }
+
+        /* ─── Booking ─── */
+        .booking-section {
+            padding: 120px 0;
+            background: linear-gradient(180deg, #F7F5F0 0%, #FFFDF7 10%);
+        }
+
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .booking-info h2 {
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+
+        .booking-info p {
+            color: rgba(45, 59, 45, 0.55);
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 400px;
+        }
+
+        .hours-list {
+            list-style: none;
+        }
+
+        .hours-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(45, 59, 45, 0.07);
+            font-size: 0.9rem;
+        }
+
+        .hours-list li span:first-child {
+            font-weight: 500;
+        }
+
+        .hours-list li span:last-child {
+            color: rgba(45, 59, 45, 0.5);
+            font-weight: 300;
+        }
+
+        .booking-form {
+            background: #FFFDF7;
+            padding: 48px;
+            border-radius: 24px;
+            border: 1px solid rgba(45, 59, 45, 0.06);
+        }
+
+        .form-group {
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: rgba(45, 59, 45, 0.4);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: #2D3B2D;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(45, 59, 45, 0.15);
+            padding: 10px 0;
+            outline: none;
+            transition: border-color 0.3s ease;
+            -webkit-appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-bottom-color: #8FA98F;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .form-submit {
+            width: 100%;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #FFFDF7;
+            background: #2D3B2D;
+            padding: 18px 36px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .form-submit:hover {
+            background: #3d4f3d;
+            transform: translateY(-1px);
+        }
+
+        /* ─── Footer ─── */
+        .footer {
+            background: #2D3B2D;
+            color: #FFFDF7;
+            padding: 80px 0 40px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .nav-logo {
+            color: #FFFDF7;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 253, 247, 0.4);
+            font-size: 0.9rem;
+            font-weight: 300;
+            max-width: 280px;
+            line-height: 1.7;
+        }
+
+        .footer-col h4 {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: #8FA98F;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: rgba(255, 253, 247, 0.5);
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: #FFFDF7;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 253, 247, 0.08);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 253, 247, 0.25);
+            font-size: 0.8rem;
+            font-weight: 300;
+        }
+
+        .footer-bottom a {
+            color: #8FA98F;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: #FFFDF7;
+        }
+
+        .footer-credit {
+            color: rgba(255, 253, 247, 0.25);
+            font-size: 0.8rem;
+            font-weight: 300;
+        }
+
+        .footer-credit a {
+            color: #C17E5A;
+        }
+
+        .footer-credit a:hover {
+            color: #FFFDF7;
+        }
+
+        /* ─── Mobile Menu ─── */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(247, 245, 240, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: rgba(45, 59, 45, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: #2D3B2D;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                gap: 40px;
+            }
+
+            .hero-blob {
+                width: 360px;
+                height: 420px;
+            }
+
+            .services-grid {
+                gap: 48px 60px;
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-cta-desktop {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .nav-inner {
+                justify-content: center;
+                position: relative;
+            }
+
+            .mobile-toggle {
+                position: absolute;
+                left: 0;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+                text-align: center;
+                padding: 40px 0;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-cta-group {
+                justify-content: center;
+            }
+
+            .hero-blob {
+                width: 280px;
+                height: 320px;
+                margin: 0 auto;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .booking-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .booking-form {
+                padding: 32px 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+
+            .gallery-item:nth-child(1) {
+                grid-column: 1 / 2;
+                grid-row: auto;
+                height: 220px;
+            }
+
+            .gallery-item:nth-child(2) {
+                grid-column: 2 / 3;
+                grid-row: auto;
+                height: 260px;
+            }
+
+            .gallery-item:nth-child(3) {
+                grid-column: 1 / 3;
+                grid-row: auto;
+                height: 200px;
+                margin-top: 0;
+            }
+
+            .gallery-item:nth-child(4) {
+                grid-column: 1 / 2;
+                grid-row: auto;
+                height: 220px;
+                margin-top: 0;
+            }
+
+            .gallery-item:nth-child(5) {
+                grid-column: 2 / 3;
+                grid-row: auto;
+                height: 200px;
+                margin-top: 0;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-photo {
+                width: 200px;
+                height: 240px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── Navigation ─── -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-inner">
+                <ul class="nav-links">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#testimonials">Voices</a></li>
+                </ul>
+                <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a href="#" class="nav-logo">Bloom <span>&</span> Co</a>
+                <a href="#booking" class="nav-cta nav-cta-desktop">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#services" onclick="toggleMobileMenu()">Services</a>
+        <a href="#team" onclick="toggleMobileMenu()">Team</a>
+        <a href="#gallery" onclick="toggleMobileMenu()">Gallery</a>
+        <a href="#testimonials" onclick="toggleMobileMenu()">Voices</a>
+        <a href="#booking" onclick="toggleMobileMenu()">Book Now</a>
+    </div>
+
+    <!-- ─── Hero ─── -->
+    <section class="hero">
+        <div class="grain-overlay"></div>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="label">Hair Salon & Natural Spa</span>
+                    <h1>Beauty rooted in <em>nature</em></h1>
+                    <p>An intimate sanctuary where botanical luxury meets expert artistry. We nurture your natural beauty with organic ingredients and intentional care.</p>
+                    <div class="hero-cta-group">
+                        <a href="#booking" class="btn-primary">Book Your Visit</a>
+                        <a href="#services" class="btn-secondary">View Services</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-accent-blob"></div>
+                    <div class="hero-blob">
+                        <span class="hero-blob-text">Your photo here</span>
+                    </div>
+                    <svg class="hero-leaf" width="100" height="160" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 160C50 160 50 80 50 0C50 0 90 40 90 80C90 120 50 160 50 160Z" stroke="#2D3B2D" stroke-width="0.75" fill="none"/>
+                        <path d="M50 160C50 160 50 80 50 0C50 0 10 40 10 80C10 120 50 160 50 160Z" stroke="#2D3B2D" stroke-width="0.75" fill="none"/>
+                        <path d="M50 0V160" stroke="#2D3B2D" stroke-width="0.5"/>
+                        <path d="M50 30L30 55" stroke="#2D3B2D" stroke-width="0.4"/>
+                        <path d="M50 50L70 70" stroke="#2D3B2D" stroke-width="0.4"/>
+                        <path d="M50 70L25 95" stroke="#2D3B2D" stroke-width="0.4"/>
+                        <path d="M50 90L75 105" stroke="#2D3B2D" stroke-width="0.4"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Services ─── -->
+    <section id="services" class="section section-cream">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Our Offerings</span>
+                <h2>Rituals of care</h2>
+                <p>Each service is a thoughtful ritual, crafted with organic botanicals and delivered with intention.</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Hair -->
+                <div class="service-category">
+                    <div class="service-category-header">
+                        <svg class="service-category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C12 2 18 6 18 12C18 18 12 22 12 22C12 22 6 18 6 12C6 6 12 2 12 2Z" stroke="#8FA98F" stroke-width="1" fill="none"/>
+                            <path d="M12 2V22" stroke="#8FA98F" stroke-width="0.5"/>
+                        </svg>
+                        <h3>Hair</h3>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Botanical Cut & Style</div>
+                            <div class="service-desc">Includes scalp massage with essential oils</div>
+                        </div>
+                        <span class="service-price">$85</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Full Color</div>
+                            <div class="service-desc">Ammonia-free, plant-based color</div>
+                        </div>
+                        <span class="service-price">$160+</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Balayage & Highlights</div>
+                            <div class="service-desc">Hand-painted, natural-looking dimension</div>
+                        </div>
+                        <span class="service-price">$220+</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Deep Conditioning Ritual</div>
+                            <div class="service-desc">Restorative treatment with argan & rosemary</div>
+                        </div>
+                        <span class="service-price">$65</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Blowout & Styling</div>
+                            <div class="service-desc">Smoothing finish with botanical serums</div>
+                        </div>
+                        <span class="service-price">$55</span>
+                    </div>
+                </div>
+
+                <!-- Skin -->
+                <div class="service-category">
+                    <div class="service-category-header">
+                        <svg class="service-category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="9" stroke="#8FA98F" stroke-width="1" fill="none"/>
+                            <circle cx="12" cy="12" r="4" stroke="#8FA98F" stroke-width="0.5" fill="none"/>
+                            <line x1="12" y1="3" x2="12" y2="8" stroke="#8FA98F" stroke-width="0.5"/>
+                            <line x1="12" y1="16" x2="12" y2="21" stroke="#8FA98F" stroke-width="0.5"/>
+                        </svg>
+                        <h3>Skin</h3>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Signature Facial</div>
+                            <div class="service-desc">Customized to your skin's needs, 60 min</div>
+                        </div>
+                        <span class="service-price">$120</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Botanical Peel</div>
+                            <div class="service-desc">Gentle enzyme exfoliation with fruit acids</div>
+                        </div>
+                        <span class="service-price">$95</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Hydra-Glow Treatment</div>
+                            <div class="service-desc">Deep hydration with hyaluronic & aloe</div>
+                        </div>
+                        <span class="service-price">$140</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">LED Light Therapy</div>
+                            <div class="service-desc">Add-on to any facial treatment</div>
+                        </div>
+                        <span class="service-price">$45</span>
+                    </div>
+                </div>
+
+                <!-- Nails -->
+                <div class="service-category">
+                    <div class="service-category-header">
+                        <svg class="service-category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 20C6 20 4 14 4 10C4 6 8 4 12 4C16 4 20 6 20 10C20 14 18 20 18 20" stroke="#8FA98F" stroke-width="1" fill="none"/>
+                            <path d="M9 20L15 20" stroke="#8FA98F" stroke-width="0.75"/>
+                        </svg>
+                        <h3>Nails</h3>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Botanical Manicure</div>
+                            <div class="service-desc">Nail shaping, cuticle care, plant-based polish</div>
+                        </div>
+                        <span class="service-price">$45</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Spa Pedicure</div>
+                            <div class="service-desc">Soak, exfoliation, mask, and massage</div>
+                        </div>
+                        <span class="service-price">$65</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Gel Extension Set</div>
+                            <div class="service-desc">Full set with natural-look shaping</div>
+                        </div>
+                        <span class="service-price">$85</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Nail Art</div>
+                            <div class="service-desc">Hand-painted botanical designs, per nail</div>
+                        </div>
+                        <span class="service-price">$8+</span>
+                    </div>
+                </div>
+
+                <!-- Body -->
+                <div class="service-category">
+                    <div class="service-category-header">
+                        <svg class="service-category-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3C12 3 20 7 20 12C20 17 16 21 12 21C8 21 4 17 4 12C4 7 12 3 12 3Z" stroke="#8FA98F" stroke-width="1" fill="none"/>
+                            <path d="M12 3V21" stroke="#8FA98F" stroke-width="0.5"/>
+                            <path d="M12 8L8 12" stroke="#8FA98F" stroke-width="0.4"/>
+                            <path d="M12 12L16 15" stroke="#8FA98F" stroke-width="0.4"/>
+                        </svg>
+                        <h3>Body</h3>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Warm Stone Massage</div>
+                            <div class="service-desc">90-minute full body with basalt stones</div>
+                        </div>
+                        <span class="service-price">$165</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Swedish Relaxation</div>
+                            <div class="service-desc">60-minute full body, organic oils</div>
+                        </div>
+                        <span class="service-price">$120</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Body Scrub & Wrap</div>
+                            <div class="service-desc">Sugar scrub with shea butter cocoon</div>
+                        </div>
+                        <span class="service-price">$130</span>
+                    </div>
+                    <div class="service-item">
+                        <div>
+                            <div class="service-name">Aromatherapy Add-On</div>
+                            <div class="service-desc">Custom essential oil blend for any massage</div>
+                        </div>
+                        <span class="service-price">$25</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Team ─── -->
+    <section id="team" class="section section-linen">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">The Artisans</span>
+                <h2>Meet our team</h2>
+                <p>Passionate specialists devoted to the art of natural beauty and holistic wellness.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-photo">
+                        <span class="team-photo-text">Photo</span>
+                    </div>
+                    <div class="team-name">Elara Voss</div>
+                    <div class="team-role">Founder & Lead Stylist</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">
+                        <span class="team-photo-text">Photo</span>
+                    </div>
+                    <div class="team-name">Jasper Wren</div>
+                    <div class="team-role">Color Specialist</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">
+                        <span class="team-photo-text">Photo</span>
+                    </div>
+                    <div class="team-name">Maia Chen</div>
+                    <div class="team-role">Skin & Body Therapist</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-photo">
+                        <span class="team-photo-text">Photo</span>
+                    </div>
+                    <div class="team-name">Rowan Fields</div>
+                    <div class="team-role">Nail Artist</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Gallery ─── -->
+    <section id="gallery" class="section section-cream">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Our Space</span>
+                <h2>A place of calm</h2>
+                <p>Step inside our botanical-inspired sanctuary designed for your complete comfort.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-item-inner">
+                        <span class="gallery-text">Salon interior</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner" style="background: linear-gradient(135deg, #C17E5A, #d4a080);">
+                        <span class="gallery-text">Treatment room</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner" style="background: linear-gradient(135deg, #b8ccb8, #8FA98F);">
+                        <span class="gallery-text">Product wall</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner" style="background: linear-gradient(135deg, #8FA98F, #6b8a6b);">
+                        <span class="gallery-text">Styling station</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-item-inner" style="background: linear-gradient(135deg, #d4a080, #C17E5A);">
+                        <span class="gallery-text">Relaxation lounge</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Testimonials ─── -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="label">Kind Words</span>
+                <h2>What they say</h2>
+            </div>
+
+            <div class="testimonial-slider">
+                <div class="testimonial-item">
+                    <p class="testimonial-quote">"Walking into Bloom & Co feels like stepping into another world. The attention to detail, the calming scents, the genuine care — it's become my monthly sanctuary."</p>
+                    <span class="testimonial-author">Amara Thompson</span>
+                </div>
+
+                <div class="leaf-divider">
+                    <span class="line"></span>
+                    <svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 28C10 28 10 14 10 0C10 0 18 6 18 14C18 22 10 28 10 28Z" stroke="#8FA98F" stroke-width="0.75" fill="none"/>
+                        <path d="M10 28C10 28 10 14 10 0C10 0 2 6 2 14C2 22 10 28 10 28Z" stroke="#8FA98F" stroke-width="0.75" fill="none"/>
+                    </svg>
+                    <span class="line"></span>
+                </div>
+
+                <div class="testimonial-item">
+                    <p class="testimonial-quote">"Elara transformed my hair with the gentlest touch. I've never had a colorist who actually cared about the health of my hair as much as the final look."</p>
+                    <span class="testimonial-author">Nadia Kim</span>
+                </div>
+
+                <div class="leaf-divider">
+                    <span class="line"></span>
+                    <svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 28C10 28 10 14 10 0C10 0 18 6 18 14C18 22 10 28 10 28Z" stroke="#8FA98F" stroke-width="0.75" fill="none"/>
+                        <path d="M10 28C10 28 10 14 10 0C10 0 2 6 2 14C2 22 10 28 10 28Z" stroke="#8FA98F" stroke-width="0.75" fill="none"/>
+                    </svg>
+                    <span class="line"></span>
+                </div>
+
+                <div class="testimonial-item">
+                    <p class="testimonial-quote">"The botanical facial left my skin glowing for days. Maia really listens and creates something personal every time. This is self-care done right."</p>
+                    <span class="testimonial-author">Sienna Reyes</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Booking ─── -->
+    <section id="booking" class="booking-section">
+        <div class="container">
+            <div class="booking-grid">
+                <div class="booking-info">
+                    <span class="label">Reserve Your Ritual</span>
+                    <h2>Book your visit</h2>
+                    <p>Select your preferred service and time, and we'll prepare everything for your arrival. Walk-ins welcome when availability allows.</p>
+
+                    <div class="leaf-divider" style="justify-content: flex-start; margin: 32px 0;">
+                        <svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 28C10 28 10 14 10 0C10 0 18 6 18 14C18 22 10 28 10 28Z" stroke="#8FA98F" stroke-width="0.75" fill="none"/>
+                            <path d="M10 28C10 28 10 14 10 0C10 0 2 6 2 14C2 22 10 28 10 28Z" stroke="#8FA98F" stroke-width="0.75" fill="none"/>
+                        </svg>
+                    </div>
+
+                    <ul class="hours-list">
+                        <li><span>Monday</span><span>Closed</span></li>
+                        <li><span>Tuesday - Friday</span><span>9:00 AM - 7:00 PM</span></li>
+                        <li><span>Saturday</span><span>9:00 AM - 6:00 PM</span></li>
+                        <li><span>Sunday</span><span>10:00 AM - 4:00 PM</span></li>
+                    </ul>
+                </div>
+
+                <div class="booking-form">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Jane" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="jane@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service</label>
+                            <select id="service" name="service" required>
+                                <option value="" disabled selected>Select a service</option>
+                                <optgroup label="Hair">
+                                    <option value="cut">Botanical Cut & Style - $85</option>
+                                    <option value="color">Full Color - $160+</option>
+                                    <option value="balayage">Balayage & Highlights - $220+</option>
+                                    <option value="conditioning">Deep Conditioning Ritual - $65</option>
+                                    <option value="blowout">Blowout & Styling - $55</option>
+                                </optgroup>
+                                <optgroup label="Skin">
+                                    <option value="facial">Signature Facial - $120</option>
+                                    <option value="peel">Botanical Peel - $95</option>
+                                    <option value="hydra">Hydra-Glow Treatment - $140</option>
+                                    <option value="led">LED Light Therapy - $45</option>
+                                </optgroup>
+                                <optgroup label="Nails">
+                                    <option value="manicure">Botanical Manicure - $45</option>
+                                    <option value="pedicure">Spa Pedicure - $65</option>
+                                    <option value="gel">Gel Extension Set - $85</option>
+                                    <option value="nail-art">Nail Art - $8+</option>
+                                </optgroup>
+                                <optgroup label="Body">
+                                    <option value="stone-massage">Warm Stone Massage - $165</option>
+                                    <option value="swedish">Swedish Relaxation - $120</option>
+                                    <option value="scrub">Body Scrub & Wrap - $130</option>
+                                    <option value="aromatherapy">Aromatherapy Add-On - $25</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Preferred Date</label>
+                                <input type="date" id="date" name="date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="time">Preferred Time</label>
+                                <select id="time" name="time" required>
+                                    <option value="" disabled selected>Select a time</option>
+                                    <option value="9:00">9:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="13:00">1:00 PM</option>
+                                    <option value="14:00">2:00 PM</option>
+                                    <option value="15:00">3:00 PM</option>
+                                    <option value="16:00">4:00 PM</option>
+                                    <option value="17:00">5:00 PM</option>
+                                    <option value="18:00">6:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Notes</label>
+                            <textarea id="notes" name="notes" placeholder="Any preferences or requests..."></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">Request Appointment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <span class="nav-logo">Bloom <span>&</span> Co</span>
+                    <p>A botanical sanctuary for hair, skin, nails, and body. Rooted in nature, crafted with care.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navigate</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#team">Team</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#booking">Book Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Hair</a></li>
+                        <li><a href="#services">Skin</a></li>
+                        <li><a href="#services">Nails</a></li>
+                        <li><a href="#services">Body</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:+15551234567">(555) 123-4567</a></li>
+                        <li><a href="mailto:hello@bloomandco.com">hello@bloomandco.com</a></li>
+                        <li><a href="#">123 Garden Lane<br>Suite 200</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Bloom & Co. All rights reserved.</p>
+                <span class="footer-credit">Website by <a href="https://tayko.dev">Tayko</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Close mobile menu on resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                document.getElementById('mobileMenu').classList.remove('active');
+            }
+        });
+
+        // Subtle parallax on hero blob
+        window.addEventListener('scroll', function() {
+            const scrollY = window.scrollY;
+            const heroBlob = document.querySelector('.hero-blob');
+            if (heroBlob && scrollY < window.innerHeight) {
+                heroBlob.style.transform = 'translateY(' + (scrollY * 0.08) + 'px)';
+            }
+        });
+    </script>
+</body>
+</html>

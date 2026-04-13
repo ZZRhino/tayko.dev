@@ -1,0 +1,1606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summit Fitness | Move. Sweat. Transform.</title>
+    <meta name="description" content="Summit Fitness — premium gym and fitness studio. World-class trainers, 30+ weekly classes, state-of-the-art equipment. Start your free trial today.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #FAFAFA;
+            --black: #111111;
+            --green: #00FF87;
+            --charcoal: #333333;
+            --light-gray: #EEEEEE;
+            --font-heading: 'Syne', sans-serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== GEOMETRIC DECORATIONS ===== */
+        .geo-circle {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid var(--green);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .geo-triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            opacity: 0.15;
+        }
+
+        .geo-line {
+            position: absolute;
+            background: var(--green);
+            pointer-events: none;
+            opacity: 0.2;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: transparent;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav-logo {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--black);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo span {
+            color: var(--green);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--black);
+        }
+
+        .nav-cta {
+            background: var(--black) !important;
+            color: #fff !important;
+            padding: 10px 24px !important;
+            font-size: 0.8rem !important;
+            letter-spacing: 1.5px !important;
+            text-transform: uppercase !important;
+            border: none;
+            cursor: pointer;
+            transition: background 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--charcoal) !important;
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px;
+        }
+
+        .mobile-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--black);
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 120px 40px 80px 80px;
+            position: relative;
+        }
+
+        .hero-left .geo-circle {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: -100px;
+        }
+
+        .hero-left .geo-line {
+            width: 120px;
+            height: 2px;
+            bottom: 20%;
+            left: 40px;
+            transform: rotate(-30deg);
+        }
+
+        .hero-tagline {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--charcoal);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-tagline::before {
+            content: '';
+            width: 40px;
+            height: 2px;
+            background: var(--green);
+        }
+
+        .hero-headline {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            line-height: 0.95;
+            margin-bottom: 40px;
+        }
+
+        .hero-headline .line {
+            display: block;
+            font-size: clamp(4rem, 8vw, 7rem);
+            letter-spacing: -3px;
+        }
+
+        .hero-headline .line.green {
+            color: var(--green);
+            -webkit-text-stroke: 2px var(--black);
+            text-stroke: 2px var(--black);
+            paint-order: stroke fill;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            max-width: 400px;
+            margin-bottom: 48px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 16px 40px;
+            background: var(--green);
+            color: var(--black);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #00e67a;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--black);
+            border: 2px solid var(--black);
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-outline:hover {
+            background: var(--black);
+            color: #fff;
+        }
+
+        .hero-right {
+            position: relative;
+            clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image-placeholder {
+            width: 100%;
+            height: 100%;
+            background:
+                linear-gradient(135deg, var(--light-gray) 0%, #ddd 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            color: var(--charcoal);
+        }
+
+        .hero-image-placeholder svg {
+            width: 80px;
+            height: 80px;
+            opacity: 0.4;
+        }
+
+        .hero-image-placeholder span {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.5;
+        }
+
+        /* ===== STATS ===== */
+        .stats-section {
+            padding: 100px 40px;
+            background: var(--black);
+            clip-path: polygon(0 0, 100% 4%, 100% 96%, 0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-section .geo-circle {
+            width: 500px;
+            height: 500px;
+            right: -200px;
+            top: -100px;
+            border-color: rgba(0, 255, 135, 0.1);
+        }
+
+        .stats-section .geo-triangle {
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 70px solid rgba(0, 255, 135, 0.08);
+            left: 10%;
+            bottom: 15%;
+        }
+
+        .stats-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item {
+            position: relative;
+        }
+
+        .stat-number {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: clamp(5rem, 10vw, 10rem);
+            line-height: 1;
+            color: #fff;
+            position: relative;
+            display: inline-block;
+        }
+
+        .stat-number::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--green);
+        }
+
+        .stat-suffix {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            color: var(--green);
+        }
+
+        .stat-label {
+            font-family: var(--font-body);
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 24px;
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--charcoal);
+            opacity: 0.6;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .section-title .highlight {
+            color: var(--green);
+            -webkit-text-stroke: 1px var(--black);
+            text-stroke: 1px var(--black);
+            paint-order: stroke fill;
+        }
+
+        /* ===== MEMBERSHIP ===== */
+        .membership-section {
+            padding: 120px 40px;
+            position: relative;
+        }
+
+        .membership-section .geo-line {
+            width: 200px;
+            height: 2px;
+            top: 80px;
+            right: 10%;
+            transform: rotate(15deg);
+        }
+
+        .membership-section .geo-circle {
+            width: 150px;
+            height: 150px;
+            bottom: 80px;
+            left: 5%;
+        }
+
+        .membership-cards {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .membership-card {
+            display: grid;
+            grid-template-columns: 200px 1fr auto auto;
+            align-items: center;
+            gap: 40px;
+            padding: 40px 48px;
+            border: 2px solid var(--black);
+            transition: all 0.3s;
+            position: relative;
+            background: var(--bg);
+        }
+
+        .membership-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 0 var(--black);
+        }
+
+        .membership-card.featured {
+            background: var(--black);
+            color: #fff;
+        }
+
+        .membership-card.featured .membership-name {
+            color: #fff;
+        }
+
+        .membership-card.featured .membership-features {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .membership-card.featured .membership-price-label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .membership-name {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .membership-features {
+            font-size: 0.9rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+        }
+
+        .membership-price {
+            text-align: right;
+        }
+
+        .membership-price-amount {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 6rem;
+            line-height: 1;
+            letter-spacing: -4px;
+        }
+
+        .membership-price-amount .dollar {
+            font-size: 2.5rem;
+            vertical-align: top;
+            line-height: 2;
+        }
+
+        .membership-price-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--charcoal);
+        }
+
+        .membership-cta {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 16px 32px;
+            background: var(--green);
+            color: var(--black);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .membership-cta:hover {
+            background: #00e67a;
+        }
+
+        .membership-card.featured .membership-cta {
+            background: var(--green);
+            color: var(--black);
+        }
+
+        /* ===== CLASSES / SCHEDULE ===== */
+        .schedule-section {
+            padding: 120px 40px;
+            background: var(--light-gray);
+            clip-path: polygon(0 3%, 100% 0, 100% 97%, 0 100%);
+            position: relative;
+        }
+
+        .schedule-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .schedule-days {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .schedule-day-btn {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 24px;
+            background: #fff;
+            color: var(--charcoal);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .schedule-day-btn.active {
+            background: var(--black);
+            color: #fff;
+        }
+
+        .schedule-day-btn.today {
+            border-color: var(--green);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .schedule-card {
+            background: #fff;
+            padding: 28px;
+            border-left: 4px solid var(--black);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .schedule-card:hover {
+            border-left-color: var(--green);
+            transform: translateX(4px);
+        }
+
+        .schedule-card.now {
+            border-left-color: var(--green);
+            background: #fff;
+        }
+
+        .schedule-card.now::after {
+            content: 'LIVE';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.65rem;
+            letter-spacing: 1px;
+            background: var(--green);
+            color: var(--black);
+            padding: 4px 10px;
+        }
+
+        .schedule-time {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--green);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .schedule-class-name {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        .schedule-trainer {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+        }
+
+        .schedule-duration {
+            font-size: 0.8rem;
+            color: var(--charcoal);
+            opacity: 0.6;
+            margin-top: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== TRAINERS ===== */
+        .trainers-section {
+            padding: 120px 40px;
+            position: relative;
+        }
+
+        .trainers-section .geo-triangle {
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 100px solid rgba(0, 255, 135, 0.08);
+            right: 8%;
+            top: 15%;
+        }
+
+        .trainers-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .trainer-card {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 0;
+            border: 2px solid var(--light-gray);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .trainer-card:hover {
+            border-color: var(--black);
+        }
+
+        .trainer-card:nth-child(even) {
+            direction: rtl;
+        }
+
+        .trainer-card:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .trainer-photo {
+            background: var(--light-gray);
+            min-height: 280px;
+            clip-path: polygon(0 0, 100% 0, 88% 100%, 0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--charcoal);
+        }
+
+        .trainer-card:nth-child(even) .trainer-photo {
+            clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%);
+        }
+
+        .trainer-photo svg {
+            width: 60px;
+            height: 60px;
+            opacity: 0.3;
+        }
+
+        .trainer-info {
+            padding: 40px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .trainer-specialty {
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--green);
+            margin-bottom: 8px;
+        }
+
+        .trainer-name {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .trainer-bio {
+            font-size: 0.95rem;
+            color: var(--charcoal);
+            line-height: 1.8;
+            max-width: 480px;
+        }
+
+        .trainer-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 20px;
+        }
+
+        .trainer-stat {
+            font-size: 0.8rem;
+            color: var(--charcoal);
+        }
+
+        .trainer-stat strong {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--black);
+            display: block;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials-section {
+            padding: 120px 40px;
+            background: var(--light-gray);
+            clip-path: polygon(0 0, 100% 3%, 100% 100%, 0 97%);
+        }
+
+        .testimonials-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        .testimonial {
+            padding-left: 32px;
+            border-left: 4px solid var(--green);
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .testimonial-author {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+        }
+
+        .testimonial-author strong {
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .testimonial-result {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--green);
+            margin-top: 8px;
+            -webkit-text-stroke: 0.5px var(--black);
+        }
+
+        /* ===== TRIAL CTA ===== */
+        .trial-section {
+            padding: 120px 40px;
+            background: var(--green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trial-section .geo-circle {
+            width: 400px;
+            height: 400px;
+            border-color: rgba(17,17,17,0.1);
+            right: -100px;
+            top: -100px;
+        }
+
+        .trial-section .geo-line {
+            width: 300px;
+            height: 2px;
+            background: rgba(17,17,17,0.1);
+            left: -50px;
+            bottom: 30%;
+            transform: rotate(-20deg);
+        }
+
+        .trial-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trial-title {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -3px;
+            color: var(--black);
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .trial-subtitle {
+            font-size: 1.1rem;
+            color: var(--charcoal);
+            margin-bottom: 48px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .trial-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .trial-form input {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            padding: 16px 20px;
+            border: 2px solid var(--black);
+            background: #fff;
+            color: var(--black);
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .trial-form input::placeholder {
+            color: #999;
+        }
+
+        .trial-form input:focus {
+            box-shadow: 4px 4px 0 var(--black);
+        }
+
+        .trial-form button {
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 16px 32px;
+            background: var(--black);
+            color: #fff;
+            border: 2px solid var(--black);
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .trial-form button:hover {
+            background: var(--charcoal);
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+        }
+
+        .trial-note {
+            font-size: 0.8rem;
+            color: var(--charcoal);
+            margin-top: 16px;
+            opacity: 0.7;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--black);
+            color: #fff;
+            padding: 80px 40px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 1.8rem;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand span {
+            color: var(--green);
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.8;
+            max-width: 300px;
+        }
+
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            color: var(--green);
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            margin-bottom: 12px;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: #fff;
+        }
+
+        .footer-col p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .footer-bottom a {
+            color: var(--green);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-bottom a:hover {
+            opacity: 0.8;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===== MOBILE ===== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--black);
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 24px;
+            right: 40px;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--black);
+        }
+
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .hero-left {
+                padding: 140px 40px 60px;
+            }
+
+            .hero-right {
+                clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+                min-height: 50vh;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px 24px;
+            }
+
+            .membership-card {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .membership-price {
+                text-align: center;
+            }
+
+            .trainer-card {
+                grid-template-columns: 1fr;
+            }
+
+            .trainer-card:nth-child(even) {
+                direction: ltr;
+            }
+
+            .trainer-photo {
+                clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%) !important;
+                min-height: 220px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .trial-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-headline .line {
+                font-size: clamp(3rem, 12vw, 4.5rem);
+            }
+
+            .hero-left {
+                padding: 120px 24px 40px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn-primary, .btn-outline {
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-number {
+                font-size: clamp(3.5rem, 15vw, 6rem);
+            }
+
+            .membership-card {
+                padding: 28px;
+            }
+
+            .membership-price-amount {
+                font-size: 4rem;
+            }
+
+            .schedule-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .trainer-info {
+                padding: 28px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">SUMMIT<span>.</span></a>
+            <ul class="nav-links">
+                <li><a href="#membership">Membership</a></li>
+                <li><a href="#schedule">Classes</a></li>
+                <li><a href="#trainers">Trainers</a></li>
+                <li><a href="#testimonials">Results</a></li>
+                <li><a href="#trial" class="nav-cta">Free Trial</a></li>
+            </ul>
+            <button class="mobile-toggle" onclick="document.querySelector('.mobile-menu').classList.add('open')" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu">
+        <button class="mobile-menu-close" onclick="this.parentElement.classList.remove('open')">&times;</button>
+        <a href="#membership" onclick="this.parentElement.classList.remove('open')">Membership</a>
+        <a href="#schedule" onclick="this.parentElement.classList.remove('open')">Classes</a>
+        <a href="#trainers" onclick="this.parentElement.classList.remove('open')">Trainers</a>
+        <a href="#testimonials" onclick="this.parentElement.classList.remove('open')">Results</a>
+        <a href="#trial" onclick="this.parentElement.classList.remove('open')">Free Trial</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-left">
+            <div class="geo-circle"></div>
+            <div class="geo-line"></div>
+            <p class="hero-tagline">Summit Fitness Studio</p>
+            <h1 class="hero-headline">
+                <span class="line">MOVE.</span>
+                <span class="line green">SWEAT.</span>
+                <span class="line">TRANSFORM.</span>
+            </h1>
+            <p class="hero-desc">World-class training, cutting-edge equipment, and a community that pushes you past every limit. Your transformation starts now.</p>
+            <div class="hero-buttons">
+                <a href="#trial" class="btn-primary">Start Free Trial</a>
+                <a href="#membership" class="btn-outline">View Plans</a>
+            </div>
+        </div>
+        <div class="hero-right">
+            <div class="hero-image-placeholder">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M6.5 6.5h11M4 12h2.5m11 0H20M6.5 12a2.5 2.5 0 110-5 2.5 2.5 0 010 5zm11 0a2.5 2.5 0 110-5 2.5 2.5 0 010 5zM6.5 17.5h11M6.5 12v5.5m11-5.5v5.5M9 12h6"/>
+                </svg>
+                <span>Hero Image</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
+        <div class="geo-circle"></div>
+        <div class="geo-triangle"></div>
+        <div class="stats-grid">
+            <div class="stat-item fade-up">
+                <div><span class="stat-number" data-target="2500">0</span><span class="stat-suffix">+</span></div>
+                <p class="stat-label">Active Members</p>
+            </div>
+            <div class="stat-item fade-up" style="transition-delay: 0.1s;">
+                <div><span class="stat-number" data-target="30">0</span><span class="stat-suffix">+</span></div>
+                <p class="stat-label">Weekly Classes</p>
+            </div>
+            <div class="stat-item fade-up" style="transition-delay: 0.2s;">
+                <div><span class="stat-number" data-target="15">0</span></div>
+                <p class="stat-label">Expert Trainers</p>
+            </div>
+            <div class="stat-item fade-up" style="transition-delay: 0.3s;">
+                <div><span class="stat-number" data-target="98">0</span><span class="stat-suffix">%</span></div>
+                <p class="stat-label">Member Retention</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEMBERSHIP -->
+    <section class="membership-section" id="membership">
+        <div class="geo-line"></div>
+        <div class="geo-circle"></div>
+        <div class="section-header fade-up">
+            <p class="section-label">Plans &amp; Pricing</p>
+            <h2 class="section-title">Find Your <span class="highlight">Level</span></h2>
+        </div>
+        <div class="membership-cards">
+            <!-- Basic -->
+            <div class="membership-card fade-up">
+                <div class="membership-name">Basic</div>
+                <div class="membership-features">
+                    Gym floor access &bull; Locker room &bull; Free weights &bull; Cardio zone &bull; Open 5am&ndash;10pm
+                </div>
+                <div class="membership-price">
+                    <div class="membership-price-amount"><span class="dollar">$</span>29</div>
+                    <div class="membership-price-label">per month</div>
+                </div>
+                <a href="#trial" class="membership-cta">Get Started</a>
+            </div>
+            <!-- Pro -->
+            <div class="membership-card featured fade-up" style="transition-delay: 0.1s;">
+                <div class="membership-name">Pro</div>
+                <div class="membership-features">
+                    Everything in Basic &bull; All group classes &bull; Sauna &amp; steam &bull; Nutrition guide &bull; 24/7 access
+                </div>
+                <div class="membership-price">
+                    <div class="membership-price-amount"><span class="dollar">$</span>59</div>
+                    <div class="membership-price-label">per month</div>
+                </div>
+                <a href="#trial" class="membership-cta">Get Started</a>
+            </div>
+            <!-- Elite -->
+            <div class="membership-card fade-up" style="transition-delay: 0.2s;">
+                <div class="membership-name">Elite</div>
+                <div class="membership-features">
+                    Everything in Pro &bull; 4 PT sessions/month &bull; Recovery suite &bull; Guest passes &bull; Priority booking
+                </div>
+                <div class="membership-price">
+                    <div class="membership-price-amount"><span class="dollar">$</span>99</div>
+                    <div class="membership-price-label">per month</div>
+                </div>
+                <a href="#trial" class="membership-cta">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section class="schedule-section" id="schedule">
+        <div class="schedule-wrapper">
+            <div class="section-header fade-up">
+                <p class="section-label">Class Schedule</p>
+                <h2 class="section-title">This Week at <span class="highlight">Summit</span></h2>
+            </div>
+            <div class="schedule-days fade-up">
+                <button class="schedule-day-btn active today">Mon</button>
+                <button class="schedule-day-btn">Tue</button>
+                <button class="schedule-day-btn">Wed</button>
+                <button class="schedule-day-btn">Thu</button>
+                <button class="schedule-day-btn">Fri</button>
+                <button class="schedule-day-btn">Sat</button>
+                <button class="schedule-day-btn">Sun</button>
+            </div>
+            <div class="schedule-grid fade-up" style="transition-delay: 0.15s;">
+                <div class="schedule-card">
+                    <div class="schedule-time">6:00 AM</div>
+                    <div class="schedule-class-name">HIIT Blitz</div>
+                    <div class="schedule-trainer">with Marcus Cole</div>
+                    <div class="schedule-duration">45 min</div>
+                </div>
+                <div class="schedule-card now">
+                    <div class="schedule-time">7:30 AM</div>
+                    <div class="schedule-class-name">Power Yoga</div>
+                    <div class="schedule-trainer">with Priya Sharma</div>
+                    <div class="schedule-duration">60 min</div>
+                </div>
+                <div class="schedule-card">
+                    <div class="schedule-time">9:00 AM</div>
+                    <div class="schedule-class-name">Spin & Burn</div>
+                    <div class="schedule-trainer">with Jake Torres</div>
+                    <div class="schedule-duration">45 min</div>
+                </div>
+                <div class="schedule-card">
+                    <div class="schedule-time">12:00 PM</div>
+                    <div class="schedule-class-name">Strength Foundations</div>
+                    <div class="schedule-trainer">with Marcus Cole</div>
+                    <div class="schedule-duration">60 min</div>
+                </div>
+                <div class="schedule-card">
+                    <div class="schedule-time">5:30 PM</div>
+                    <div class="schedule-class-name">Boxing Cardio</div>
+                    <div class="schedule-trainer">with Ava Chen</div>
+                    <div class="schedule-duration">45 min</div>
+                </div>
+                <div class="schedule-card">
+                    <div class="schedule-time">7:00 PM</div>
+                    <div class="schedule-class-name">Stretch & Recover</div>
+                    <div class="schedule-trainer">with Priya Sharma</div>
+                    <div class="schedule-duration">30 min</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRAINERS -->
+    <section class="trainers-section" id="trainers">
+        <div class="geo-triangle"></div>
+        <div class="section-header fade-up">
+            <p class="section-label">Our Team</p>
+            <h2 class="section-title">Meet Your <span class="highlight">Trainers</span></h2>
+        </div>
+        <div class="trainers-grid">
+            <div class="trainer-card slide-left">
+                <div class="trainer-photo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/>
+                    </svg>
+                </div>
+                <div class="trainer-info">
+                    <p class="trainer-specialty">Strength & Conditioning</p>
+                    <h3 class="trainer-name">Marcus Cole</h3>
+                    <p class="trainer-bio">Former collegiate athlete turned certified strength coach. Marcus specializes in functional training and has helped over 500 members hit their strength goals.</p>
+                    <div class="trainer-stats">
+                        <div class="trainer-stat"><strong>12+</strong> Years Experience</div>
+                        <div class="trainer-stat"><strong>500+</strong> Members Trained</div>
+                    </div>
+                </div>
+            </div>
+            <div class="trainer-card slide-right">
+                <div class="trainer-photo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/>
+                    </svg>
+                </div>
+                <div class="trainer-info">
+                    <p class="trainer-specialty">Yoga & Mindfulness</p>
+                    <h3 class="trainer-name">Priya Sharma</h3>
+                    <p class="trainer-bio">RYT-500 certified yoga instructor with a background in sports rehabilitation. Priya blends traditional yoga with modern movement science for peak performance.</p>
+                    <div class="trainer-stats">
+                        <div class="trainer-stat"><strong>8+</strong> Years Experience</div>
+                        <div class="trainer-stat"><strong>300+</strong> Members Trained</div>
+                    </div>
+                </div>
+            </div>
+            <div class="trainer-card slide-left">
+                <div class="trainer-photo">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/>
+                    </svg>
+                </div>
+                <div class="trainer-info">
+                    <p class="trainer-specialty">Cardio & Boxing</p>
+                    <h3 class="trainer-name">Ava Chen</h3>
+                    <p class="trainer-bio">Competitive boxer and NASM-certified trainer. Ava's high-energy classes combine striking technique with full-body conditioning for maximum calorie burn.</p>
+                    <div class="trainer-stats">
+                        <div class="trainer-stat"><strong>6+</strong> Years Experience</div>
+                        <div class="trainer-stat"><strong>400+</strong> Members Trained</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials-section" id="testimonials">
+        <div class="section-header fade-up">
+            <p class="section-label">Real Results</p>
+            <h2 class="section-title">Member <span class="highlight">Stories</span></h2>
+        </div>
+        <div class="testimonials-grid">
+            <div class="testimonial fade-up">
+                <p class="testimonial-quote">"I've tried every gym in the city. Summit is the first place that actually made me want to come back. The trainers remember your name, your goals, everything."</p>
+                <p class="testimonial-author"><strong>David Park</strong> &mdash; Member for 2 years</p>
+                <p class="testimonial-result">Lost 45 lbs</p>
+            </div>
+            <div class="testimonial fade-up" style="transition-delay: 0.15s;">
+                <p class="testimonial-quote">"The 6 AM HIIT class changed my entire morning routine. I have more energy, more focus, and I'm in the best shape of my life at 42."</p>
+                <p class="testimonial-author"><strong>Rachel Kim</strong> &mdash; Member for 14 months</p>
+                <p class="testimonial-result">Ran her first marathon</p>
+            </div>
+            <div class="testimonial fade-up" style="transition-delay: 0.3s;">
+                <p class="testimonial-quote">"As someone who was intimidated by gyms, Summit made me feel welcome from day one. The community here is genuine. It's not just a gym, it's my second home."</p>
+                <p class="testimonial-author"><strong>James Rivera</strong> &mdash; Member for 3 years</p>
+                <p class="testimonial-result">Gained 20 lbs of muscle</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FREE TRIAL -->
+    <section class="trial-section" id="trial">
+        <div class="geo-circle"></div>
+        <div class="geo-line"></div>
+        <div class="trial-inner fade-up">
+            <h2 class="trial-title">Your First Week Is On Us</h2>
+            <p class="trial-subtitle">No commitment, no credit card. Just show up and see what Summit can do for you.</p>
+            <form class="trial-form" onsubmit="event.preventDefault(); alert('Thank you! We\'ll be in touch within 24 hours.');">
+                <input type="text" placeholder="Your name" required>
+                <input type="email" placeholder="Email address" required>
+                <button type="submit">Claim Trial</button>
+            </form>
+            <p class="trial-note">7-day full access pass. Cancel anytime. No strings attached.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-brand">SUMMIT<span>.</span></div>
+                    <p class="footer-desc">Premium fitness studio built for people who take their health seriously. Modern equipment, expert guidance, real community.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Explore</h4>
+                    <a href="#membership">Membership</a>
+                    <a href="#schedule">Class Schedule</a>
+                    <a href="#trainers">Trainers</a>
+                    <a href="#testimonials">Results</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Info</h4>
+                    <a href="#">FAQ</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p>123 Fitness Blvd, Suite 100</p>
+                    <p>Gilbert, AZ 85234</p>
+                    <p style="margin-top: 8px;">(480) 555-0187</p>
+                    <p>hello@summitfitness.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Summit Fitness. All rights reserved.</span>
+                <span>Website by <a href="https://tayko.dev">Tayko</a></span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Nav scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Schedule day buttons
+        document.querySelectorAll('.schedule-day-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.schedule-day-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up, .slide-left, .slide-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Count-up animation for stats
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    const duration = 2000;
+                    const start = performance.now();
+
+                    function update(now) {
+                        const elapsed = now - start;
+                        const progress = Math.min(elapsed / duration, 1);
+                        // Ease out cubic
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        const current = Math.floor(eased * target);
+                        el.textContent = current.toLocaleString();
+                        if (progress < 1) {
+                            requestAnimationFrame(update);
+                        } else {
+                            el.textContent = target.toLocaleString();
+                        }
+                    }
+
+                    requestAnimationFrame(update);
+                    countObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number[data-target]').forEach(el => {
+            countObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

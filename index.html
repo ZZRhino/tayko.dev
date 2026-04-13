@@ -74,363 +74,1344 @@
         "sameAs": ["https://github.com/ZZRhino"]
     }
     </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
+        /* ============================================
+           TAYKO.DEV — Bold Developer Portfolio
+           ============================================ */
+
         :root {
-            --bg: #ffffff;
-            --text: #1a1a2e;
-            --dim: #6b7280;
-            --accent: #2563eb;
-            --accent-light: #eff6ff;
-            --green: #059669;
-            --green-light: #ecfdf5;
-            --border: #e5e7eb;
-            --card-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+            --bg: #09090B;
+            --surface: #18181B;
+            --border: #27272A;
+            --accent: #6366F1;
+            --cyan: #22D3EE;
+            --success: #10B981;
+            --text: #FAFAFA;
+            --muted: #A1A1AA;
+            --font-heading: 'Instrument Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
 
-        /* Nav */
-        .nav { position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 100; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .nav-brand { font-weight: 800; font-size: 1.2rem; color: var(--accent); }
-        .nav-links { display: flex; gap: 1.5rem; }
-        .nav-links a { text-decoration: none; color: var(--dim); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover { color: var(--accent); }
-        .nav-cta { background: var(--accent); color: white; padding: 0.5rem 1.2rem; border-radius: 8px; text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: opacity 0.2s; }
-        .nav-cta:hover { opacity: 0.9; }
+        html { scroll-behavior: smooth; }
 
-        /* Hero */
-        .hero { max-width: 900px; margin: 0 auto; padding: 5rem 2rem 4rem; text-align: center; }
-        .hero h1 { font-size: 2.8rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
-        .hero h1 span { color: var(--accent); }
-        .hero p { font-size: 1.15rem; color: var(--dim); max-width: 600px; margin: 0 auto 2rem; }
-        .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .btn { display: inline-block; padding: 0.8rem 2rem; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 1rem; transition: all 0.2s; }
-        .btn-primary { background: var(--accent); color: white; }
-        .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
-        .btn-secondary { background: var(--accent-light); color: var(--accent); }
-
-        /* Trust bar */
-        .trust-bar { text-align: center; padding: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-        .trust-bar p { color: var(--dim); font-size: 0.85rem; margin-bottom: 0.5rem; }
-        .trust-items { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
-        .trust-item { font-weight: 700; font-size: 0.9rem; color: var(--text); }
-
-        /* Sections */
-        section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
-        .section-label { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--accent); font-weight: 700; margin-bottom: 0.5rem; }
-        .section-title { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .section-desc { color: var(--dim); margin-bottom: 2.5rem; max-width: 600px; }
-
-        /* Package Cards */
-        .packages { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .package {
-            background: white; border: 2px solid var(--border); border-radius: 16px;
-            padding: 2rem; transition: all 0.3s; position: relative;
+        body {
+            font-family: var(--font-body);
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            font-weight: 400;
+            overflow-x: hidden;
         }
-        .package:hover { border-color: var(--accent); box-shadow: var(--card-shadow); transform: translateY(-2px); }
-        .package.featured { border-color: var(--accent); }
-        .package.featured::before {
-            content: 'Most Popular'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
-            background: var(--accent); color: white; padding: 0.2rem 1rem; border-radius: 20px;
-            font-size: 0.75rem; font-weight: 700;
-        }
-        .package-icon { font-size: 2rem; margin-bottom: 1rem; }
-        .package h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.25rem; }
-        .package .price { font-size: 2rem; font-weight: 800; color: var(--accent); margin: 0.5rem 0; }
-        .package .price span { font-size: 1rem; color: var(--dim); font-weight: 400; }
-        .package p { color: var(--dim); font-size: 0.9rem; margin-bottom: 1rem; }
-        .package ul { list-style: none; margin-bottom: 1.5rem; }
-        .package ul li { padding: 0.4rem 0; font-size: 0.88rem; color: var(--text); display: flex; align-items: start; gap: 0.5rem; }
-        .package ul li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
-        .package .pkg-btn { display: block; text-align: center; padding: 0.7rem; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 0.9rem; }
-        .package .pkg-btn.primary { background: var(--accent); color: white; }
-        .package .pkg-btn.secondary { background: var(--accent-light); color: var(--accent); }
 
-        /* Portfolio */
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
+        /* ---- Selection ---- */
+        ::selection {
+            background: rgba(99, 102, 241, 0.3);
+            color: var(--text);
+        }
+
+        /* ---- Scrollbar ---- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(9, 9, 11, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid transparent;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .nav.scrolled {
+            background: rgba(9, 9, 11, 0.95);
+            border-bottom-color: var(--border);
+        }
+
+        .nav-brand {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            letter-spacing: 0.01em;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.25rem;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            color: var(--text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            font-family: var(--font-body);
+            transition: all 0.3s;
+            background: transparent;
+        }
+
+        .nav-cta:hover {
+            background: var(--accent);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* Mobile nav overlay */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(9, 9, 11, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .mobile-nav.active { display: flex; }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .mobile-nav a:hover { color: var(--accent); }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            overflow: hidden;
+        }
+
+        /* Grid pattern overlay */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+        }
+
+        /* Gradient mesh blobs */
+        .hero-blob-1 {
+            position: absolute;
+            top: 10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            filter: blur(60px);
+            animation: blobFloat 12s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .hero-blob-2 {
+            position: absolute;
+            bottom: 5%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 70%);
+            filter: blur(60px);
+            animation: blobFloat 15s ease-in-out infinite reverse;
+            z-index: 0;
+        }
+
+        .hero-blob-3 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+            filter: blur(80px);
+            animation: blobPulse 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -20px); }
+            66% { transform: translate(-20px, 20px); }
+        }
+
+        @keyframes blobPulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            color: var(--muted);
+            max-width: 580px;
+            margin: 0 auto 2.5rem;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            font-family: var(--font-body);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5457E5;
+            box-shadow: 0 0 30px rgba(99, 102, 241, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--muted);
+            background: rgba(255, 255, 255, 0.03);
+            transform: translateY(-2px);
+        }
+
+        /* Trust strip */
+        .trust-strip {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            padding: 1rem 0;
+        }
+
+        .trust-strip span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--muted);
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .trust-strip span::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           SECTION SHARED
+           ============================================ */
+        section {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.01em;
+        }
+
+        .section-desc {
+            color: var(--muted);
+            max-width: 550px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           PACKAGES
+           ============================================ */
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+        }
+
+        .package-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: all 0.4s;
+            overflow: hidden;
+        }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .package-card.starter::before { background: var(--cyan); }
+        .package-card.pro::before { background: var(--accent); }
+        .package-card.custom::before { background: linear-gradient(90deg, var(--accent), #A855F7); }
+
+        .package-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 40px rgba(99, 102, 241, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .package-card.featured {
+            transform: scale(1.03);
+            border-color: var(--accent);
+            box-shadow: 0 8px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .package-card.featured:hover {
+            transform: scale(1.03) translateY(-4px);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--accent);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .package-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .package-card .package-desc {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.25rem;
+            font-weight: 300;
+        }
+
+        .package-price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            margin-bottom: 0.25rem;
+        }
+
+        .package-price .currency { font-size: 1.5rem; vertical-align: top; }
+        .package-price .period {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--muted);
+            margin-left: 0.25rem;
+        }
+
+        .package-features {
+            list-style: none;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .package-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            font-size: 0.875rem;
+            color: #D4D4D8;
+            font-weight: 400;
+        }
+
+        .package-features li svg {
+            flex-shrink: 0;
+            margin-top: 3px;
+            color: var(--success);
+        }
+
+        .pkg-cta {
+            display: block;
+            text-align: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-family: var(--font-body);
+            margin-top: 0.5rem;
+        }
+
+        .pkg-cta.primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .pkg-cta.primary:hover {
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .pkg-cta.secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .pkg-cta.secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ============================================
+           PORTFOLIO
+           ============================================ */
+        .portfolio-section {
+            max-width: 100%;
+            padding: 6rem 0;
+        }
+
+        .portfolio-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .portfolio-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
         .portfolio-card {
-            border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
-            transition: all 0.3s; background: white;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s;
         }
-        .portfolio-card:hover { box-shadow: var(--card-shadow); transform: translateY(-2px); }
-        .portfolio-img {
-            height: 200px; display: flex; align-items: center; justify-content: center;
-            font-size: 3rem; position: relative;
+
+        .portfolio-card:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-3px);
         }
-        .portfolio-body { padding: 1.5rem; }
-        .portfolio-body h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
-        .portfolio-body p { color: var(--dim); font-size: 0.85rem; margin-bottom: 0.75rem; }
-        .tech-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-        .tech-tag { padding: 0.2rem 0.6rem; background: var(--accent-light); color: var(--accent); border-radius: 6px; font-size: 0.7rem; font-weight: 600; }
 
-        /* Process */
-        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
-        .process-step { text-align: center; padding: 1.5rem; }
-        .step-num { width: 40px; height: 40px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 1rem; }
-        .process-step h4 { font-weight: 700; margin-bottom: 0.3rem; }
-        .process-step p { color: var(--dim); font-size: 0.85rem; }
+        .portfolio-card.reverse { direction: rtl; }
+        .portfolio-card.reverse > * { direction: ltr; }
 
-        /* CTA section */
-        .cta-section {
-            background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
-            color: white; text-align: center; padding: 4rem 2rem; border-radius: 20px;
-            margin: 2rem auto; max-width: 1100px;
+        .portfolio-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+            min-height: 280px;
+            position: relative;
+            overflow: hidden;
         }
-        .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .cta-section p { opacity: 0.85; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-        .cta-section .btn { background: white; color: var(--accent); }
 
-        /* Contact */
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-        .contact-info h3 { font-size: 1.2rem; margin-bottom: 1rem; }
-        .contact-info p { color: var(--dim); margin-bottom: 1.5rem; }
-        .contact-item { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-        .contact-icon { width: 40px; height: 40px; background: var(--accent-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-        .contact-form input, .contact-form textarea {
-            width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: 10px;
-            font-size: 0.9rem; margin-bottom: 0.75rem; font-family: inherit; background: #fafafa;
+        .portfolio-visual.green { background: linear-gradient(135deg, #059669, #10B981); }
+        .portfolio-visual.blue { background: linear-gradient(135deg, #1e3a5f, #3B82F6); }
+        .portfolio-visual.purple { background: linear-gradient(135deg, #7C3AED, #A78BFA); }
+
+        .portfolio-visual .project-name {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            position: relative;
+            z-index: 1;
         }
-        .contact-form textarea { min-height: 120px; resize: vertical; }
-        .contact-form button { width: 100%; }
 
-        /* Footer */
-        .footer { text-align: center; padding: 2rem; color: var(--dim); font-size: 0.8rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+        .portfolio-visual::after {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 50%);
+            animation: shimmer 6s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(10%, 10%); }
+        }
+
+        .portfolio-body {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .portfolio-body h3 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .portfolio-body p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+            font-weight: 300;
+        }
+
+        .tech-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tech-pill {
+            padding: 0.25rem 0.65rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: #A5B4FC;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+
+        .portfolio-view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .portfolio-view-btn a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: gap 0.3s;
+        }
+
+        .portfolio-view-btn a:hover { gap: 0.75rem; }
+
+        .portfolio-view-btn a svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-view-btn a:hover svg { transform: translateX(3px); }
+
+        /* ============================================
+           PROCESS
+           ============================================ */
+        .process-track {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        .process-track::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: calc(12.5% + 12px);
+            right: calc(12.5% + 12px);
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+        }
+
+        .process-line-fill {
+            position: absolute;
+            top: 24px;
+            left: calc(12.5% + 12px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--cyan));
+            z-index: 1;
+            width: 0;
+            transition: width 1.2s ease-out;
+        }
+
+        .process-line-fill.animate {
+            width: calc(75% - 24px);
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            margin: 0 auto 1.25rem;
+            font-family: var(--font-heading);
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+
+        .process-step h4 {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step p {
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           CTA BANNER
+           ============================================ */
+        .cta-banner {
+            position: relative;
+            margin: 2rem auto;
+            max-width: 1200px;
+            padding: 5rem 2rem;
+            text-align: center;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #4338CA, var(--accent), #7C3AED);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .cta-banner h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(1.75rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.75rem;
+        }
+
+        .cta-banner p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.05rem;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .cta-banner .btn {
+            background: white;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .cta-banner .btn:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================
+           CONTACT
+           ============================================ */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info > p {
+            color: var(--muted);
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        .contact-item .label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .contact-item .value {
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #52525B;
+        }
+
+        .contact-form input:focus,
+        .contact-form select:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }
+
+        .contact-form select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23A1A1AA' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        .contact-form select option {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .contact-form textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .footer p {
+            color: #52525B;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .packages-grid {
+                grid-template-columns: 1fr;
+                max-width: 460px;
+                margin: 0 auto;
+            }
+
+            .package-card.featured {
+                transform: none;
+            }
+
+            .package-card.featured:hover {
+                transform: translateY(-4px);
+            }
+        }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .contact-grid { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
+            .nav-links, .nav-cta { display: none; }
+            .hamburger { display: flex; }
+
+            .hero { min-height: auto; padding: 7rem 1.5rem 3rem; }
+
+            .hero h1 { font-size: clamp(2rem, 8vw, 3rem); }
+
+            .trust-strip { gap: 1rem; }
+            .trust-strip span { font-size: 0.7rem; }
+
+            section { padding: 4rem 1.5rem; }
+
+            .portfolio-card {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-card.reverse { direction: ltr; }
+
+            .portfolio-visual { min-height: 200px; padding: 2rem; }
+
+            .portfolio-body { padding: 1.5rem; }
+
+            .process-track {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .process-track::before,
+            .process-line-fill { display: none; }
+
+            .process-step { text-align: left; display: flex; gap: 1rem; align-items: flex-start; padding: 0; }
+            .process-step .step-circle { margin: 0; flex-shrink: 0; width: 40px; height: 40px; font-size: 0.9rem; }
+            .process-step .step-content { flex: 1; }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .cta-banner { margin: 2rem 1rem; padding: 3rem 1.5rem; }
+
+            .packages-grid {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-ctas { flex-direction: column; align-items: center; }
+            .hero-ctas .btn { width: 100%; max-width: 280px; }
         }
     </style>
 </head>
 <body>
 
-<nav class="nav">
-    <a href="https://tayko.dev" class="nav-brand" style="text-decoration:none;">TAYKO.DEV</a>
+<!-- ============ NAVIGATION ============ -->
+<nav class="nav" id="nav">
+    <a href="https://tayko.dev" class="nav-brand">TAYKO.DEV</a>
     <div class="nav-links">
         <a href="#packages">Packages</a>
-        <a href="#work">My Work</a>
+        <a href="#work">Portfolio</a>
         <a href="#process">Process</a>
         <a href="#contact">Contact</a>
     </div>
     <a href="#contact" class="nav-cta">Get a Free Quote</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
 
-<div class="hero">
-    <h1>Your business deserves a website that <span>actually works.</span></h1>
-    <p>Custom websites, apps, and business tools for local businesses. Modern, fast, mobile-friendly. Built by a developer who's also a business owner.</p>
-    <div class="hero-ctas">
-        <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
-        <a href="#work" class="btn btn-secondary">See My Work</a>
-    </div>
+<!-- Mobile nav overlay -->
+<div class="mobile-nav" id="mobileNav">
+    <a href="#packages" onclick="closeMobileNav()">Packages</a>
+    <a href="#work" onclick="closeMobileNav()">Portfolio</a>
+    <a href="#process" onclick="closeMobileNav()">Process</a>
+    <a href="#contact" onclick="closeMobileNav()">Contact</a>
+    <a href="#contact" class="nav-cta" onclick="closeMobileNav()" style="margin-top:1rem;">Get a Free Quote</a>
 </div>
 
-<div class="trust-bar">
-    <p>Built with industry-leading technology</p>
-    <div class="trust-items">
-        <span class="trust-item">React / Next.js</span>
-        <span class="trust-item">Mobile-Friendly</span>
-        <span class="trust-item">Lightning Fast</span>
-        <span class="trust-item">SEO Optimized</span>
-        <span class="trust-item">Secure</span>
-    </div>
-</div>
+<!-- ============ HERO ============ -->
+<header class="hero">
+    <div class="hero-blob-1"></div>
+    <div class="hero-blob-2"></div>
+    <div class="hero-blob-3"></div>
 
+    <div class="hero-content fade-in">
+        <span class="hero-label">Web Developer &mdash; Gilbert, AZ</span>
+        <h1>Your business deserves a website that <span class="gradient-text">actually works.</span></h1>
+        <p class="hero-subtitle">Custom websites, apps, and business tools built with modern tech. Fast, mobile-friendly, and designed to convert visitors into customers.</p>
+        <div class="hero-ctas">
+            <a href="#contact" class="btn btn-primary">Get a Free Quote</a>
+            <a href="#work" class="btn btn-ghost">See My Work</a>
+        </div>
+    </div>
+
+    <div class="trust-strip fade-in">
+        <span>React / Next.js</span>
+        <span>Mobile-Friendly</span>
+        <span>Lightning Fast</span>
+        <span>SEO Optimized</span>
+        <span>Secure</span>
+    </div>
+</header>
+
+<!-- ============ PACKAGES ============ -->
 <section id="packages">
-    <div class="section-label">Packages</div>
-    <div class="section-title">Simple pricing. Real results.</div>
-    <p class="section-desc">No hourly billing surprises. Pick a package, get exactly what you need.</p>
+    <div class="fade-in">
+        <p class="section-label">Packages</p>
+        <h2 class="section-title">Simple pricing. Real results.</h2>
+        <p class="section-desc">No hourly billing surprises. Pick a package, get exactly what you need.</p>
+    </div>
 
-    <div class="packages">
-        <div class="package">
-            <div class="package-icon">🚀</div>
+    <div class="packages-grid">
+        <!-- Starter -->
+        <div class="package-card starter fade-in">
             <h3>Starter Website</h3>
-            <div class="price">$500 <span>one-time</span></div>
-            <p>Perfect for businesses that need to get online fast.</p>
-            <ul>
-                <li>5-page responsive website</li>
-                <li>Mobile-friendly design</li>
-                <li>Contact form</li>
-                <li>Google Maps integration</li>
-                <li>Basic SEO setup</li>
-                <li>1 round of revisions</li>
-                <li>Delivered in 5-7 days</li>
+            <p class="package-desc">Perfect for businesses that need to get online fast.</p>
+            <div class="package-price"><span class="currency">$</span>500 <span class="period">one-time</span></div>
+            <ul class="package-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>5-page responsive website</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mobile-friendly design</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Contact form</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Maps integration</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Basic SEO setup</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 round of revisions</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Delivered in 5-7 days</li>
             </ul>
-            <a href="#contact" class="pkg-btn secondary">Get Started</a>
+            <a href="#contact" class="pkg-cta secondary">Get Started</a>
         </div>
 
-        <div class="package featured">
-            <div class="package-icon">⚡</div>
+        <!-- Business Pro (Featured) -->
+        <div class="package-card pro featured fade-in" style="transition-delay: 0.1s;">
+            <span class="popular-badge">Most Popular</span>
             <h3>Business Pro</h3>
-            <div class="price">$1,200 <span>one-time</span></div>
-            <p>For businesses ready to compete online and attract customers.</p>
-            <ul>
-                <li>Everything in Starter, plus:</li>
-                <li>Up to 10 pages</li>
-                <li>Online booking / scheduling</li>
-                <li>Customer reviews section</li>
-                <li>Deals & promotions page</li>
-                <li>Social media integration</li>
-                <li>Google Business optimization</li>
-                <li>Analytics dashboard</li>
-                <li>3 rounds of revisions</li>
-                <li>Delivered in 10-14 days</li>
+            <p class="package-desc">For businesses ready to compete online and attract customers.</p>
+            <div class="package-price"><span class="currency">$</span>1,200 <span class="period">one-time</span></div>
+            <ul class="package-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Everything in Starter, plus:</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 10 pages</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Online booking / scheduling</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Customer reviews section</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Deals &amp; promotions page</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Social media integration</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Google Business optimization</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Analytics dashboard</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 rounds of revisions</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Delivered in 10-14 days</li>
             </ul>
-            <a href="#contact" class="pkg-btn primary">Get Started</a>
+            <a href="#contact" class="pkg-cta primary">Get Started</a>
         </div>
 
-        <div class="package">
-            <div class="package-icon">🏆</div>
+        <!-- Custom App -->
+        <div class="package-card custom fade-in" style="transition-delay: 0.2s;">
             <h3>Custom App / Tool</h3>
-            <div class="price">$2,500+ <span>project-based</span></div>
-            <p>Need something custom? A dashboard, booking system, mobile app, or internal tool.</p>
-            <ul>
-                <li>Custom web application</li>
-                <li>Database design & API</li>
-                <li>User accounts & auth</li>
-                <li>Admin dashboard</li>
-                <li>Mobile app (iOS + Android)</li>
-                <li>AI-powered features available</li>
-                <li>Ongoing support available</li>
-                <li>Timeline based on scope</li>
+            <p class="package-desc">Need something custom? A dashboard, booking system, mobile app, or internal tool.</p>
+            <div class="package-price"><span class="currency">$</span>2,500+ <span class="period">project-based</span></div>
+            <ul class="package-features">
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Custom web application</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Database design &amp; API</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>User accounts &amp; auth</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Admin dashboard</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Mobile app (iOS + Android)</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>AI-powered features available</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ongoing support available</li>
+                <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Timeline based on scope</li>
             </ul>
-            <a href="#contact" class="pkg-btn secondary">Let's Talk</a>
+            <a href="#contact" class="pkg-cta secondary">Let's Talk</a>
         </div>
     </div>
 </section>
 
-<section id="work" style="background: #f9fafb; margin: 0 auto; max-width: 100%; padding: 4rem 2rem;">
-    <div style="max-width: 1100px; margin: 0 auto;">
-        <div class="section-label">Portfolio</div>
-        <div class="section-title">Real projects. Real code. Real results.</div>
-        <p class="section-desc">These aren't mockups — they're fully functional applications I designed and built.</p>
+<!-- ============ PORTFOLIO ============ -->
+<section id="work" class="portfolio-section">
+    <div class="portfolio-inner">
+        <div class="fade-in">
+            <p class="section-label">Portfolio</p>
+            <h2 class="section-title">Real projects. Real code. Real results.</h2>
+            <p class="section-desc">These aren't mockups -- they're fully functional applications I designed and built.</p>
+        </div>
 
-        <div class="portfolio-grid">
-            <div class="portfolio-card">
-                <div class="portfolio-img" style="background: linear-gradient(135deg, #059669, #10b981);">
-                    <span style="color: white; font-size: 1.5rem; font-weight: 800;">WinWin</span>
+        <div class="portfolio-list">
+            <!-- WinWin -->
+            <div class="portfolio-card fade-in">
+                <div class="portfolio-visual green">
+                    <span class="project-name">WinWin</span>
                 </div>
                 <div class="portfolio-body">
-                    <h3>WinWin — Local Deals Platform</h3>
+                    <h3>WinWin -- Local Deals Platform</h3>
                     <p>Full-stack marketplace connecting consumers with local businesses. Geo-based deal discovery, interactive maps, verified reviews, tier-based loyalty system, business analytics dashboard, waitlist with viral referral mechanics. 25+ pages, 15+ API endpoints, real-time data.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Next.js 14</span>
-                        <span class="tech-tag">TypeScript</span>
-                        <span class="tech-tag">React</span>
-                        <span class="tech-tag">Tailwind CSS</span>
-                        <span class="tech-tag">SQLite</span>
-                        <span class="tech-tag">Leaflet Maps</span>
-                        <span class="tech-tag">JWT Auth</span>
-                        <span class="tech-tag">Stripe</span>
-                        <span class="tech-tag">Vercel</span>
+                    <div class="tech-pills">
+                        <span class="tech-pill">Next.js 14</span>
+                        <span class="tech-pill">TypeScript</span>
+                        <span class="tech-pill">React</span>
+                        <span class="tech-pill">Tailwind CSS</span>
+                        <span class="tech-pill">SQLite</span>
+                        <span class="tech-pill">Leaflet Maps</span>
+                        <span class="tech-pill">JWT Auth</span>
+                        <span class="tech-pill">Stripe</span>
+                        <span class="tech-pill">Vercel</span>
                     </div>
                 </div>
             </div>
 
-            <div class="portfolio-card">
-                <div class="portfolio-img" style="background: linear-gradient(135deg, #1e3a5f, #2563eb);">
-                    <span style="color: white; font-size: 1.5rem; font-weight: 800;">Have Blue</span>
+            <!-- Have Blue -->
+            <div class="portfolio-card reverse fade-in">
+                <div class="portfolio-visual blue">
+                    <span class="project-name">Have Blue</span>
                 </div>
                 <div class="portfolio-body">
-                    <h3>Project Have Blue — AI Trading Engine</h3>
+                    <h3>Project Have Blue -- AI Trading Engine</h3>
                     <p>Automated trading platform with 10 independent pattern detection systems, real-time market data streaming, AI-powered trade analysis, risk management, mobile app, and web dashboard. Multi-broker integration with paper and live trading modes.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">FastAPI</span>
-                        <span class="tech-tag">React Native</span>
-                        <span class="tech-tag">Streamlit</span>
-                        <span class="tech-tag">Claude AI API</span>
-                        <span class="tech-tag">WebSocket</span>
-                        <span class="tech-tag">SQLite</span>
-                        <span class="tech-tag">Async/Await</span>
+                    <div class="tech-pills">
+                        <span class="tech-pill">Python</span>
+                        <span class="tech-pill">FastAPI</span>
+                        <span class="tech-pill">React Native</span>
+                        <span class="tech-pill">Streamlit</span>
+                        <span class="tech-pill">Claude AI API</span>
+                        <span class="tech-pill">WebSocket</span>
+                        <span class="tech-pill">SQLite</span>
+                        <span class="tech-pill">Async/Await</span>
                     </div>
                 </div>
             </div>
 
-            <div class="portfolio-card">
-                <div class="portfolio-img" style="background: linear-gradient(135deg, #7c3aed, #a78bfa);">
-                    <span style="color: white; font-size: 1.5rem; font-weight: 800;">Interactive Tools</span>
+            <!-- Interactive Tools -->
+            <div class="portfolio-card fade-in">
+                <div class="portfolio-visual purple">
+                    <span class="project-name">Interactive Tools</span>
                 </div>
                 <div class="portfolio-body">
                     <h3>Interactive Scientific Simulators</h3>
                     <p>Suite of interactive data visualization tools featuring real-time calculations, Chart.js visualizations, engineering calculators, and research databases. Complex physics models with intuitive interfaces.</p>
-                    <div class="tech-tags">
-                        <span class="tech-tag">JavaScript</span>
-                        <span class="tech-tag">Chart.js</span>
-                        <span class="tech-tag">HTML5/CSS3</span>
-                        <span class="tech-tag">Data Visualization</span>
-                        <span class="tech-tag">Responsive Design</span>
+                    <div class="tech-pills">
+                        <span class="tech-pill">JavaScript</span>
+                        <span class="tech-pill">Chart.js</span>
+                        <span class="tech-pill">HTML5/CSS3</span>
+                        <span class="tech-pill">Data Visualization</span>
+                        <span class="tech-pill">Responsive Design</span>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="portfolio-view-btn fade-in" style="margin-top: 2.5rem; text-align: center;">
+            <a href="/examples.html">View More Examples <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+        </div>
+    </div>
+</section>
+
+<!-- ============ PROCESS ============ -->
+<section id="process">
+    <div class="fade-in">
+        <p class="section-label">How It Works</p>
+        <h2 class="section-title">From conversation to launch in days, not months.</h2>
+        <p class="section-desc">I keep it simple. No corporate process. No 47 meetings. Just results.</p>
+    </div>
+
+    <div class="process-track fade-in" id="processTrack">
+        <div class="process-line-fill" id="processLine"></div>
+
+        <div class="process-step">
+            <div class="step-circle">1</div>
+            <div class="step-content">
+                <h4>Free Consultation</h4>
+                <p>Tell me what you need. I'll tell you honestly what it'll take and what it'll cost. No pressure.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-circle">2</div>
+            <div class="step-content">
+                <h4>Design &amp; Build</h4>
+                <p>I build it fast using modern tools. You see progress within days, not weeks. Feedback welcome anytime.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-circle">3</div>
+            <div class="step-content">
+                <h4>Review &amp; Revise</h4>
+                <p>You review everything. I revise until you're happy. Included in every package.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-circle">4</div>
+            <div class="step-content">
+                <h4>Launch</h4>
+                <p>I deploy it, set up your domain, and make sure everything works perfectly. You're live.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section id="process">
-    <div class="section-label">How It Works</div>
-    <div class="section-title">From conversation to launch in days, not months.</div>
-    <p class="section-desc">I keep it simple. No corporate process. No 47 meetings. Just results.</p>
-
-    <div class="process-steps">
-        <div class="process-step">
-            <div class="step-num">1</div>
-            <h4>Free Consultation</h4>
-            <p>Tell me what you need. I'll tell you honestly what it'll take and what it'll cost. No pressure.</p>
-        </div>
-        <div class="process-step">
-            <div class="step-num">2</div>
-            <h4>Design & Build</h4>
-            <p>I build it fast using modern tools. You see progress within days, not weeks. Feedback welcome anytime.</p>
-        </div>
-        <div class="process-step">
-            <div class="step-num">3</div>
-            <h4>Review & Revise</h4>
-            <p>You review everything. I revise until you're happy. Included in every package.</p>
-        </div>
-        <div class="process-step">
-            <div class="step-num">4</div>
-            <h4>Launch</h4>
-            <p>I deploy it, set up your domain, and make sure everything works perfectly. You're live.</p>
-        </div>
-    </div>
-</section>
-
-<div class="cta-section">
+<!-- ============ CTA BANNER ============ -->
+<div class="cta-banner fade-in" style="margin-left: 2rem; margin-right: 2rem;">
     <h2>Let's build something for your business.</h2>
-    <p>Free quote. No obligations. I'll tell you exactly what you need and what it'll cost — honestly.</p>
+    <p>Free quote. No obligations. I'll tell you exactly what you need and what it'll cost -- honestly.</p>
     <a href="#contact" class="btn">Get Your Free Quote</a>
 </div>
 
+<!-- ============ CONTACT ============ -->
 <section id="contact">
-    <div class="section-label">Contact</div>
-    <div class="section-title">Let's talk about your project.</div>
-    <p class="section-desc">Fill out the form or reach out directly. I respond within 24 hours.</p>
+    <div class="fade-in">
+        <p class="section-label">Contact</p>
+        <h2 class="section-title">Let's talk about your project.</h2>
+        <p class="section-desc">Fill out the form or reach out directly. I respond within 24 hours.</p>
+    </div>
 
-    <div class="contact-grid">
+    <div class="contact-grid fade-in">
         <div class="contact-info">
             <h3>Get in touch</h3>
             <p>I work with local businesses in the Gilbert / Phoenix metro area and remote clients nationwide. Whether you need a simple website or a complex application, I'd love to hear about your project.</p>
 
             <div class="contact-item">
-                <div class="contact-icon">📧</div>
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
                 <div>
-                    <div style="font-weight: 600; font-size: 0.9rem;">Email</div>
-                    <div style="color: var(--dim); font-size: 0.85rem;">taylor@tayko.dev</div>
+                    <div class="label">Email</div>
+                    <div class="value">taylor@tayko.dev</div>
                 </div>
             </div>
+
             <div class="contact-item">
-                <div class="contact-icon">📍</div>
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
                 <div>
-                    <div style="font-weight: 600; font-size: 0.9rem;">Location</div>
-                    <div style="color: var(--dim); font-size: 0.85rem;">Gilbert, AZ (Phoenix Metro)</div>
+                    <div class="label">Location</div>
+                    <div class="value">Gilbert, AZ (Phoenix Metro)</div>
                 </div>
             </div>
+
             <div class="contact-item">
-                <div class="contact-icon">⚡</div>
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
                 <div>
-                    <div style="font-weight: 600; font-size: 0.9rem;">Response Time</div>
-                    <div style="color: var(--dim); font-size: 0.85rem;">Within 24 hours</div>
+                    <div class="label">Response Time</div>
+                    <div class="value">Within 24 hours</div>
                 </div>
             </div>
         </div>
@@ -439,7 +1420,7 @@
             <input type="text" name="name" placeholder="Your name" required>
             <input type="email" name="email" placeholder="Your email" required>
             <input type="text" name="business" placeholder="Business name (optional)">
-            <select name="package" style="width:100%;padding:0.75rem 1rem;border:1px solid var(--border);border-radius:10px;font-size:0.9rem;margin-bottom:0.75rem;background:#fafafa;">
+            <select name="package">
                 <option value="">What are you interested in?</option>
                 <option value="starter">Starter Website ($500)</option>
                 <option value="pro">Business Pro ($1,200)</option>
@@ -447,38 +1428,94 @@
                 <option value="other">Something else</option>
             </select>
             <textarea name="message" placeholder="Tell me about your project or what you need..."></textarea>
-            <button type="submit" class="btn btn-primary" style="border:none;cursor:pointer;font-size:1rem;width:100%;">Send Message</button>
+            <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
         </form>
     </div>
 </section>
 
-<div class="footer">
-    <p>&copy; 2026 TAYKO.DEV — Custom Web Development & Business Solutions</p>
-</div>
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+    <p>&copy; 2026 TAYKO.DEV -- Custom Web Development &amp; Business Solutions</p>
+</footer>
 
+<!-- ============ SCRIPTS ============ -->
 <script>
+// ------- Nav scroll effect -------
+const nav = document.getElementById('nav');
+let lastScroll = 0;
+
+window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ------- Hamburger menu -------
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+    document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+});
+
+function closeMobileNav() {
+    hamburger.classList.remove('active');
+    mobileNav.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// ------- IntersectionObserver fade-in -------
+const fadeEls = document.querySelectorAll('.fade-in');
+const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+fadeEls.forEach(el => fadeObserver.observe(el));
+
+// ------- Process line animation -------
+const processTrack = document.getElementById('processTrack');
+const processLine = document.getElementById('processLine');
+
+if (processTrack && processLine) {
+    const lineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                processLine.classList.add('animate');
+                lineObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+
+    lineObserver.observe(processTrack);
+}
+
+// ------- Contact form handler -------
 function handleContact(e) {
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);
-    // For now, create a mailto link with the form data
+
     const name = data.get('name');
     const email = data.get('email');
     const business = data.get('business');
     const pkg = data.get('package');
     const message = data.get('message');
 
-    const subject = encodeURIComponent(`Website Inquiry from ${name}${business ? ' — ' + business : ''}`);
+    const subject = encodeURIComponent(`Website Inquiry from ${name}${business ? ' \u2014 ' + business : ''}`);
     const body = encodeURIComponent(
         `Name: ${name}\nEmail: ${email}\nBusiness: ${business || 'N/A'}\nPackage: ${pkg || 'Not specified'}\n\nMessage:\n${message}`
     );
 
     window.location.href = `mailto:taylor@tayko.dev?subject=${subject}&body=${body}`;
 
-    // Show confirmation
-    const btn = form.querySelector('button');
-    btn.textContent = 'Message Sent! ✓';
-    btn.style.background = '#059669';
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Opening Email Client...';
+    btn.style.background = '#10B981';
     setTimeout(() => {
         btn.textContent = 'Send Message';
         btn.style.background = '';

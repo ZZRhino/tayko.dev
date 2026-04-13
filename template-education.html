@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright Minds Tutoring | Personalized Tutoring for Every Student</title>
+    <meta name="description" content="Bright Minds Tutoring offers personalized K-12 and college tutoring in Math, Science, English, Test Prep, and more. 98% of students improve their grades. Book a free session today.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           MODERN ED-TECH THEME
+           Inspired by Notion, Linear, Duolingo
+           ============================================ */
+        :root {
+            --bg: #FFFFFF;
+            --primary: #4F46E5;
+            --primary-light: #6366F1;
+            --primary-dark: #4338CA;
+            --secondary: #10B981;
+            --secondary-light: #34D399;
+            --accent: #F59E0B;
+            --accent-light: #FBBF24;
+            --rose: #F43F5E;
+            --surface: #F8FAFC;
+            --dark: #0F172A;
+            --muted: #64748B;
+            --border: #E2E8F0;
+            --nav-height: 72px;
+            --radius: 14px;
+            --radius-sm: 8px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 30px rgba(0,0,0,0.1);
+            --transition: 0.25s ease;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--nav-height);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            color: var(--dark);
+            background: var(--bg);
+            line-height: 1.7;
+            font-size: 16px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; transition: var(--transition); }
+        ul { list-style: none; }
+        button, input, select, textarea {
+            font-family: inherit;
+            font-size: inherit;
+            border: none;
+            outline: none;
+        }
+
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ============================================
+           DECORATIVE FLOATING SHAPES
+           ============================================ */
+        .deco-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.06;
+            pointer-events: none;
+        }
+
+        .deco-square {
+            position: absolute;
+            border-radius: 12px;
+            opacity: 0.06;
+            pointer-events: none;
+            transform: rotate(15deg);
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--nav-height);
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--dark);
+        }
+
+        .nav-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--muted);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-cta {
+            background: var(--primary);
+            color: white !important;
+            padding: 10px 22px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: var(--dark);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            padding: 140px 0 100px;
+            position: relative;
+            overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .hero-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .hero h1 .gradient-word {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light), #818CF8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 32px;
+            max-width: 480px;
+            font-weight: 400;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79,70,229,0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--dark);
+            padding: 14px 28px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(79,70,229,0.04);
+        }
+
+        .hero-social-proof {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 32px;
+        }
+
+        .hero-avatars {
+            display: flex;
+        }
+
+        .hero-avatars span {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid white;
+            margin-left: -10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .hero-avatars span:first-child { margin-left: 0; }
+        .hero-avatars span:nth-child(1) { background: var(--primary); }
+        .hero-avatars span:nth-child(2) { background: var(--secondary); }
+        .hero-avatars span:nth-child(3) { background: var(--accent); }
+        .hero-avatars span:nth-child(4) { background: var(--rose); }
+
+        .hero-social-proof p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 0;
+            font-weight: 500;
+        }
+
+        .hero-social-proof strong {
+            color: var(--dark);
+        }
+
+        /* Hero illustration — CSS geometric shapes */
+        .hero-illustration {
+            position: relative;
+            width: 100%;
+            height: 480px;
+        }
+
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            transition: transform 0.6s ease;
+        }
+
+        .hero-shape-1 {
+            width: 280px;
+            height: 280px;
+            background: linear-gradient(135deg, rgba(79,70,229,0.12), rgba(99,102,241,0.06));
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero-shape-2 {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(16,185,129,0.15), rgba(52,211,153,0.06));
+            top: 15%;
+            right: 10%;
+        }
+
+        .hero-shape-3 {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(245,158,11,0.18), rgba(251,191,36,0.06));
+            bottom: 15%;
+            left: 10%;
+        }
+
+        .hero-shape-4 {
+            width: 200px;
+            height: 200px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(129,140,248,0.04));
+            top: 20%;
+            left: 15%;
+            transform: rotate(15deg);
+        }
+
+        .hero-shape-5 {
+            width: 90px;
+            height: 90px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(244,63,94,0.12), rgba(244,63,94,0.04));
+            bottom: 25%;
+            right: 15%;
+            transform: rotate(-10deg);
+        }
+
+        .hero-float-card {
+            position: absolute;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 16px 20px;
+            z-index: 3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .hero-float-card-1 {
+            top: 25%;
+            left: 5%;
+            animation: float-1 6s ease-in-out infinite;
+        }
+
+        .hero-float-card-2 {
+            bottom: 20%;
+            right: 5%;
+            animation: float-2 5s ease-in-out infinite;
+        }
+
+        .hero-float-card-3 {
+            top: 10%;
+            right: 20%;
+            animation: float-3 7s ease-in-out infinite;
+        }
+
+        @keyframes float-1 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes float-2 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes float-3 {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .float-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .float-icon-indigo { background: rgba(79,70,229,0.1); }
+        .float-icon-green { background: rgba(16,185,129,0.1); }
+        .float-icon-amber { background: rgba(245,158,11,0.1); }
+
+        .float-text {
+            font-size: 0.8rem;
+        }
+
+        .float-text strong {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .float-text span {
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* ============================================
+           SECTION DEFAULTS
+           ============================================ */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 12px;
+        }
+
+        .section-label::before {
+            content: '';
+            width: 20px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-heading {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: var(--dark);
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 560px;
+            line-height: 1.7;
+        }
+
+        .section-header {
+            margin-bottom: 56px;
+        }
+
+        .section-header-center {
+            text-align: center;
+        }
+
+        .section-header-center .section-desc {
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           PROGRAMS SECTION
+           ============================================ */
+        .programs {
+            background: var(--surface);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .program-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 32px 24px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .program-card:nth-child(1)::before { background: var(--primary); }
+        .program-card:nth-child(2)::before { background: var(--secondary); }
+        .program-card:nth-child(3)::before { background: var(--accent); }
+        .program-card:nth-child(4)::before { background: var(--rose); }
+
+        .program-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .program-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .program-card:nth-child(1) .program-icon { background: rgba(79,70,229,0.1); }
+        .program-card:nth-child(2) .program-icon { background: rgba(16,185,129,0.1); }
+        .program-card:nth-child(3) .program-icon { background: rgba(245,158,11,0.1); }
+        .program-card:nth-child(4) .program-icon { background: rgba(244,63,94,0.1); }
+
+        .program-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .program-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .program-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .program-price span {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--muted);
+        }
+
+        /* ============================================
+           HOW IT WORKS — HORIZONTAL STEPPER
+           ============================================ */
+        .how-it-works {
+            background: white;
+        }
+
+        .stepper {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+        }
+
+        .stepper::before {
+            content: '';
+            position: absolute;
+            top: 32px;
+            left: 12.5%;
+            right: 12.5%;
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 16px;
+        }
+
+        .step-circle {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .step:nth-child(1) .step-circle { background: rgba(79,70,229,0.1); }
+        .step:nth-child(2) .step-circle { background: rgba(16,185,129,0.1); }
+        .step:nth-child(3) .step-circle { background: rgba(245,158,11,0.1); }
+        .step:nth-child(4) .step-circle { background: rgba(244,63,94,0.1); }
+
+        .step-number {
+            position: absolute;
+            top: -8px;
+            right: -4px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+
+        .step p {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           SUBJECTS — PILL/CHIP LAYOUT
+           ============================================ */
+        .subjects {
+            background: var(--surface);
+        }
+
+        .subjects-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .subject-pill {
+            padding: 10px 22px;
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: default;
+        }
+
+        .subject-pill:hover {
+            transform: translateY(-2px);
+        }
+
+        .pill-indigo { background: rgba(79,70,229,0.08); color: var(--primary); }
+        .pill-green { background: rgba(16,185,129,0.08); color: #059669; }
+        .pill-amber { background: rgba(245,158,11,0.08); color: #D97706; }
+        .pill-rose { background: rgba(244,63,94,0.08); color: #E11D48; }
+        .pill-purple { background: rgba(139,92,246,0.08); color: #7C3AED; }
+        .pill-teal { background: rgba(20,184,166,0.08); color: #0D9488; }
+        .pill-blue { background: rgba(59,130,246,0.08); color: #2563EB; }
+        .pill-orange { background: rgba(249,115,22,0.08); color: #EA580C; }
+
+        /* ============================================
+           STATS SECTION — INDIGO BACKGROUND
+           ============================================ */
+        .stats {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark), #3730A3);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats .deco-shape {
+            opacity: 0.08;
+            background: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 8px;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-item p {
+            font-size: 0.95rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* ============================================
+           TESTIMONIALS
+           ============================================ */
+        .testimonials {
+            background: white;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-stars span {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .testimonial-card blockquote {
+            font-size: 0.95rem;
+            color: var(--dark);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-style: normal;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .testimonial-author-info strong {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .testimonial-author-info span {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        /* ============================================
+           PRICING — MODERN SaaS TABLE
+           ============================================ */
+        .pricing {
+            background: var(--surface);
+        }
+
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .pricing-toggle span {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--muted);
+            transition: var(--transition);
+        }
+
+        .pricing-toggle span.active {
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .toggle-switch {
+            width: 48px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 100px;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle-switch.active {
+            background: var(--primary);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            transition: var(--transition);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        .toggle-switch.active::after {
+            left: 25px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            transform: scale(1.04);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 16px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .pricing-card .pricing-desc {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 20px;
+        }
+
+        .pricing-amount {
+            font-size: 2.75rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .pricing-amount sup {
+            font-size: 1.2rem;
+            font-weight: 600;
+            vertical-align: super;
+        }
+
+        .pricing-period {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            padding: 8px 0;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--secondary);
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .pricing-btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 13px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .pricing-btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--dark);
+        }
+
+        .pricing-btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .pricing-btn-fill {
+            background: var(--primary);
+            color: white;
+        }
+
+        .pricing-btn-fill:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+        }
+
+        /* ============================================
+           TUTORS SECTION
+           ============================================ */
+        .tutors {
+            background: white;
+        }
+
+        .tutors-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+        }
+
+        .tutor-card {
+            text-align: center;
+        }
+
+        .tutor-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .tutor-card:nth-child(1) .tutor-photo { background: linear-gradient(135deg, var(--primary), var(--primary-light)); }
+        .tutor-card:nth-child(2) .tutor-photo { background: linear-gradient(135deg, var(--secondary), var(--secondary-light)); }
+        .tutor-card:nth-child(3) .tutor-photo { background: linear-gradient(135deg, var(--accent), var(--accent-light)); }
+        .tutor-card:nth-child(4) .tutor-photo { background: linear-gradient(135deg, var(--rose), #FB7185); }
+
+        .tutor-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 4px;
+        }
+
+        .tutor-card .tutor-role {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .tutor-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+
+        .tutor-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 100px;
+            background: var(--surface);
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), #6D28D9);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section .deco-shape {
+            background: white;
+            opacity: 0.06;
+        }
+
+        .cta-section .section-label {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .cta-section .section-label::before {
+            background: rgba(255,255,255,0.5);
+        }
+
+        .cta-section .section-heading {
+            color: white;
+            max-width: 600px;
+            margin: 0 auto 16px;
+        }
+
+        .cta-section .section-desc {
+            color: rgba(255,255,255,0.8);
+            margin: 0 auto 36px;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        /* ============================================
+           CONTACT / BOOKING FORM
+           ============================================ */
+        .contact {
+            background: var(--surface);
+        }
+
+        .contact .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .contact-info p {
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .contact-detail-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(79,70,229,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-detail-text strong {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .contact-detail-text span {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: var(--radius);
+            padding: 36px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            color: var(--dark);
+            background: var(--surface);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+            background: white;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .form-submit:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79,70,229,0.3);
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--dark);
+            color: rgba(255,255,255,0.7);
+            padding: 60px 0 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1rem;
+        }
+
+        .footer-brand span {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .footer-about {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 16px;
+        }
+
+        .footer ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer ul li a {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+            transition: var(--transition);
+        }
+
+        .footer ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom a {
+            color: var(--primary-light);
+        }
+
+        .footer-bottom a:hover {
+            color: white;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .programs-grid, .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tutors-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .pricing-card.popular {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 24px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow-md);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero {
+                padding: 120px 0 60px;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero-illustration {
+                height: 300px;
+            }
+
+            .programs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stepper {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .stepper::before {
+                display: none;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .tutors-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+
+            .section-heading {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 72px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-actions .btn-secondary {
+                text-align: center;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stat-item h3 {
+                font-size: 2.25rem;
+            }
+
+            .hero-illustration {
+                height: 240px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="nav">
+        <div class="container">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon">B</div>
+                Bright Minds
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#programs">Programs</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#tutors">Tutors</a>
+                <a href="#contact" class="nav-cta">Book a Session</a>
+            </div>
+            <div class="nav-toggle" id="navToggle" onclick="document.getElementById('navLinks').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO
+         ============================================ -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="hero-badge-dot"></span>
+                    Now enrolling for Summer 2026
+                </div>
+                <h1>Unlock your child's <span class="gradient-word">brightest</span> potential.</h1>
+                <p>Personalized tutoring that meets students where they are and takes them where they want to go. Real results, real confidence, one session at a time.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn-primary">Book Free Session &rarr;</a>
+                    <a href="#programs" class="btn-secondary">Explore Programs</a>
+                </div>
+                <div class="hero-social-proof">
+                    <div class="hero-avatars">
+                        <span>A</span>
+                        <span>M</span>
+                        <span>S</span>
+                        <span>J</span>
+                    </div>
+                    <p><strong>500+ students</strong> already thriving</p>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <!-- Geometric CSS shapes -->
+                <div class="hero-shape hero-shape-1"></div>
+                <div class="hero-shape hero-shape-2"></div>
+                <div class="hero-shape hero-shape-3"></div>
+                <div class="hero-shape hero-shape-4"></div>
+                <div class="hero-shape hero-shape-5"></div>
+
+                <!-- Floating info cards -->
+                <div class="hero-float-card hero-float-card-1">
+                    <div class="float-icon float-icon-green">&#10003;</div>
+                    <div class="float-text">
+                        <strong>98% Improve</strong>
+                        <span>Within 3 months</span>
+                    </div>
+                </div>
+                <div class="hero-float-card hero-float-card-2">
+                    <div class="float-icon float-icon-indigo">&#9733;</div>
+                    <div class="float-text">
+                        <strong>4.9 / 5 Rating</strong>
+                        <span>From parents</span>
+                    </div>
+                </div>
+                <div class="hero-float-card hero-float-card-3">
+                    <div class="float-icon float-icon-amber">&#9998;</div>
+                    <div class="float-text">
+                        <strong>Expert Tutors</strong>
+                        <span>Certified educators</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PROGRAMS
+         ============================================ -->
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <div class="section-label">Our Programs</div>
+                <h2 class="section-heading">Tailored programs for every learner</h2>
+                <p class="section-desc">From catching up to getting ahead, we design each program around your student's unique needs, goals, and learning style.</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-icon">&#128218;</div>
+                    <h3>K-8 Foundations</h3>
+                    <p>Build strong academic fundamentals in core subjects with patient, engaging 1-on-1 instruction designed for younger learners.</p>
+                    <div class="program-price">$45 <span>/session</span></div>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">&#127891;</div>
+                    <h3>High School Prep</h3>
+                    <p>Master advanced coursework, tackle AP classes, and build the skills needed to excel in rigorous high school academics.</p>
+                    <div class="program-price">$55 <span>/session</span></div>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">&#128200;</div>
+                    <h3>SAT/ACT Test Prep</h3>
+                    <p>Strategic test preparation with proven methods, practice exams, and score-boosting techniques from experienced tutors.</p>
+                    <div class="program-price">$65 <span>/session</span></div>
+                </div>
+                <div class="program-card">
+                    <div class="program-icon">&#127959;</div>
+                    <h3>College Success</h3>
+                    <p>Navigate college-level coursework with confidence. From essays to calculus, we help students thrive in higher education.</p>
+                    <div class="program-price">$70 <span>/session</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         HOW IT WORKS
+         ============================================ -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <div class="section-label">How It Works</div>
+                <h2 class="section-heading">Getting started is simple</h2>
+                <p class="section-desc">Four easy steps from first contact to measurable academic improvement.</p>
+            </div>
+            <div class="stepper">
+                <div class="step">
+                    <div class="step-circle">
+                        &#128172;
+                        <span class="step-number">1</span>
+                    </div>
+                    <h4>Free Consultation</h4>
+                    <p>Tell us about your student's goals, challenges, and learning style. We'll listen and recommend a path forward.</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">
+                        &#128221;
+                        <span class="step-number">2</span>
+                    </div>
+                    <h4>Custom Learning Plan</h4>
+                    <p>We assess current skill levels and build a personalized roadmap targeting specific areas for growth.</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">
+                        &#128640;
+                        <span class="step-number">3</span>
+                    </div>
+                    <h4>Start Learning</h4>
+                    <p>Matched with the perfect tutor, your student dives into engaging, focused sessions that drive real progress.</p>
+                </div>
+                <div class="step">
+                    <div class="step-circle">
+                        &#127942;
+                        <span class="step-number">4</span>
+                    </div>
+                    <h4>See Results</h4>
+                    <p>Track improvement with regular progress reports. Watch grades rise and confidence grow week after week.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SUBJECTS — PILL/CHIP LAYOUT
+         ============================================ -->
+    <section class="subjects" id="subjects">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <div class="section-label">Subjects</div>
+                <h2 class="section-heading">We cover it all</h2>
+                <p class="section-desc">Our tutors are experts across a wide range of subjects, so whatever your student needs help with, we've got it.</p>
+            </div>
+            <div class="subjects-wrap">
+                <span class="subject-pill pill-indigo">Algebra</span>
+                <span class="subject-pill pill-green">Biology</span>
+                <span class="subject-pill pill-amber">Chemistry</span>
+                <span class="subject-pill pill-rose">English Literature</span>
+                <span class="subject-pill pill-purple">Calculus</span>
+                <span class="subject-pill pill-teal">Physics</span>
+                <span class="subject-pill pill-blue">World History</span>
+                <span class="subject-pill pill-orange">Spanish</span>
+                <span class="subject-pill pill-indigo">Geometry</span>
+                <span class="subject-pill pill-green">Environmental Science</span>
+                <span class="subject-pill pill-amber">Creative Writing</span>
+                <span class="subject-pill pill-rose">SAT Math</span>
+                <span class="subject-pill pill-purple">Statistics</span>
+                <span class="subject-pill pill-teal">Computer Science</span>
+                <span class="subject-pill pill-blue">U.S. Government</span>
+                <span class="subject-pill pill-orange">French</span>
+                <span class="subject-pill pill-indigo">Pre-Algebra</span>
+                <span class="subject-pill pill-green">Anatomy</span>
+                <span class="subject-pill pill-amber">ACT Prep</span>
+                <span class="subject-pill pill-rose">Essay Writing</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         STATS SECTION
+         ============================================ -->
+    <section class="stats">
+        <!-- Decorative shapes -->
+        <div class="deco-shape" style="width:300px;height:300px;top:-80px;right:-60px;"></div>
+        <div class="deco-shape" style="width:200px;height:200px;bottom:-40px;left:-30px;"></div>
+        <div class="deco-square" style="width:150px;height:150px;top:20%;left:15%;background:white;opacity:0.04;"></div>
+
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p>Students improve their grades</p>
+                </div>
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p>Students tutored and counting</p>
+                </div>
+                <div class="stat-item">
+                    <h3>4.9</h3>
+                    <p>Average parent rating</p>
+                </div>
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p>Expert certified tutors</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TESTIMONIALS
+         ============================================ -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <div class="section-label">Testimonials</div>
+                <h2 class="section-heading">Loved by parents and students</h2>
+                <p class="section-desc">Don't just take our word for it. Here's what families say about the Bright Minds experience.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+                    </div>
+                    <blockquote>"My daughter went from a C- to an A in algebra in just two months. The tutor didn't just teach formulas — she taught her how to think through problems. Completely life-changing."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--primary),var(--primary-light))">L</div>
+                        <div class="testimonial-author-info">
+                            <strong>Lisa Chen</strong>
+                            <span>Parent of 8th grader</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+                    </div>
+                    <blockquote>"SAT prep here was incredible. My son's score jumped 180 points. The practice tests and strategies made all the difference. He got into his top-choice school."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--secondary),var(--secondary-light))">M</div>
+                        <div class="testimonial-author-info">
+                            <strong>Marcus Rivera</strong>
+                            <span>Parent of 12th grader</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">
+                        <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+                    </div>
+                    <blockquote>"As a college freshman, I was drowning in chemistry. My tutor broke everything down so clearly. I ended the semester with a B+ and actually enjoying the subject."</blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--accent),var(--accent-light))">J</div>
+                        <div class="testimonial-author-info">
+                            <strong>Jordan Williams</strong>
+                            <span>College freshman</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PRICING
+         ============================================ -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <div class="section-label">Pricing</div>
+                <h2 class="section-heading">Simple, transparent pricing</h2>
+                <p class="section-desc">Choose the plan that fits your student's needs. No hidden fees, no long-term contracts.</p>
+            </div>
+            <div class="pricing-toggle">
+                <span class="active" id="toggleIndividual">Individual Sessions</span>
+                <div class="toggle-switch" id="pricingToggle" onclick="togglePricing()"></div>
+                <span id="togglePackage">Packages (Save 15%)</span>
+            </div>
+            <div class="pricing-grid">
+                <!-- Starter -->
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <p class="pricing-desc">Perfect for occasional help</p>
+                    <div class="pricing-amount" data-individual="45" data-package="39"><sup>$</sup><span class="price-value">45</span></div>
+                    <p class="pricing-period"><span class="period-text">per session</span></p>
+                    <ul class="pricing-features">
+                        <li>1 subject focus</li>
+                        <li>60-minute sessions</li>
+                        <li>Homework help included</li>
+                        <li>Email progress updates</li>
+                        <li>Flexible scheduling</li>
+                    </ul>
+                    <button class="pricing-btn pricing-btn-outline">Get Started</button>
+                </div>
+                <!-- Popular -->
+                <div class="pricing-card popular">
+                    <span class="popular-badge">Most Popular</span>
+                    <h3>Growth</h3>
+                    <p class="pricing-desc">Best for consistent improvement</p>
+                    <div class="pricing-amount" data-individual="55" data-package="47"><sup>$</sup><span class="price-value">55</span></div>
+                    <p class="pricing-period"><span class="period-text">per session</span></p>
+                    <ul class="pricing-features">
+                        <li>Up to 3 subjects</li>
+                        <li>60-minute sessions</li>
+                        <li>Custom learning plan</li>
+                        <li>Weekly progress reports</li>
+                        <li>Parent dashboard access</li>
+                        <li>Priority scheduling</li>
+                    </ul>
+                    <button class="pricing-btn pricing-btn-fill">Get Started</button>
+                </div>
+                <!-- Premium -->
+                <div class="pricing-card">
+                    <h3>Premium</h3>
+                    <p class="pricing-desc">Full academic support</p>
+                    <div class="pricing-amount" data-individual="70" data-package="60"><sup>$</sup><span class="price-value">70</span></div>
+                    <p class="pricing-period"><span class="period-text">per session</span></p>
+                    <ul class="pricing-features">
+                        <li>Unlimited subjects</li>
+                        <li>90-minute sessions</li>
+                        <li>Advanced test prep included</li>
+                        <li>Daily progress tracking</li>
+                        <li>College admissions guidance</li>
+                        <li>24/7 homework chat support</li>
+                    </ul>
+                    <button class="pricing-btn pricing-btn-outline">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TUTORS
+         ============================================ -->
+    <section class="tutors" id="tutors">
+        <div class="container">
+            <div class="section-header section-header-center">
+                <div class="section-label">Our Tutors</div>
+                <h2 class="section-heading">Learn from the best</h2>
+                <p class="section-desc">Our tutors are certified educators with real classroom experience and a passion for helping students succeed.</p>
+            </div>
+            <div class="tutors-grid">
+                <div class="tutor-card">
+                    <div class="tutor-photo">SR</div>
+                    <h4>Sarah Rodriguez</h4>
+                    <p class="tutor-role">Math &amp; SAT Specialist</p>
+                    <div class="tutor-tags">
+                        <span class="tutor-tag">M.Ed. Mathematics</span>
+                        <span class="tutor-tag">8 years exp.</span>
+                    </div>
+                </div>
+                <div class="tutor-card">
+                    <div class="tutor-photo">DK</div>
+                    <h4>David Kim</h4>
+                    <p class="tutor-role">Science &amp; AP Chemistry</p>
+                    <div class="tutor-tags">
+                        <span class="tutor-tag">Ph.D. Chemistry</span>
+                        <span class="tutor-tag">12 years exp.</span>
+                    </div>
+                </div>
+                <div class="tutor-card">
+                    <div class="tutor-photo">EP</div>
+                    <h4>Emily Patterson</h4>
+                    <p class="tutor-role">English &amp; Writing</p>
+                    <div class="tutor-tags">
+                        <span class="tutor-tag">M.F.A. Creative Writing</span>
+                        <span class="tutor-tag">6 years exp.</span>
+                    </div>
+                </div>
+                <div class="tutor-card">
+                    <div class="tutor-photo">JM</div>
+                    <h4>James Mitchell</h4>
+                    <p class="tutor-role">Test Prep &amp; College Counseling</p>
+                    <div class="tutor-tags">
+                        <span class="tutor-tag">M.Ed. Counseling</span>
+                        <span class="tutor-tag">10 years exp.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CTA SECTION
+         ============================================ -->
+    <section class="cta-section">
+        <div class="deco-shape" style="width:400px;height:400px;top:-150px;left:-100px;"></div>
+        <div class="deco-shape" style="width:250px;height:250px;bottom:-80px;right:-50px;"></div>
+        <div class="container">
+            <div class="section-label">Ready to start?</div>
+            <h2 class="section-heading">Every student deserves to feel confident</h2>
+            <p class="section-desc">Book a free consultation today and discover how personalized tutoring can transform your child's academic journey.</p>
+            <a href="#contact" class="btn-white">Book Your Free Session &rarr;</a>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT / BOOKING FORM
+         ============================================ -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-left">
+                <div class="section-header">
+                    <div class="section-label">Get In Touch</div>
+                    <h2 class="section-heading">Book a free consultation</h2>
+                </div>
+                <div class="contact-info">
+                    <p>Fill out the form and we'll reach out within 24 hours to schedule your student's free assessment session. No commitment, no pressure.</p>
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon">&#128222;</div>
+                            <div class="contact-detail-text">
+                                <strong>Phone</strong>
+                                <span>(555) 123-4567</span>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon">&#128231;</div>
+                            <div class="contact-detail-text">
+                                <strong>Email</strong>
+                                <span>hello@brightmindstutoring.com</span>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon">&#128205;</div>
+                            <div class="contact-detail-text">
+                                <strong>Location</strong>
+                                <span>123 Learning Lane, Suite 200</span>
+                            </div>
+                        </div>
+                        <div class="contact-detail">
+                            <div class="contact-detail-icon">&#128338;</div>
+                            <div class="contact-detail-text">
+                                <strong>Hours</strong>
+                                <span>Mon-Sat: 9am - 8pm</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <form onsubmit="event.preventDefault(); alert('Thank you! We\'ll be in touch within 24 hours.');">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="parentName">Parent Name</label>
+                            <input type="text" id="parentName" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="studentName">Student Name</label>
+                            <input type="text" id="studentName" placeholder="Student's name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="you@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" placeholder="(555) 000-0000">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="grade">Grade Level</label>
+                            <select id="grade" required>
+                                <option value="" disabled selected>Select grade</option>
+                                <option>K-2nd Grade</option>
+                                <option>3rd-5th Grade</option>
+                                <option>6th-8th Grade</option>
+                                <option>9th-10th Grade</option>
+                                <option>11th-12th Grade</option>
+                                <option>College</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject Needed</label>
+                            <select id="subject" required>
+                                <option value="" disabled selected>Select subject</option>
+                                <option>Math</option>
+                                <option>Science</option>
+                                <option>English/Writing</option>
+                                <option>Test Prep (SAT/ACT)</option>
+                                <option>Foreign Language</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">How can we help?</label>
+                        <textarea id="message" placeholder="Tell us about your student's goals or challenges..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit">Book Free Consultation &rarr;</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="footer-brand-icon">B</div>
+                        <span>Bright Minds</span>
+                    </div>
+                    <p class="footer-about">Personalized tutoring that builds confidence, improves grades, and helps every student discover their potential.</p>
+                </div>
+                <div>
+                    <h4>Programs</h4>
+                    <ul>
+                        <li><a href="#programs">K-8 Foundations</a></li>
+                        <li><a href="#programs">High School Prep</a></li>
+                        <li><a href="#programs">SAT/ACT Test Prep</a></li>
+                        <li><a href="#programs">College Success</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#tutors">Our Tutors</a></li>
+                        <li><a href="#testimonials">Reviews</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Bright Minds Tutoring. All rights reserved.</p>
+                <p>Website by <a href="https://tayko.dev">Tayko</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         PRICING TOGGLE SCRIPT
+         ============================================ -->
+    <script>
+        let isPackage = false;
+
+        function togglePricing() {
+            isPackage = !isPackage;
+            const toggle = document.getElementById('pricingToggle');
+            const individualLabel = document.getElementById('toggleIndividual');
+            const packageLabel = document.getElementById('togglePackage');
+
+            toggle.classList.toggle('active', isPackage);
+            individualLabel.classList.toggle('active', !isPackage);
+            packageLabel.classList.toggle('active', isPackage);
+
+            document.querySelectorAll('.pricing-amount').forEach(el => {
+                const price = isPackage ? el.dataset.package : el.dataset.individual;
+                el.querySelector('.price-value').textContent = price;
+            });
+
+            document.querySelectorAll('.period-text').forEach(el => {
+                el.textContent = isPackage ? 'per session (8-session package)' : 'per session';
+            });
+        }
+    </script>
+
+</body>
+</html>
